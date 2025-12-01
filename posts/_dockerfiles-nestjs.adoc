@@ -1,0 +1,22 @@
+= Multi-stage Dockerfiles With Nest.js
+D10f <devontheroof@pm.me>
+v1, 2024-07-23
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: 
+:keywords: linux, docker, containers, nodejs, nestjs
+:technologies: docker nodejs nestjs
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Using multi-stage builds inside our Dockerfile helps us make our code much more organized by avoiding the myriad of possible stages suffix &mdash; yikes &mdash; and much leaner container images. But there are a few gotchas to watch out for, hence this little guide on the topic.
+
+The topic of this post focuses on "containerizing" a Node.js application for purposes of better development workflow, and an efficient CI/CD cycles. In particular, we'll be using Nest.js just to spice things up a little, but the same general idea still applies. In fact, most of the concepts discussed apply to any type of project, library, framework and language (though this is a whole other topic).
+
+== Install Docker
+
+To follow along you'll need to install Docker, of course.
+
+== Install

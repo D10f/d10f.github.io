@@ -1,0 +1,278 @@
+= Automated Docker Swarm Lab Environment
+D10f <devontheroof@pm.me>
+v1, 2022-04-01
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: Create a multi-node lab environment locally or on a remote server running as a Docker Swarm.
+:keywords: linux, docker, vagrant, ansible
+:technologies: docker ansible vagrant
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Having a throw-away environment is essential to experiment with new technologies, new features and run tests before deploying to production. Tools like Vagrant allow you to manage entire fleets of virtual machines through a convenient configuration file written in a friendly-yet-powerful programming language.
+
+== Objective
+
+This post covers how to create a simple setup of 3 virtual machines running as a Docker Swarm. A Vagrantfile will be used to configure things like the operating system and RAM for each host, while Ansible will handle all the configuration inside the machine at the application layer &mdash; things like installed software, users, permissions, firewall rules, etc.
+
+== Defining The Infrastructure
+
+A `Vagrantfile` is the starting point where everything pertaining to the infrastructure will be defined. This includes the number of virtual machines, how much memory each virtual machine will have, the operating system, network interfaces, etc. It can be as simple or as complex as needed.
+
+[source,ruby,title="Vagrantfile"]
+----
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "generic/debian12" # <1>
+    config.vm.provider "virtualbox" do |box|
+        box.memory = 1024 # <2>
+    end
+end
+----
+<1> A generic image purposefully made for virtual machines, running Debian 12 Bookworm.
+<2> The amount of memory allocated to the virtual machine.
+
+[source,ruby,title="Vagrantfile"]
+----
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "generic/debian12"
+    config.vm.provider "virtualbox" do |box|
+        box.memory = 1024
+    end
+
+    N = 3
+    (1..N).each do |machine_id| # [!code focus] # <1>
+        config.vm.define "machine#{machine_id}" do |machine|  # [!code focus]
+            machine.vm.hostname = "machine#{machine_id}" # [!code focus] # <2>
+            machine.vm.network "default_network", ip: "10.20.30.#{40+machine_id}" # [!code focus] # <3>
+        end
+    end
+end
+----
+<1> Define the number of machines to spawn.
+<2> Define the hostname for each machine.
+<3> Define a private network to connect them and assign an IP address.
+
+[source,ruby,title="Vagrantfile"]
+----
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "generic/debian12"
+    config.vm.provider "virtualbox" do |box|
+        box.memory = 1024
+    end
+
+    N = 3
+    (1..N).each do |machine_id|
+        config.vm.define "machine#{machine_id}" do |machine|
+            machine.vm.hostname = "machine#{machine_id}"
+            machine.vm.network "default_network", ip: "10.20.30.#{40+machine_id}"
+
+            if machine_id == N # [!code focus] # <1>
+                machine.vm.provision :ansible do |ansible| # [!code focus] # <2>
+                    ansible.limit = "all" # [!code focus] # <3>
+                    ansible.playbook = "./provisioner/playbook.yml" # [!code focus] # <4>
+                end # [!code focus]
+            end # [!code focus]
+        end
+    end
+end
+----
+<1> When all machines are created, we can provision them.
+<2> The provisioner can be a shell script, but Ansible is a much more powerful tool for this.
+<3> Set the limit to "all" to allow the provisioner to run in parallel.
+<4> The path to the Ansible playbook that will run for each machine.
+
+[source,ruby,title="Vagrantfile"]
+----
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "generic/debian12"
+    config.vm.provider "virtualbox" do |box|
+        box.memory = 1024
+    end
+
+    N = 3
+    (1..N).each do |machine_id|
+        config.vm.define "machine#{machine_id}" do |machine|
+            machine.vm.hostname = "machine#{machine_id}"
+            machine.vm.network "default_network", ip: "10.20.30.#{40+machine_id}"
+
+            if machine_id == N 
+                machine.vm.provision :ansible do |ansible|
+                    ansible.limit = "all"
+                    ansible.playbook = "./provisioner/playbook.yml"
+
+                    ansible.host_vars = { # [!code focus] # <1>
+                        "machine1" => { # [!code focus]
+                            "ip_address" => "10.20.30.41" # [!code focus]
+                        }, # [!code focus]
+                        "machine2" => { # [!code focus]
+                            "ip_address" => "10.20.30.42" # [!code focus]
+                        }, # [!code focus]
+                        "machine3" => { # [!code focus]
+                            "ip_address" => "10.20.30.43" # [!code focus]
+                        } # [!code focus]
+                    } # [!code focus]
+
+                    ansible.groups = { # [!code focus] # <2>
+                        "managers" => ["machine1"], # [!code focus]
+                        "workers"  => ["machine2", "machine3"], # [!code focus]
+
+                        "all_groups:children" => ["managers", "workers"], # [!code focus]
+
+                        "all_groups:vars" => { # [!code focus]
+                            "default_interface" => "eth1" # [!code focus]
+                        } # [!code focus]
+                    } # [!code focus]
+                end
+            end
+        end
+    end
+end
+----
+<1> Create variables for each host that Ansible will use.
+<2> Define groups of hosts for Ansible to determine when to run.
+
+This last step can be simplified quite a bit, and you probably want to do so in the event that you have more than just a few machines, otherwise entering these details manually becomes cumbersome really quick. But for the purposes of this post, this makes things clearer (I hope).
+
+This Vagrantfile will create 3 virtual machines running Debian 12 Bookworm and 1 GB of RAM. Ansible understands this setup to be comprised of two "workers" and one "manager", which will be used later in the playbook to determine which actions to run on each host.
+
+== Configuring The Virtual Machines
+
+In order to configure each machine we are going to write an Ansible playbook, as specified in the Vagrantfile.
+
+=== Ansible Playbook
+
+This playbook assumes the existence of two roles: docker and docker-swarm, each containing the respective tasks to configure the host in the exact same way. There more ways to do this but for simplicity only the essentials are described in this post.
+
+[source,yaml,title="playbook.yml"]
+----
+- name: Installs Docker on all hosts and initializes a Docker Swarm.
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Update packages
+      apt:
+        update_cache: true
+
+  roles:
+    - docker
+    - docker-swarm
+----
+
+=== Docker Role
+
+We could break things down to make this playbook much more modular so that it works with other Linux distributions, or in case things like dependencies change in the future. For simplicity though, it's aimed to work with Debian specifically.
+
+[source,yaml,title="roles/docker/tasks/main.yml"]
+----
+- name: Add Docker repositories
+  ansible.builtin.deb822_repository: # <1>
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/debian
+    signed_by: https://download.docker.com/linux/debian/gpg
+    suites: ["{{ ansible_facts.distribution_release }}"] # <2>
+    components: [stable]
+    state: present
+    enabled: True
+    architectures: amd64
+
+- name: Install packages for Docker and Docker Compose
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: True
+
+- name: Ensure "docker" group exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Ensure default user belongs to "docker" group
+  ansible.builtin.user:
+    name: vagrant # <3>
+    groups: docker
+    append: True
+
+- name: Start and enable Docker daemon
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+----
+<1> The deb822 format is the new standard in Debian and derivative distributions, even though it's not reflected in Docker's documentation which still uses the previous format.
+<2> For this image this would equivalent to "bookworm" but Ansible will figure it out anyway, so this makes things a little bit easier to switch around.
+<3> Default user created by Vagrant is "vagrant" unless specified otherwise.
+
+=== Docker Swarm Role
+
+This role initializes the Docker Swarm and then instructs all hosts to join in. Remember how in the `Vagrantfile` we used the `ansible.limit = "all"` option? This was used to parallelize the work so that the playbook runs on all hosts at once, which naturally creates a race condition in this case: how does a worker node to join the swarm if it hasn't been created yet? Specifying a timeout for this task is important as it will re-try to join until it succeeds.
+
+It would be safer to run the playbook for each host in sequence as they are created. However, this causes another problem that is not that easy to work around: the Ansible instance running on each node does so in isolation and cannot figure out the necessary credentials to join the swarm.
+
+[source,yaml,title="roles/docker-swarm/tasks/main.yml"]
+----
+- name: Initialize Docker Swarm
+  become: false # <1>
+  block:
+    - name: Initialize swarm
+      community.docker.docker_swarm:
+        state: present
+        advertise_addr: "{{ hostvars[inventory_hostname]['default_interface'] }}" # <2>
+        listen_addr: "{{ listen_addr }}"
+      register: swarm_output
+      when: inventory_hostname in groups['managers'][0] # <3>
+
+    - name: Join swarm as manager
+      community.docker.docker_swarm:
+        state: join
+        timeout: 60
+        advertise_addr: "{{ hostvars[inventory_hostname]['default_interface'] }}"
+        listen_addr: "{{ listen_addr }}"
+        remote_addrs: "{{ hostvars[groups['managers'][0]]['ip_address'] }}:2377"
+        join_token: "{{ hostvars[groups['managers'][0]]['swarm_output']['swarm_facts']['JoinTokens']['Manager'] }}"
+      when: inventory_hostname in groups['managers'] and inventory_hostname not in groups['managers'][0]
+
+    - name: Join swarm as worker
+      community.docker.docker_swarm:
+        state: join
+        timeout: 60 # <4>
+        advertise_addr: "{{ hostvars[inventory_hostname]['default_interface'] }}"
+        listen_addr: "{{ listen_addr }}"
+        remote_addrs: "{{ hostvars[groups['managers'][0]]['ip_address'] }}:2377"
+        join_token: "{{ hostvars[groups['managers'][0]]['swarm_output']['swarm_facts']['JoinTokens']['Worker'] }}"
+      when: inventory_hostname in groups['workers']
+
+    - name: Create an overlay network used to connect to reverse proxy
+      community.docker.docker_network:
+        name: reverse-proxy
+        driver: overlay
+        state: present
+      when: inventory_hostname in groups['managers'][0]
+----
+<1> We don't want to run these steps as the root user, but as the regular user.
+<2> Use the private interface that was created as specified inside the Vagrantfile.
+<3> The first manager to run creates the swarm, the rest will join in.
+<4> The aforementioned timeout needed to make this work.

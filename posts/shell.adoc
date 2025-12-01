@@ -1,0 +1,361 @@
+= The secrets of the shell: Having fun with shell expansion
+D10f <devontheroof@pm.me>
+v0.1, 2024-4-15
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:source-highlighter: pygments
+:description: Exploring the expansion features of bash for fun and profit.
+:keywords: shell bash linux scripting
+:technologies: shell
+:icons: font
+:toc:
+
+By "secrets of the shell" I mean features that have been available without me knowing for years. Just one of those things! They are incredibly useful to avoid repeating parts of a command or the infamous Up Arrow key smashing to find a previous entry that is probably long gone. A lot of these features can be used within shell scripts as well.
+
+== Default Values
+
+Attempting to use an undeclared or uninitialized variable would result in an empty string:
+
+[source,console]
+----
+$ echo "Hello, $name" # <1>
+$ echo "Hello, ${name:-Unknown}" # <2>
+----
+<1> Hello,
+<2> Hello, Unknown
+
+Since no errors are produced, this can lead to unexpected behavior and hard to catch bugs. Using the syntax `${var:-default}` will give a fallback value to use. This can be useful to hint the reader about the type of value a variable expects, as a form of mild self-documentation, useful in scenarios like Dockerfiles.
+
+If you plan on using this variable throughout a script, it can be tedious to provide a fallback value every time. You can take things further by using a slight variation of this syntax so that the default value provided becomes the new value of the variable.
+
+[source,console]
+----
+$ echo "Hello, $name" # <1>
+$ echo "Hello, ${name:=Unknown}"
+$ echo "Hello, $name" # <2>
+----
+<1> Hello,
+<2> Hello, Unknown
+
+== Substring and Array Slices
+
+Sometimes we only need a particular piece of a variable:
+
+[source,console]
+----
+$ name="John Doe"
+$ echo "Hello, ${name:0:4}"
+----
+[literal]
+Output:
+Hello, John
+
+The syntax `${var:start:end}` (the end value is optional) allows specifying the length of the substring to extract from the variable. Consider this command:
+
+[source,bash]
+----
+ps -ef | grep alacritty
+----
+[literal]
+Output:
+d10f      5225    1883  0 11:21 ?        00:01:42 /usr/bin/alacritty
+d10f     86629   83805  0 15:04 pts/3    00:00:00 grep --color=always alacritty
+
+This would return all processes that match the given name. One little annoyance to this is that this command itself spawns a new process which contains the name we're trying to look for, so it's returned as well. To work around that, a common technique is to pipe the output through an additional call to `grep -v grep` to invert the selection. But a more elegant and performant solution, is to take advantage of shell expansion and wrap the first character of the process name in square brackets.
+
+[source,bash]
+----
+ps -ef | grep [a]lacritty
+----
+[literal]
+Output:
+d10f      5225    1883  0 11:21 ?        00:01:42 /usr/bin/alacritty
+
+This way, when `ps` runs, it will see the command that was entered _before_ shell expansion, but it will perform the patter matching _after_ it. Thus, not matching itself since the string "alacritty" is not equal to the string "[a]lacritty".
+
+Anyhow, the point is that we need to extract the first character of the processes name and wrap it in brackets. If we don't know the name of the process upfront, and we want to treat it as a dynamic value we can use slices to break down the string into multiple pieces:
+
+[source,bash]
+----
+function psgrep()
+{
+    process_name=$1
+    first_letter=${process_name:0:1} # <1>
+    rest=${process_name:1} # <2>
+    ps -ef | grep [$first_letter]${rest}
+}
+----
+<1> Extract only one character from the variable, starting at position (index) 0.
+<2> Extract all characters starting at position (index) 1.
+
+We can use this with arrays as well, for example to write scripts that handle sub-commands, as shown in this https://codeberg.org/D10f/dotfiles/src/branch/master/bin/tz#L76[script that gives the time in different timezones].
+
+== Pattern Substitution
+
+We may be interested in performing slight, one-off modifications on a variable. We can use pattern substitution for that in the form of `${var:pattern:replacement}`. For example, let's say we're writing a script that downloads and installs the latest release of our favorite Nerd Font:
+
+[source,bash]
+----
+#!/bin/bash
+
+font=FiraCode
+nf_latest_url=https://github.com/ryanoasis/nerd-fonts/releases/latest
+nf_actual_url=$(curl -sIL "$nf_latest_url" | awk '/location/ { print $2 }')
+
+wget "${nf_actual_url/tag/download}/${font}.tar.xz"
+----
+
+GitHub provides a generic URL that redirects to the latest release available. At the time of this writing, Nerd Fonts is at version 3.2.1, so the URL becomes: _"https://github.com/ryanoasis/nerd-fonts/releases/tag/v3.2.1"_. Good, we can use this URL to download the font we want, but there is one problem still. The URL to download each font is _slightly_ different; we need to switch the word "tag" with "download". That's where pattern substitution comes in, a simple search and replace operation, and now we have our script ready.
+
+== Remove Prefixes And Suffixes
+
+We can manipulate variables by removing values at the beginning or at the end of the value. While pattern substitution can also be used for this, it's not as flexible for more complex patterns as we'll see. The syntax used is `${var#}` for prefixes and `${var%}` for suffixes.
+
+Let's say that we wanted to extract the version number of the latest release, maybe so that we can print it out to the console as the script runs. For that we would need to remove the leading (prefix) part of the URL up to the last segment `/v3.2.1`:
+
+[source,bash]
+----
+#!/bin/bash
+
+font=FiraCode
+nf_latest_url=https://github.com/ryanoasis/nerd-fonts/releases/latest
+nf_actual_url=$(curl -sIL "$nf_latest_url" | awk '/location/ { print $2 }')
+
+echo "Downloading version ${nf_actual_url#*/v}"
+
+wget "${nf_actual_url/tag/download}/${font}.tar.xz"
+----
+
+Another example where this can be helpful is in removing duplicates by using the modifiers `/#` and `/%`, signaling that a match has to happen at the beginning of the pattern, at the end of the pattern, respectively. In addition, a double forward slash `//` signals that all occurrences of the pattern should be replaced.
+
+The above is a utility function exemplifying these concepts in practice. This function removes a given entry within a colon-delimited set, such as the directory locations from the PATH environment variable. I use this in a few places in https://codeberg.org/D10f/dotfiles/src/branch/master/bash/bashrc#L69[my .bashrc file] to update similar variables while removing duplicates.
+
+[source,bash]
+----
+function remove_duplicates()
+{
+  value=$(printf "%s" "${!1}")
+  value=${value//":$2:"/:} # <1>
+  value=${value/#"$2:"/} # <2>
+  value=${value/%":$2"/} # <3>
+  printf "%s" "${value}"
+}
+----
+<1> Remove duplicates in between
+<2> Remove duplicates at the beginning
+<3> Remove duplicates at the end
+
+A single `#` or `%` matches the first occurrence of the provided pattern, whereas using doubles uses a greedy search to remove up to (and including) the last match found. This is very commonly used when extracting file names out of absolute and relative paths:
+
+[source,bash]
+----
+#!/bin/bash
+
+echo "The name of this script is: ${0##*/}" # <1>
+echo "It is located at: ${0%/*}" # <2>
+----
+<1> Removes all characters from the beginning of the string up to and including the last forward slash character found.
+<2> Removes all characters from the end of the string up to and including the first forward slash found.
+
+Assuming this script is called _follow_the_white_rabbit.sh_ we would see an output like this:
+
+[literal]
+Output:
+The name of this script is: follow_the_white_rabbit.sh
+It is located at: /home/d10f/scripts
+
+=== Ad-hoc Practical Example
+
+Consider the following example. You just downloaded a bunch of files from the internet, but they have a weird structure that you'd like to edit. This is quite common when downloading data that needs to be generated on the fly, like log files or reports that have a timestamp, although in this case I'll be using some audio files:
+
+[source,bash]
+----
+find ~/Downloads -type f -name "*.m4a" -printf "%f\n"
+----
+[literal]
+ANIMALS AS LEADERS - Para Mexer [kl3lZFSqxCs].m4a
+ANIMALS AS LEADERS - The Future That Awaited Me [KpSps6-OXJQ].m4a
+ANIMALS AS LEADERS - Mind-Spun [X9lhrsB2GXA].m4a
+ANIMALS AS LEADERS - Air Chrysalis [QStFk-dIzhU].m4a
+ANIMALS AS LEADERS - Nephele [Kha5RWYsCHw].m4a
+ANIMALS AS LEADERS - The Woven Web [g68hQ4zJ3t0].m4a
+ANIMALS AS LEADERS - Physical Education [ZhSVwcRcMIk].m4a
+ANIMALS AS LEADERS - Another Year [ukAJy_ivSXU].m4a
+ANIMALS AS LEADERS - Tooth and Claw [9P4GsF1zdzM].m4a
+ANIMALS AS LEADERS - Crescent [Heo5oowEFBY].m4a
+
+These are my requirements:
+
+1. Remove the album name.
+2. Remove the random identifier after the song title.
+3. Preserve the same file extension.
+4. Name should be in snake case, that is, no spaces and all lowercase.
+
+Since there is a predictable pattern both at the beginning and end of the filename, we can use that to our advantage. Here's how:
+
+[source,bash]
+----
+for f in $(find . -type f -name "*.m4a" -printf '%f\n')
+do
+    file=${f:21} # <1>
+    file=${file/ \[*\]/} # <2>
+    file=${file// /_} # <3>
+    file=${file,,} # <4>
+    mv $f $file # <5>
+done
+----
+<1> Remove the first 21 characters that match the album name.
+<2> Remove the square brackets and everything inside them. This leaves us with the title and the file extension.
+<3> Replace all spaces with underscores.
+<4> Make everything lower case.
+<5> Rename the file
+
+[literal]
+para_mexer.m4a
+the_future_that_awaited_me.m4a
+mind-spun.m4a
+air_chrysalis.m4a
+nephele.m4a
+the_woven_web.m4a
+physical_education.m4a
+another_year.m4a
+tooth_and_claw.m4a
+crescent.m4a
+
+Note that, in this particular example, it's possible to simplify the command by assuming the file extension (which we know in advance, but would work just as well even if we wanted a different one):
+
+[source,bash]
+----
+file=${f:21:-18} # <1>
+mv $f ${file}.mp3
+----
+<1> This would strip the first 21 characters (album name) and the last 18 counting from the end of the string (all the way up to the space character following the name)
+
+== Brace Expansion
+
+A very handy feature of the shell is brace expansion, whereby the shell generates strings given a certain pattern. We can use this for things like installing multiple programs easier, such as development libraries or packages that share a prefix:
+
+[source,console]
+----
+$ sudo apt install php8.2-{fpm,gd,json,mbstring,mysql,xml,xmlrpc,opcache,cli,zip,soap,intl,bcmath,curl}
+$ sudo apt install lib-{heif,rsvg2,tiff,webp,wmf,raw,openexr,openjp2-7,djvulibre,google-perftools,jpeg}-dev
+----
+
+It can also be used to create sequences, numbered and alphabetical, which can come in handy when we need to repeat a certain task a given number of times but still using an arbitrary string. As an example, we could do this to create a folder to organize notes for things like vacations pictures, college notes, events, etc:
+
+[source,console]
+----
+$ mkdir Halloween-{2020..2024}
+----
+This command creates the following directories: Halloween-2020, Halloween-2021, Halloween-2022 and Halloween-2024. We can also specify a leap, or step, value so that the sequences generates items every so often. As an example, we can create a series of directories corresponding to the world cup which is played every four years.
+
+[source,console]
+----
+$ mkdir WC-{2004..2050..4}
+----
+
+This creates the directories WC-2004, WC-2008, WC-2012, WC-2016, ..., WC-2040 and WC-2048. And speaking of sequences, we can also use this to calculate every permutation of a given set:
+
+[source,console]
+----
+$ echo {1..9}{A..F}
+----
+[literal]
+Output:
+1A 1B 1C 1D 1E 1F 2A 2B 2C 2D 2E 2F 3A 3B 3C 3D 3E 3F 4A 4B 4C 4D 4E 4F 5A 5B 5C 5D 5E 5F 6A 6B 6C 6D 6E 6F 7A 7B 7C 7D 7E 7F 8A 8B 8C 8D 8E 8F 9A 9B 9C 9D 9E 9F
+
+[source,console]
+----
+$ echo {A,C,G,T}{A,C,G,T}{A,C,G,T}{A,C,G,T}
+----
+[literal]
+Output:
+AAAA AAAC AAAG AAAT AACA AACC AACG AACT AAGA AAGC AAGG AAGT AATA AATC AATG AATT ACAA ACAC ACAG ACAT ACCA ACCC ACCG ACCT ACGA ACGC ACGG ACGT ACTA ACTC ACTG ACTT AGAA AGAC AGAG AGAT AGCA AGCC AGCG AGCT AGGA AGGC AGGG AGGT AGTA AGTC AGTG AGTT ATAA ATAC ATAG ATAT ATCA ATCC ATCG ATCT ATGA ATGC ATGG ATGT ATTA ATTC ATTG ATTT CAAA CAAC CAAG CAAT CACA CACC CACG CACT CAGA CAGC CAGG CAGT CATA CATC CATG CATT CCAA CCAC CCAG CCAT CCCA CCCC CCCG CCCT CCGA CCGC CCGG CCGT CCTA CCTC CCTG CCTT CGAA CGAC CGAG CGAT CGCA CGCC CGCG CGCT CGGA CGGC CGGG CGGT CGTA CGTC CGTG CGTT CTAA CTAC CTAG CTAT CTCA CTCC CTCG CTCT CTGA CTGC CTGG CTGT CTTA CTTC CTTG CTTT GAAA GAAC GAAG GAAT GACA GACC GACG GACT GAGA GAGC GAGG GAGT GATA ...
+
+I suppose one can get quite creative with this, but I'd start to wonder if other tools exist that are better suited for the task. Nevertheless, it's a possibility that is right there for the taking and can be useful for simple one-offs without introducing additional dependencies.
+
+== History Expansion
+
+There are a few cool tricks that can be extremely useful for dealing to save some time and frustration when repeating commands that we've entered before. More often than not, at least in my case, this involves dealing with typos and permission errors. For instance, double exclamation marks like this `!!` expand to the last command in the history, and can come quite handy when we need to prepend that with `sudo`.
+
+[source,console]
+----
+$ mv ~/Downloads/debian-12.0.0-amd64-netinst.iso /var/lib/libvirt/images
+----
+
+[literal]
+Output:
+mv: cannot stat '/var/lib/libvirt/images/debian-12.0.0-amd64-netinst.iso': Permission denied
+
+[source,console]
+----
+$ sudo !!
+----
+
+[literal]
+Output:
+mv ~/Downloads/debian-12.0.0-amd64-netinst.iso /var/lib/libvirt/images
+
+Instead of having to type all of that again, I could've used the short route by pressing `↑` to fill the prompt with the last command in history, followed by `Ctrl` + `A` to move the cursor to the beginning of the line, type `sudo` and hit enter. Or, I can just type `!!`. When yuo maek asm any tipos as I Do ,this cn be vry helpfl.
+
+All right, moving on:
+
+[source,console]
+----
+$ npm run dev
+----
+ 
+In this example I run my development server to start working on some project. After a while I realize that I need to install a package, so I press `Ctrl` + `C` to step the server, and run the following:
+
+[source,console]
+----
+$ npm install a-star && !!
+----
+
+[literal]
+Output:
+npm install a-star && npm run dev
+
+Here the `!!` expands to the last command in the shell history, restarting my server right up after the installation is complete. Great, except that I quickly realize that TypeScript is not giving me autocompletion for this package since I forgot to install the types for it. The fix is very simple: run the previous command with a slight modification. With history expansion I can do this with:
+
+[source,console]
+----
+$ ^a-star^@types/a-star
+----
+
+[literal]
+Output:
+npm install @types/a-star && npm run dev
+
+This finds the last command in my history but replacing the string between the first set of carets with the remainder of the command, and runs the result.
+
+We can also look for words at specific positions in our last command. For example, let's say that we create a deeply nested directory, and we want to immediately `cd` to it:
+
+[source,console]
+----
+$ mkdir -p /one/two/three/four
+$ cd !$
+----
+
+The `!$` is a "word designator" that represents the last word on the previous command. In this case, that would be the path to the deeply nested directory we just created, switch to it with this nifty little trick. Another example of where this can be useful is with `virsh`, the CLI tool to manage virtual machines:
+
+[source,console]
+----
+$ virsh start devuan-5
+$ virt-viewer !$
+----
+
+This starts a new virtual machine and launches the graphical console to that VM.
+
+There's also `!\#` which can be used to refer back to words within the same line. The `!#` character set refers to "everything typed so far", and we can index into a specific word. This can be useful to make simple changes to a file's name or to move it around in the file system. +
+For example, I use this to make backup of configuration files, or to make posts for this blog non-publicly available by preceding them with an underscore:
+ 
+[source,console]
+----
+$ mv nginx-authentication.adoc _!#:1 # <1>
+$ cp nginx.conf !#:1.bak # <2>
+----
+<1> Expands into _nginx-authentication.adoc
+<2> Expands into nginx.conf.bak
+

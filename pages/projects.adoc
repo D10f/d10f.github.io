@@ -1,0 +1,11 @@
+= Projects
+D10f <devontheroof@pm.me>
+v1, 2024-07-10
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:source-highlighter: pygments
+:icons: font
+
+These are some of the projects that I've been working on recently, or that I'm particularly fond of. Each project has its own _readme_ file with more details. +
+Feel free to take a look at other projects of mine in my Codeberg and GitHub pages, linked at the bottom of the page.

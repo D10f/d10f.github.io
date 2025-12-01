@@ -1,0 +1,388 @@
+= A Beginner\'s Journey To Perl
+D10f <devontheroof@pm.me>
+v1, 2025-03-14
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: a closer look at common Perl built-in functions and when/how to use them properly
+:keywords: perl awk sed grep regular-expressions
+:technologies: perl
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Perl was first released in 1987, almost 40 years ago. As such, it's not uncommon to see people online refer to Perl as an ancient language that nobody uses anymore &mdash; The memes about its ugly, archaic syntax are almost as legendary as the ones made about PHP.
+
+This is one of the reasons I decided to see for myself, and while I found some truth behind those criticisms, Perl also has some interesting features to offer.
+
+This post should be read from a beginner's perspective to the Perl programming language. As with many other posts in my blog, the main intention is to serve as a quick reference for my future self. Although, I hope that some of my insights are useful to readers interested in learning Perl as well.
+
+== Conclusion
+
+The Perl interpreter supports command line options that allow to write simple expressions that run in a loop over a given input. This is ideal for piping commands or writing powerful "one-liners". Granted, this is where most of the criticisms about its cryptic syntax come from (I do agree that some people are trying to be too clever for their own good), but this effectively means having a better version of `grep`, `awk` and `sed` all in one unified language.
+
+So, summing it all up, learning Perl has been a fun but bumpy journey. There are many implicit behaviors that can trick new programmers, and decades worth of design decisions and common conventions that make it very different in some regards to more modern programming languages. +
+Luckily, this also means there are plenty of resources, although not many in the form of YouTube videos. Damian Conway's https://www.oreilly.com/library/view/perl-best-practices/0596001738/[_Perl Best Practices_] is one that I can highly recommend.
+
+== Regular Expressions
+
+One of the main selling points of Perl is the powerful regular expression syntax. After trying it out, I'm not disappointed in the slightest. In particular, I really like one feature that I haven't seen in other languages is the extended mode, which ignores whitespace to improve readability.
+
+Here's an example of a regular expression to parse URLs, according to https://www.rfc-editor.org/rfc/rfc3986#appendix-A[RFC 3986]:
+
+[source,perl]
+----
+my $rfc3986 = qr{
+    (?<scheme>(?&SCHEME))://
+    (?<authority>
+        (?<userinfo>(?&USERINFO))?  # Authentication credentials # <1>
+        (?<host>(?&HOST))
+        (?<port>(?::\d+))?          # TODO: Check valid port up to 65535
+    )
+    (?<path>(?&PATH))
+    (?<query>(?&QUERY))?
+    (?<fragment>(?&FRAGMENT))?
+
+    (?(DEFINE) # <2>
+        (?<SCHEME>      [a-z][a-z0-9+-.]*                              )
+        (?<USERINFO>    ((?&UNRESERVED)|(?&PCT_ENC)|(?&SUB_DELIMS)|:)*@)
+        (?<HOST>
+            (?&IP_LITERAL)
+            | (?&IPV4)
+            | ((?&UNRESERVED)|(?&PCT_ENC)|(?&SUB_DELIMS))*
+        )
+        (?<PATH>
+            (\/((?&PCHAR)+(\/ (?&PCHAR)*)*)?)
+            | (\/(?&PCHAR)*)*
+            | ((?&PCHAR)+(\/ (?&PCHAR)*)*)
+            | ((?&PCHAR){0})
+        )
+        (?<QUERY>       \?((?&PCHAR) | \/ | \?)*                       )
+        (?<FRAGMENT>    \#((?&PCHAR) | \/ | \?)*                       )
+        (?<IP_LITERAL>  \[ (?&IPV6) | (?&IP_VFUTURE) \]                )
+        (?<IPV6>
+            (                                   ((?&H16) :){6} (?&LS32))
+            | (                             ::  ((?&H16) :){5} (?&LS32))
+            | ((                 (?&H16))?  ::  ((?&H16) :){4} (?&LS32))
+            | ((((?&H16) :){0,1} (?&H16))?  ::  ((?&H16) :){3} (?&LS32))
+            | ((((?&H16) :){0,2} (?&H16))?  ::  ((?&H16) :){2} (?&LS32))
+            | ((((?&H16) :){0,3} (?&H16))?  ::  ((?&H16) :){1} (?&LS32))
+            | ((((?&H16) :){0,4} (?&H16))?  ::                 (?&LS32))
+            | ((((?&H16) :){0,5} (?&H16))?  ::                 (?&H16) )
+            | ((((?&H16) :){0,6} (?&H16))?  :: )
+        )
+        (?<LS32>        ((?&H16) : (?&H16)) | (?&IPV4)                 )
+        (?<H16>         (?&HEX_DIGIT){1,4}                             )
+        (?<HEX_DIGIT>   [a-fA-F0-9]                                    )
+        (?<IPV4>        ((?&DEC_OCTET)\.){3}(?&DEC_OCTET)              )
+        (?<DEC_OCTET>   25[0-5]|2[0-4]\d|1\d\d|\d\d|\d                 )
+        (?<IP_VFUTURE>
+            v(?&HEX_DIGIT)+\.((?&UNRESERVED) | (?&SUB_DELIMS) | : )+
+        )
+        (?<UNRESERVED>  [a-zA-Z0-9\-\._~]                              )
+        (?<SUB_DELIMS>  [!\$&'\(\)\*\+,;=]                             )
+        (?<PCT_ENC>     %(?&HEX_DIGIT){2}                              )
+        (?<PCHAR>       (?&UNRESERVED)|(?&PCT_ENC)|(?&SUB_DELIMS)|:|\@ )
+    )
+}x; # <3>
+----
+<1> Whitespace is ignored inside the regular expression. We can even write comments!
+<2> The actual pattern to match is above this line. Below are only definitions that are looked up on-demand.
+<3> The `/x` flag enables this behavior.
+
+This looks overwhelming, sure, but clearly there's some structure to it, which is more than what can be said about many regular expressions that you find in the wild. The `DEFINE` predicate allows defining a set of regular expression rules that will only be executed during the pattern matching, recursively.
+
+The documentation warns that this technique will most likely affect performance, but for complex patterns this is far more readable. This feature is already one of my favorites of the language.
+
+=== Match Operator
+
+When checking if a string follows a certain pattern, we can use the **match** operator, which allows to compare strings against using regular expressions. Following the example above, we can check if a given string is indeed a valid URL:
+
+[source,perl]
+----
+"https://codeberg.org" =~ $rfc3986; # Matches correctly
+"https//:codeberg.org" =~ $rfc3986; # Not so fast...
+----
+
+More practical even, we can put this on a loop to find every occurrence of a URL in a stream of text data, such as files or coming directly into standard input:
+
+[source,perl]
+----
+while (readline(STDIN)) {
+    my $line = $_;
+    while ($line =~ /$rfc3986/g) {
+        say $&;
+    }
+}
+----
+
+The special variable `$&` holds the current match on the line, and the use of the `g` flag ensures the match operation resumes where it left off.
+
+IMPORTANT: If you've ever used the `String.prototype.replace` or `String.prototype.replaceAll` method from JavaScript, you might have wondered why matches could be referenced by `$&`. The same is true for capture groups `$1`, `$2`, and so on. It's all Perl all the way down!
+
+When the match operation happens on the special variable `$_`, the operator `=~` itself can be omitted entirely as it's assumed to be used. So, the above snippet can be simplified even more:
+
+[source,perl]
+----
+while (readline(STDIN)) {
+    while (/$rfc3986/g) {
+        say $&;
+    }
+}
+----
+
+Note that the use of the surrounding `/` delimiter is only being used here to specify the use of the `g` flag, but it could also be omitted. In this following example, it would only match the first occurrence of an URL in each line, however:
+
+[source,perl]
+----
+while (readline(STDIN)) {
+    while ($rfc3986) {
+        say $&;
+    }
+}
+----
+
+And this is one of the things that I both like and dislike about Perl. I like being succinct and avoid overly verbose chunks of code, but at the same time it's easy to take things too far.
+
+=== Search & Replace
+
+Sometimes we want to also modify the variable, instead of just check if it follows a pattern, using regular expressions. We can use a replacement expression that looks like this:
+
+[source,perl]
+----
+my $str = 'Perl stands for "Practical Extraction and Report Language".';
+$str =~ s/"[^"]+"/Pathologically Eclectic Rubbish Lister/;
+say $str;
+----
+
+[literal]
+Outputs:
+Perl stands for "Pathologically Eclectic Rubbish Lister".
+
+NOTE: Perl doesn't actually stand for anything, according to Larry Wall, the creator of Perl, who endorses both of these "backronyms".
+
+This will modify the `$str` variable in-place, but we can also return the value of the substitution with the non-destructive modifier `r`:
+
+[source,perl]
+----
+my $copy = $str =~ s/"[^"]+"/Pathologically Eclectic Rubbish Lister/;
+----
+
+And it's possible to create a chain of substitutions as well with it, which is very convenient when doing things like cleaning file names from unwanted characters:
+
+[source,perl]
+----
+my $author = $picture->{copyright}
+           =~ s/^[^\s\t]+\s+(.*)\/.*$/$1/gr # <1>
+           =~ s/[\s\-,]+/\-/gr;
+----
+<1> The first capture group in the substitution pattern is available right away as `$1`.
+
+This extracts the author name out of Bing's picture of the day and removes unwanted characters like spaces and commas, replacing them with hyphens.
+
+== File Handling
+
+The `open` subroutine is used to create a file handle in order to read from or write to a file:
+
+[source,perl]
+----
+open(my $fh, "<", "data.txt");
+close($fh);
+----
+
+File handles must be closed when they're no longer needed, using the `close` subroutine, in order to avoid taking resources from the system and prevent memory leaks.
+
+One common safeguard against non-existing files or permission errors is to include the `die` operator to terminate the program immediately:
+
+[source,perl]
+----
+open(my $fh, "<", "data.txt") or die "Can't read file."
+close($fh);
+----
+
+=== Reading Line By Line
+
+The _diamond operator_ iterates over each line of the file and storing it in the special variable `$_`.
+
+[source,perl]
+----
+open(my $fh, "<", "data.txt");
+while (<$fh>) {
+    print $_;
+}
+----
+
+This is an efficient way of reading the file line by line. For large inputs, it will speed up processing and keep the memory footprint under control. But, an even better way of doing the same thing is to use the `readline` subroutine:
+
+[source,perl]
+----
+open(my $fh, "<", "data.txt");
+while (my $line = readline($fh)) { # <1>
+    print $line;
+}
+----
+<1> This time the input is stored in a dedicated variable `$line`. This is not necessary but improves readability.
+
+Functionally, the effect is the same, but this is more explicit about what is going on, and can protect against hard to catch bugs.
+
+=== Reading From Standard Input
+
+Since "everything is a file", we can read from standard input using its file descriptor just like any other regular file:
+
+[source,perl]
+----
+while (<STDIN>) { # <1>
+    print $_;
+}
+----
+<1> In Perl, `STDIN` is a global variable that points to standard input.
+
+In fact, this can be made even more succinct by omitting the file descriptor altogether. The default behavior of the diamond operator is to read from standard input.
+
+TIP: When running Perl "one-liners" at the command line, the `-n` flag mimics this exact behavior, wrapping the code provided by `-e` in a while loop that reads from standard input.
+
+[source,perl]
+----
+while (<>) {
+    print $_;
+}
+----
+
+That's one of the greatest advantages of this language: there are many ways to achieve the same thing. Unfortunately, many of those ways rely on default behaviors which may not always be immediately obvious...
+
+=== Reading The Whole File At Once
+
+Sometimes you need to do some processing based on a larger context than a single line:
+
+[source,perl]
+----
+open(my $fh, "<", "data.txt") or die "Can't read file.";
+my $data = do { local $/; readline($fh); };
+----
+
+There are two key components here: the `do` block, and the `$/` special variable.
+
+The `do` block returns the value of the last command in the sequence of commands. In this case, the result of `readline`.
+
+The _Input Record Separator_ special variable `$/` works similarly to awk's Record Separator, or Bash's Internal Field Separator (IFS). It influences what a "line" is, by using specific delimiters (a newline character, by default).
+
+What's happening in the code snippet above is that the variable `$/` is being declared using the `local` keyword, taking effect within the scope of the `do` block only. Since it's not assigned any value, it's undefined, and thus `readline` continues to read until it reaches the end of the file.
+
+A common technique is to encapsulate this functionality into its own subroutine:
+
+[source,perl]
+----
+use Scalar::Util qw/ openhandle /;
+
+sub slurp {
+    my ( $file ) = @_;
+    return openhandle($file)
+        ? do { local $/; readline($file); }
+        : do { local (@ARGV, $/) = $file; readline() };
+}
+----
+
+The `slurp` subroutine accepts a string representing the path to the file to read, or a file handle. It will read the file into memory and returns its contents.
+
+How this works is the `openhandle` subroutine returns the file handle provided if it's open, or `undef`. When the expression evaluates to true, it's a valid file handle and read as before. Otherwise, it's assumed to be a string (validation might be a good idea to add).
+
+At the last line, the `@ARGV` list is overwritten and assigned to the name string value of the file. At the same time, the `$/` variable is assigned to the second value of the right-hand operation, which there is none, so it's essentially unset, just like before. The `readline` subroutine will read from `@ARGV` as files, which is just the string provided for the duration of the block.
+
+Quite fancy footwork, one of those reasons Perl has a reputation of being a messy and difficult language to use.
+
+Keep in mind, this subroutine does not close the file handle if it was provided.
+
+== Context Is King
+
+This is one of the most confusing parts of Perl to me. I understand the idea of Perl being a language ruled by context, but it's difficult to be aware of the intricacies where this makes a difference.
+
+Here's an example taken from Damian Conway's https://www.oreilly.com/library/view/perl-best-practices/0596001738/[Perl Best Practices]:
+
+[source,perl]
+----
+use Digest::SHA qw/ sha256_hex /;
+
+@client_names    = map { ucfirst(lc($_)) } @client_names; # <1>
+@code_signatures = map { sha256_hex($_)  } @client_names; # <2>
+@human_timestamp = map { localtime($_)   } @unix_timecodes; # <3>
+----
+<1> Returns a list of names with the first letter capitalized.
+<2> Returns a list of SHA256 digests.
+<3> Converts a list of integer UNIX timestamps (seconds since epoch time) into a nicely formatted string representing their date.
+
+When using `map`, the expected behavior is there will be a 1:1 mapping between the input and the output. That is, for a list of 10 elements, I will get a list of another 10 elements, regardless of whether they are modified or how.
+
+However, the block on a `map` is evaluated in _list_ context. And it's possible, depending on the code that is run within the block, that we'll get an unexpected result. For example, `localtime` returns a single string in scalar context, but 9 different values in list context.
+
+To ensure that you get a more predictable result, a good rule of thumb is to enforce scalar context by using the `scalar` keyword in front of the function:
+
+[source,perl]
+----
+use Digest::SHA qw/ sha256_hex /;
+
+@client_names    = map { scalar ucfirst(lc($_)) } @client_names;
+@code_signatures = map { scalar sha256_hex($_)  } @code_samples;
+@human_timestamp = map { scalar localtime($_)   } @unix_timecodes;
+----
+
+Even when it's not needed, this won't affect the behavior of the code or incur a penalty cost.
+
+== One Liner Examples
+
+=== Command Line Flags
+
+-l :: ...
+
+This one matches a newline delimited block of text and extracts a specific portion of it. In this case, this is the `/var/log/apt/history.log` which can be used to make a summary of who installed what, and how, to better understand how a system was modified.
+
+[source,sh]
+----
+perl -nE 'BEGIN{$/ = "\n\n"} say $1 if $_ =~ /apt install.*Install: ([^\n]*)/s' /var/log/apt/history.log
+----
+
+This does what it says it does, and it does it well. But, honestly, yikes; it's easy to see where all the memes come from with stuff like this. +
+Let's break this one down by re-writing this in a file:
+
+[source,perl]
+----
+#!/usr/bin/perl -n # <1>
+
+use v5.10; # <2>
+
+BEGIN { # <3>
+    $/ = "\n\n"; # <4>
+}
+
+if (/apt install.*Install: ([^\n]*)/s) { # <5>
+    say $1;
+}
+----
+<1> The shebang line specifying the interpreter to use for this script. The `-n` flag automatically implies looping over the contents of the input.
+<2> This enables certain features used in the script, the `say` subroutine in this case. This is equivalent to passing the `-E` flag at the command line.
+<3> Similar to `awk` you can run some code before the rest of the program. This is useful to set the stage for overwriting the built-in variable `$/`, which represents the input field separator.
+<4> Set the input field separator to a double newline character. This is set by default to `\n`, a single newline character.
+<5> Since the `-n` option is provided, the input is implied.
+
+Preamble (readline, glob, sort, grep, map, scalar)...
+Example as documentation generator (crypto project)
+asdasd
+
+== Self-Documenting Scripts
+
+One of my main use cases for Perl is writing relatively small programs. While I'm sure it's perfectly capable to handle larger projects I'm not entirely convinced that is the right tool for the job, at least for me. However, I still like to document my scripts properly whenever I can.
+
+POD is an excellent way of doing that...
+
+== Conclusion
+
+Learning about Perl has been a bumpy ride. There are a lot of moving parts to pay attention to: special variables, keywords, implicit behaviors, etc. This makes learning the language a lot more difficult than others that came after it, and why it has fallen out of use over the years becomes apparent quickly.
+
+However, I'm not ready to give up on it just yet.
+
+Perl can be very expressive and has many mechanisms to write clear, concise code that is easy to understand. It's versatile enough to be used as a scripting language or one-liners at the command line. The documentation is also one of the bests I've seen, although a bit overwhelming at times.
+
+I find that it fits right in between the simplicity of utility scripts and the complexity of larger programs. In the words of the author himself:
+
+"It combines some of the best features of sed, awk, and sh, making it familiar and easy to use for Unix users to whip up quick solutions to annoying problems."
+-- Larry Wall, Perl manual page
+

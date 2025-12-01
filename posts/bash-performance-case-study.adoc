@@ -1,0 +1,299 @@
+= Bash Runtime Performance Case Study
+D10f <devontheroof@pm.me>
+v1, 2023-07-21
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: A case study of how bash can be just as performant if not more than other programming languages when used correctly.
+:keywords: shell performance linux
+:technologies: shell php python
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Recently, I've stumbled into the scenario where I needed to delete around 10,000 images from my machine, along with the cached thumbnails for those images. My first instinct was to write a simple shell script to get this done &mdash; after 90 seconds or so, the task was completed, and I didn't think much about it. +
+But something in the back of my mind was bugging me. I started to wonder how badly did I overestimate my ability to write a simple script. Or, perhaps, I was underestimating the task at hand. Naturally, the only option was to spin up a virtual machine and run a few tests to find out.
+
+== Defining The Task
+
+There are three steps involved in this task:
+
+1. Identify the images that need to be deleted.
+2. Compute a hash of the _canonical_ URI of the image file name.
+3. Search for a file named after the computed hash in one of the predefined locations in the system and delete it as well.
+
+== Goals And Baselines
+
+The goal was to measure the relative difference between several iterations of the same script as I iron out the different performance bottlenecks. To that end, I downloaded 1000 random images of various sizes and dimensions. For this case study, it's the number of total files that makes the real difference; but a thousand images seemed like a big enough data sample to obtain meaningful results.
+
+I decided to write additional scripts in Python (3.11) and PHP (8.2) to use as comparison. Once again, the goal is to record the relative differences of the scripts in order to get some insights &mdash; comparing Bash to other interpreted languages proved to be a great way to better understand how things work under the hood.
+
+These are the three scripts that I wrote:
+
+=== Bash
+
+[source,bash]
+----
+#!/bin/bash
+
+URI_PREFIX='file://'
+
+CACHE_LOCATIONS=(
+    "$HOME/.cache/thumbnails/large"
+    "$HOME/.cache/thumbnails/normal"
+)
+
+for file in $@
+do
+    FILE_URI="${URI_PREFIX}$(readlink -fn $file)"
+    THMB_NAME=$(echo -n $FILE_URI | md5sum | cut -d ' ' -f 1).png
+
+    rm $file
+
+    for dir in ${CACHE_LOCATIONS[@]}
+    do
+        rm ${dir}/${THMB_NAME}
+    done
+done
+----
+
+=== Python
+
+[source,python]
+----
+#!/usr/bin/env python3
+
+import os
+import sys
+import hashlib
+
+THMB_CACHE_LOCATIONS = (
+    os.environ['HOME'] + '/.cache/thumbnails/normal',
+    os.environ['HOME'] + '/.cache/thumbnails/large'
+)
+
+def main():
+    for file in sys.argv[1:]:
+        abs_path = os.path.abspath(file)
+        uri = 'file://' + abs_path
+        hash = hashlib.md5(uri.encode('utf-8')).hexdigest()
+        thumbnail = hash + '.png'
+
+        os.unlink(abs_path)
+
+        for dir in THMB_CACHE_LOCATIONS:
+            try:
+                os.unlink(dir + f'/{thumbnail}')
+            except FileNotFoundError:
+                pass
+
+if __name__ == '__main__':
+    sys.exit(main())
+----
+
+=== PHP
+
+[source,php]
+----
+<?php
+
+$CACHE_LOCATION = getenv('HOME') . '/.cache/thumbnails';
+
+for ($i = 1; $i < count($argv); $i++)
+{
+    $uri = 'file://' . realpath($argv[$i]);
+    foreach(['normal/', 'large/'] as $dir)
+    {
+        $thumbnail = "{$CACHE_LOCATION}/{$dir}" . md5($uri) . '.png';
+        @unlink($thumbnail);
+    }
+    unlink($argv[$i]);
+}
+----
+
+And this is the execution time of each script for comparison:
+
+.Average execution time (in seconds) needed to delete 1000 images and cached thumbnails.
+[%autowidth]
+|===
+|Bash |Python |PHP
+
+|9.50
+|0.20
+|0.13
+|===
+
+There was no doubt in my mind that a carelessly written shell script would be slow and inefficient but, needless to say, I was quite surprised with the results. As an aside, I found it amusing that PHP consistently showed better results than Python did, although I realize this is a very specific example and not representative of the language capabilities. Still, I think PHP deserves more credit than it gets.
+
+== Avoid Log Activity
+
+It may not seem obvious, but logging is quite an intensive task. Maybe not when compared to doing things like pixel interpolation to blur an image and things like that, but it takes a toll that is easy to miss.
+
+Something that was immediately obvious were the amount of output being produced and logged to the console. The reason was that not every image file had a thumbnail generated for itself, and most only had one size instead of the two that could be generated. This caused a lot of "file not found" errors while trying to delete them and in turn, a lot of log activity.  So, what options are available to address this bottleneck?
+
+1. Simply put, throw away useless output. Now, I'm not saying that logging is useless, but I don't care for it in this particular case; if the image does not exist to begin with, that's less amount of work to do. Redirecting the output to the null device seems like a quick and easy solution, but not a very elegant one. It shifts the responsibility to redirect output to the caller and removes the possibility of collecting other logs of legitimate interest if needed.
+
+2. Change the algorithm. Since it's impossible to know in advance which image files have thumbnails that need deletion, the only way to not cause any "file not found" errors is to search for them in advance. Using something like `find` does the trick, but it removes a bit of flexibility while adding some overhead.
+
+3. Use your tools effectively. A quick glance at the manual page for `rm` showed me that it has a `-f` or `--force` flag that basically tells the command to do its job and don't complain about it. This means that if the file doesn't exist, it will just proceed to the next one.
+
+Spoiler alert, option 3 is the best performant and easiest to implement. However, for the purposes of this case study I wanted to explore option 2 first. With this script, I was able to reduce the execution time from 9.50 seconds down to 6.94 seconds.
+
+[source,bash]
+----
+#!/bin/bash
+
+URI_PREFIX='file://'
+CACHE_LOCATION=$HOME/.cache/thumbnails # <1>
+
+for file in $@
+do
+    FILE_URI="${URI_PREFIX}$(readlink -fn $file)"
+    THMB_NAME=$(echo -n $FILE_URI | md5sum | cut -d ' ' -f 1).png
+
+    rm $file
+
+    find $CACHE_LOCATION -type f -name $THMB_NAME -delete # <2>
+done
+----
+<1> We can now specify the parent location and let `find` do its thing.
+<2> Leverage the `find` command to search and destroy any matches.
+
+== Reducing The Number Of Processes
+
+In order to further improve the performance execution it's important to understand how commands work and how they can be used. As it turns out, most commands are capable of accepting any number of arguments as input and do some work with them. Instead of providing one argument and invoking the command for each file, we can just pack all files as a list of arguments and provide it to the command. This would only spawn a single process per command instead of the thousands that were being created and destroyed constantly.
+
+[source,bash]
+----
+#!/bin/bash
+
+CACHE_LOCATION=$HOME/.cache/thumbnails
+ABS_PATHS=$(readlink -f $@) # <1>
+FILE_URIS=()
+THMB_SUMS=()
+
+for path in ${ABS_PATHS[@]}
+do
+	FILE_URIS+=( "file://${path}" )
+	rm $path
+done
+
+for uri in ${FILE_URIS[@]} # <2>
+do
+	MD5_SUM=$(echo -n $uri | md5sum | cut -d ' ' -f1)
+	THMB_SUMS+=( ${MD5_SUM}.png )
+done
+
+for thumbnail in ${THMB_SUMS[@]}
+do
+	find $CACHE_LOCATION -type f -name $thumbnail -delete
+done
+----
+<1> Read all files at once and store the result in a variable.
+<2> Rinse and repeat for other commands to reduce number of processes.
+
+This version of the script is a bit more verbose and messy, looping over different pieces of data perhaps somewhat needlessly, as we'll see later. However, this runs in 5.63 seconds, nearly half of what it used to take originally. +
+Note that the only significant change that impacts performance is that `readlink` now runs only once and processes all arguments using a single process. Next, we can do the same for the other commands.
+
+== Run Operations In Memory
+
+If reducing the number of processes works for one command, it should do the same for the others. Unfortunately we can't just pipe the output of `readlink -f $@` to `md5sum` as that would be understood as a single block of text. However, we can provide `md5sum` with any number of arguments as files.
+
+This poses an interesting problem. We don't want to write thousands of files to disk just to pass them as input to another command. Even on modern SSDs that would be slow and inefficient, not to mention the useless wear and tear caused to the drive. But we can write those files to a https://www.kernel.org/doc/html/latest/filesystems/tmpfs.html[in-memory file system] to work around this. +
+`tmpfs` is a file system that exists only in the computer's RAM. Since it works much faster than on disk, this won't slow things down while allowing us to prepare the input for subsequent commands in the pipeline &mdash; `md5sum` in this case.
+
+With this approach we reduce the number of times we have to call md5sum, and incidentally also cut calls to cut down to one. After making the necessary changes, the execution time is down to 3.16 seconds, that's another big improvement over the previous version. 
+
+[source,bash]
+----
+#!/bin/bash
+
+CACHE_LOCATION=$HOME/.cache/thumbnails
+TMP_DIR=$(mktemp --tmpdir="/dev/shm" --directory $(basename $0).XXXXXX) # <1>
+
+i=0
+readlink -f $@ | \ # <2>
+while read -r path
+do
+    echo -n "file://${path}" > "${TMP_DIR}/uri${i}"
+    rm $path
+    (( ++i ))
+done
+
+for hash in $(md5sum $TMP_DIR/uri* | cut -d ' ' -f 1) # <3>
+do
+    find $CACHE_LOCATION -type f -name ${hash}.png -delete
+done
+
+rm -r $TMP_DIR
+----
+<1> Create a temporary, in-memory location.
+<2> Instead of storing the result in a variable, pipe to and read from stdout directly.
+<3> Provide all files as arguments to a single process to compute the MD5 checksum.
+
+There are different ways to create a temporary file system but in this case I'm taking advantage of an existing location that most distributions mount by default: /dev/shm. Distributions running on systemd automatically mount a tmpfs directory for each non-root user at /run/users/<user_id> where user_id is the ID of that user. This location is readily available inside the `XDG_RUNTIME_DIR` environment variable, and is another location we could've used just as well.
+
+In this case, the `mktemp` command was used to simply create a temporary directory, using a template name to create a unique name, inside one of these two in-memory file systems. We store the reference to that directory so that we can use it throughout the script, and quickly clean up by removing it entirely along with its contents.
+
+== Using Shell Features Effectively
+
+So far the trend has been pretty clear: fewer processes translates to better performance. Now it's only a matter of figuring out the best way to squeeze as many operations under the same process, rinse and repeat. Of course, this is not to say that performance should be the only concern as readability tends to deteriorate very quickly.
+
+The next area of focus in this script are the multiple calls to `rm` as currently we are invoking it once for every file we want to delete (see option 3 above). Since we have a reference to these files stored as a variable `$@` we can simply provide that when we're cleaning up our temporary directory and join both operations, like so: `rm -r $TMP_DIR $@`. This works and if we can find a way to get references to all the thumbnail filenames we should be able to remove them as well in a single batch.
+
+This is where we could take advantage of shell built-ins like `readarray` and input redirection to read a file and store them as an array variable. We can then expand this array and provide that to `rm`. All we need to do is leverage once again our in-memory directory and write all the computed thumbnail filenames to a file that we can later read from:
+
+[source,bash]
+----
+#!/bin/bash
+
+TMP_LOCATION=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
+TMP_FILENAME=$(basename $0)
+TMP_DIR=$(mktemp --tmpdir=${TMP_LOCATION} --directory ${TMP_FILENAME%%.*}.XXXXXX)
+
+i=0
+readlink -f $@ | \
+while read -r path
+do
+    echo -n "file://${path}" > "${TMP_DIR}/uri${i}"
+    (( ++i ))
+done
+
+md5sum $TMP_DIR/uri* | \
+        perl -nE 'say "$ENV{HOME}/.cache/thumbnails/large/$&.png" if /[^\s]+/' | \
+        tee $TMP_DIR/thumbnails_large.txt | \
+        sed s/large/normal/ > $TMP_DIR/thumbnails_normal.txt # <1>
+
+readarray -t thumbnails_large < $TMP_DIR/thumbnails_large.txt
+readarray -t thumbnails_normal < $TMP_DIR/thumbnails_normal.txt # <2>
+
+rm -rf ${thumbnails_large[@]} ${thumbnails_normal[@]} $TMP_DIR $@ # <3>
+----
+<1> Instead of removing files one at the time, write the computed hash to another file
+<2> Leverage bash features to read from the file into an array variable.
+<3> Provide all files that need to be deleted as arguments, reducing the number of processes from thousands down to a just a few.
+
+Here, we are creating a pipeline that process the output of the `md5sum` command and produces the full path to the cached thumbnail. Since there are two possible locations where a thumbnail may be generated, we use `tee` to store all those filenames in one file while processing the output with `sed` to simply generate another set of thumbnail paths. We read those files into array variables and provide them to `rm`, expanded so that every single file gets deleted.
+
+Now, we no longer run thousands of different `rm` processes for each file to delete. We're also not searching the entire directories where the thumbnails may be stored, and instead we surgically remove the file. Note that use of the `-f` flag since we don't care about errors in this case: either the thumbnails is where we're looking to delete it, or is not there to begin with.
+
+
+== Conclusion
+
+The results speak for themselves:
+
+.Average execution time (in seconds) needed to delete 1000 images and cached thumbnails.
+[cols="1,1,1"]
+|===
+| Bash | Python | PHP
+
+| 0.10
+| 0.20
+| 0.13
+|===
+
+The results speak loud and clear on their own. While Bash is rarely associated with performance, it can be quite powerful when yielded correctly. And what it lacks in speed it makes up for in flexibility. It's one of the most popular and widely adopted shells, it runs everywhere from fully fledged Linux distributions to containers, and is definitely one of the most versatile tools to have under your tool belt as System Administrator.
+
+The goal of this article was not to compare Bash with other languages but to illustrate its strengths and weaknesses using a real world example. It's true that its syntax has lots to be desired, and it takes a bit more understanding of the underlying operating system to use effectively, compared to other languages, which on the other hand can make your scripting abilities that much more effective and efficient.
+
+As always, be mindful of the task at hand and pick the right tool for the job. For me, that means Bash is usually the right choice for most simple programs where I don't have to worry too much about performance or cross-platform compatibility. But I truly dread it when it comes to string manipulation...

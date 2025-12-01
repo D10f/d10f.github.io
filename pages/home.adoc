@@ -1,0 +1,20 @@
+= Home
+D10f <devontheroof@pm.me>
+v1, 2024-06-28
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: The software I use, how and why.
+:keywords: technology software stack programming tools editor
+:source-highlighter: pygments
+:icons: font
+:imagesdir: ..
+:toc:
+
+Welcome to my small piece of the internet.
+
+I'm a web developer from Spain who enjoys tinkering with things, especially in the realm of the web.
+
+You can https://localhost:3000/blog[read the notes and guides] that I write for my future self, mostly about web development, system administration and open source software in general.
+
+Or you can go over some of https://localhost:3000/projects[my favorite projects]; if you are interested, take a look at https://localhost:3000/uses[what tools I use] to make them.

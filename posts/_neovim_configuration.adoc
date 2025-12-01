@@ -1,0 +1,44 @@
+= Configuring Neovim As A Developer Environment
+D10f <devontheroof@pm.me>
+v1, 2025-03-18
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: my configuration for using Neovim as versatile IDE for various languages
+:keywords: neovim editor ide programming coding
+:technologies: neovim lua
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+The release of Neovim 0.11 contains many important highlights that make it easier than ever before to customize your own developer environment.
+
+== Building Neovim From Source
+
+Debian doesn't usually have the latest version of Neovim available, so I prefer building it from source. It will only take a few minutes, and it's really not all that difficult. The steps are detailed in the GitHub's repository, but here's a short version:
+
+=== Install the necessary dependencies
+
+=== Clone the repository
+
+=== Set up the optional flags in preparation for the build
+
+=== Build it!
+
+== Directory Structure
+
+Neovim is configured using Lua, starting with a file that lives in `$HOME/.config/nvim/init.lua`. Here you can set up all the options, keyboard mappings, etc., but it's probably a better idea to structure things a bit.
+
+== Basic Options
+
+== Package Manager
+
+== Plugins
+
+== JavaScript / TypeScript
+
+== C & C++
+
+== PHP
+
+== Python

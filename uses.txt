@@ -1,0 +1,288 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[1322,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],"default"]
+7:I[7311,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],"default"]
+8:I[231,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],""]
+2:T3314,<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is what I use every day to get things done. You can <a href="https://codeberg.org/d10f/dotfiles">checkout my dot files</a> to see how I configure some of the software listed below.</p>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_operating_system">Operating System<a class="anchor" href="#_operating_system">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="sect2"><h3 id="_debian">Debian<a class="anchor" href="#_debian">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>One of the oldest GNU/Linux distributions, well-known for its stability and reliability. I use this in both servers and desktop computers.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://debian.org" class="bare">https://debian.org</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_desktop_environment">Desktop Environment<a class="anchor" href="#_desktop_environment">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="sect2"><h3 id="_xfce">XFCE<a class="anchor" href="#_xfce">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>A fast and lightweight environment that&#8217;s easy to use. It embodies the traditional Unix philosophy of modularity, making it very simple to customize and combine with other components. For example, I use it along the <code>i3</code> window manager to have the best of both worlds.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://xfce.org" class="bare">https://xfce.org</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_window_managers">Window Managers<a class="anchor" href="#_window_managers">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="sect2"><h3 id="_i3">i3<a class="anchor" href="#_i3">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Most tiling window managers are designed around keyboard workflows, but <code>i3</code> has excellent support for mouse actions right out of the box. It&#8217;s intentionally designed to be simple, which makes it easy to customize and work with. Also, it can be integrated with XFCE very easily.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://i3wm.org" class="bare">https://i3wm.org</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_terminal_emulator">Terminal Emulator<a class="anchor" href="#_terminal_emulator">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="sect2"><h3 id="_alacritty">Alacritty<a class="anchor" href="#_alacritty">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Currently, my favorite terminal emulator. It&#8217;s fast, extremely easy to configure using a plain text file, with tons of configuration options.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://alacritty.org" class="bare">https://alacritty.org</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_web_browser">Web Browser<a class="anchor" href="#_web_browser">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="sect2"><h3 id="_mozilla_firefox">Mozilla Firefox<a class="anchor" href="#_mozilla_firefox">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Mozilla Firefox remains one of the few browsers that has plenty of configuration options. One of my favorite features is the ability to customize the interface, using simple CSS rules, and even apply custom styles to websites directly.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.mozilla.org/firefox" class="bare">https://www.mozilla.org/firefox</a></p>
+</div>
+</div>
+<div class="sect2"><h3 id="_librewolf">Librewolf<a class="anchor" href="#_librewolf">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The privacy-focused fork of Mozilla Firefox. It comes out of the box with a lot of configurations that increase your privacy. Some websites might not work because of this, however, but it&#8217;s otherwise identical to Firefox in most regards.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://librewolf.net" class="bare">https://librewolf.net</a></p>
+</div>
+</div>
+<div class="sect2"><h3 id="_brave_browser">Brave Browser<a class="anchor" href="#_brave_browser">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>My go-to Chromium-based browser. It&#8217;s easy to set up and to maintain while most non-desirable features are opt-in by default &mdash; a fairly rare sight these days.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://brave.com" class="bare">https://brave.com</a></p>
+</div>
+</div>
+<div class="sect2"><h3 id="_vivaldi">Vivaldi<a class="anchor" href="#_vivaldi">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Another excellent Chromium-based browser that&#8217;s known for its highly customization capabilities.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://vivaldi.net" class="bare">https://vivaldi.net</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_text_editor_ide">Text Editor &amp; IDE<a class="anchor" href="#_text_editor_ide">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="sect2"><h3 id="_vi">Vi<a class="anchor" href="#_vi">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>While I generally prefer more feature-rich editors, <code>vi</code> is usually found in most Linux distributions, including extremely bare installations where no display software is available, such as servers and containers.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_neovim">Neovim<a class="anchor" href="#_neovim">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>A very popular fork of Vim made with fantastic modular capabilities. Can be turned into an efficient tool for taking notes, editing files or a full-blown IDE.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://neovim.io" class="bare">https://neovim.io</a></p>
+</div>
+</div>
+<div class="sect2"><h3 id="_vscodium">VSCodium<a class="anchor" href="#_vscodium">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Free and open source version of Microsoft&#8217;s VSCode. Works exactly the same but has Microsoft&#8217;s blobs and tracking/telemetry removed.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://vscodium.com" class="bare">https://vscodium.com</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_color_schemes">Color Schemes<a class="anchor" href="#_color_schemes">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="sect2"><h3 id="_catppuccin">Catppuccin<a class="anchor" href="#_catppuccin">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>You are seeing it in action right now! Check out the button on the right inside the navigation bar.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/catppuccin" class="bare">https://github.com/catppuccin</a></p>
+</div>
+</div>
+<div class="sect2"><h3 id="_everforest">Everforest<a class="anchor" href="#_everforest">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Another color scheme that I really like and that I&#8217;ve included in this website. Dark, but not too dark, and with pleasant green tones that are very easy on the eyes even on low light conditions.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/sainnhe/everforest" class="bare">https://github.com/sainnhe/everforest</a></p>
+</div>
+</div>
+<div class="sect2"><h3 id="_monokai_pro">Monokai Pro<a class="anchor" href="#_monokai_pro">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>I prefer the Catppuccin theme for most things, including the terminal and terminal-based programs since they blend nicely this way. However, for VSCodium I really like Monokai Pro because of the colors and icons.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://monokai.pro" class="bare">https://monokai.pro</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_file_sharing">File Sharing<a class="anchor" href="#_file_sharing">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="sect2"><h3 id="_syncthing">Syncthing<a class="anchor" href="#_syncthing">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Quite the handy tool to keep files in sync, both over a local network and remotely, over the internet. Among its many features it has encryption for safe transmission over relays, versioning, integrity checks, compression, etc.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://syncthing.net" class="bare">https://syncthing.net</a></p>
+</div>
+</div>
+<div class="sect2"><h3 id="_send">Send<a class="anchor" href="#_send">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Ever since Mozilla discontinued its own file sharing service, multiple other open-source projects have appeared to fill the gap. Some of them are new implementations designed from the ground up, while others are forks that have taken over development. Send falls in the latter category, and remains one of my top choices for sharing large files.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://timvisee.com/projects/ffsend" class="bare">https://timvisee.com/projects/ffsend</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_password_manager">Password Manager<a class="anchor" href="#_password_manager">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="sect2"><h3 id="_keepassxc">KeePassXC<a class="anchor" href="#_keepassxc">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>I prefer storing my passwords and other sensitive information offline, and handle the synchronization between devices using a dedicated program like Syncthing.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://keepassxc.org" class="bare">https://keepassxc.org</a></p>
+</div>
+</div>
+</div>
+</div>4:["slug","uses","d"]
+0:["JQ0YaEzUq39y5BB9-c65N",[[["",{"children":[["slug","uses","d"],{"children":["__PAGE__?{\"slug\":\"uses\"}",{}]}]},"$undefined","$undefined",true],["",{"children":[["slug","uses","d"],{"children":["__PAGE__",{},[["$L1",["$","div",null,{"className":"layout-content","children":[["$","header",null,{"children":[["$","h1",null,{"className":"post__title","children":"What I Use"}],"$undefined"]}],["$","main",null,{"className":"post__content","dangerouslySetInnerHTML":{"__html":"$2"}}]]}]],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","$L6",null,{}],["$","div",null,{"className":"separator"}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":null}],["$","footer",null,{"className":"footer","children":[["$","$L7",null,{}],["$","div",null,{"className":"footer__links","children":[["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"This site is built with:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address","aria-describedby":"footer__nextjs","href":"https://nextjs.org","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-nextjs"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer_nextjs","children":"Next.js"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address","aria-describedby":"footer__asciidoctor","href":"https://asciidoctor.org","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-asciidoc"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer_asciidoctor","children":"Asciidoctor"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Source code for this website","aria-describedby":"footer__git","href":"https://github.com/d10f/devontheroof","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-git"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__git","children":"Git version control"}]]}]]}]]}],["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"Find more about me:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codeberg profile","href":"https://codeberg.org/D10f","aria-describedby":"footer__codeberg","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codeberg"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codeberg","children":"Codeberg"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Github profile","href":"https://github.com/D10f","aria-describedby":"footer__github","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-github"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__github","children":"GitHub"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codepen profile","href":"https://codepen.io/D10f","aria-describedby":"footer__codepen","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codepen"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codepen","children":"Codepen"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Exercism profile","href":"https://exercism.org/profiles/quasimodo","aria-describedby":"footer__exercism","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-exercism"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__exercism","children":"Exercism"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codewars profile","href":"https://www.codewars.com/users/imperation_bypasser","aria-describedby":"footer__codewars","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codewars"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codewars","children":"Codewars"}]]}]]}]]}],["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"Get in touch:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address devontheroof@pm.me","aria-describedby":"footer__email","href":"mailto:devontheroof@pm.me","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-email"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__email","children":"Email"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to a public PGP key to encrypt the body of an email","aria-describedby":"footer__pgp","href":"#","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-gpg-key"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__pgp","children":"PGP public key"}]]}]]}]]}]]}],["$","p",null,{"className":"footer__license","children":["All content by me © 2024",["$","$L8",null,{"className":"pl-1","href":"https://creativecommons.org/licenses/by-sa/4.0/","target":"_blank","rel":"license noopener noreferrer","children":"CC BY-SA 4.0"}]]}]]}],["$","noscript",null,{"children":["$","style",null,{"children":".js-required { display: none }"}]}]]}]}],null],null],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/66bf765195623c3a.css","precedence":"next","crossOrigin":"$undefined"}]],"$L9"]]]]
+9:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"D10f | What I Use"}],["$","meta","3",{"name":"description","content":"The software I use, how and why."}],["$","meta","4",{"name":"keywords","content":"technology software stack programming tools editor, "}]]
+1:null

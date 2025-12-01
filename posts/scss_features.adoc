@@ -1,0 +1,318 @@
+= Every day SASS Mixins and Functions
+D10f <devontheroof@pm.me>
+v2, 2022-09-10
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: Mixins and Functions are a couple of the features that make SCSS stand out from plain CSS. Despite most of the many of them being now natively available, it's still a good idea to use them to simplify the code.
+:keywords: css scss sass mixins functions
+:technologies: css sass
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Mixins and Functions are a couple of the features that make SCSS stand out from plain CSS. Despite most of the many of them being now natively available, it's still a good idea to use them to simplify the code.
+
+== Useful Mixins To Save The Day
+
+=== Restrict Container Width
+
+[source,scss]
+----
+@mixin contain {
+    max-width: variables.$max-width;
+    margin-inline: auto;
+}
+----
+
+A very common thing to do with nested elements is to have them centered horizontally and limit their width to a set value. It's only a couple of lines of code, but I've found it to be a nice improvement to the overall readability. Specially knowing how long and complex CSS rules can get.
+
+=== Debugger
+
+[source,scss]
+----
+@mixin debugger(
+    $recursive: false,
+    $root: true,
+    $prop: outline,
+    $color: coral,
+    $style: solid,
+    $width: 1px
+) {
+    @if $recursive {
+        @if $root {
+            & {
+                #{$prop}: $width $style $color;
+            }
+        }
+
+        & > * + * {
+            #{$prop}: $width $style $color;
+        }
+
+    } @else {
+        #{$prop}: $width $style $color;
+    }
+}
+----
+
+When something is not behaving as expected, and I can't quickly figure out why, I apply a bright-colored border or outline around it. I made this mixin to quickly highlight individual elements, or entire element trees, by activating the `$recursive` option.
+
+=== Media Queries
+
+[source,scss]
+----
+@use 'sass:map';
+
+/**
+*  MEDIA QUERY REFERENCE
+*  | Breakpoint     | Pixels |  Em   | # <1>
+*  |----------------|--------|-------|
+*  | Narrow         | < 400  | 25    |
+*  | Phone          | < 600  | 37.5  |
+*  | Tablet         | < 768  | 48    |
+*  | Portrait       | < 900  | 56.25 |
+*  | Landscape      | < 1200 | 75    |
+*  | Desktop        | < 1800 | 112.5 |
+*  | Widescreen     | > 1800 | 112.5 |
+*/
+
+$breakpoints: (
+    "narrow": 25em,
+    "phone": 37.5em,
+    "portrait": 48em,
+    "landscape": 56.25em,
+    "desktop": 75em,
+    "widescreen": 112.5em,
+);
+
+@mixin mq($size, $order: 'asc') {
+    @if not map.has-key($breakpoints, $size) {
+        @error "Breakpoint #{$size} not found.";
+    }
+
+    @if $order != 'asc' and $order != 'desc' {
+        @error "Invalid media query.";
+    }
+
+    $breakpoint: map.get($breakpoints, $size);
+    $orientation: if($order == 'asc', 'min-width', 'max-width');
+
+    @media only screen and (#{$orientation}: $breakpoint) {
+        @content
+    };
+}
+----
+<1> Based on a base font size of 16px.
+
+Responsiveness is a must on this day and age, and it can be achieved easily using media queries. With SASS this is easier than ever before with mixins and some of the (many) features it has built-in.
+
+This mixin is not aimed to be pixel perfect but a reference point to get started, since every project will likely need to tweak these values. By default, assumes mobile-first approach, but I find larger screen sizes easier to play around and be a bit more creative with code, so I include an option for the opposite design approach as well.
+
+=== Truncate Text
+
+[source,scss]
+----
+@use 'sass:math';
+
+@mixin truncate-text($length, $ellipsis: true) {
+    @if math.is-unitless($length) {
+        @error 'Provided length value "#{$length}" has no unit.';
+    }
+
+    max-width: $length;
+    overflow: hidden;
+    white-space: nowrap;
+
+    @if $ellipsis {
+        text-overflow: ellipsis;
+    }
+}
+----
+
+[role="truncate"]
+A perfect example of a mixin being used for something... Oh... Hello! I didn't see you there. You must also be the type of person that likes to take a peek under the hood from time to time. Good for you! Here's your egg: 🥚
+
+=== Unselectable Elements
+
+[source,sass]
+----
+@mixin unselectable {
+  pointer-events: none;
+  user-select: none;
+}
+----
+
+[role="unselectable"]
+Can't touch this.
+
+=== Fluid Grid
+
+[source,scss]
+----
+@use 'sass:math';
+
+@mixin grid($cell-width: 1rem, $gap: 0) {
+
+    @if math.is-unitless($cell-width) {
+        @error 'Provided cell width value "#{$cell-width} has no unit.';
+    }
+
+    @if $gap and math.is-unitless($gap) {
+        @error 'Provided gap value "#{$gap} has no unit.';
+    }
+
+    display: grid;
+    gap: $gap;
+    grid-template-columns: repeat(auto-fit, minmax($cell-width, 1fr));
+}
+----
+
+One of those things that are very useful but can never remember the syntax for it.
+
+=== Performant Shadow Transition Effect
+
+[source,scss]
+----
+@mixin has-shadow {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 250ms ease;
+        box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.2);
+    }
+
+    &:hover::before {
+        opacity: 1;
+    }
+}
+----
+
+Properties like `box-shadow` don't necessarily transition very well, as they can be expensive to compute for the browser. On the other hand, properties like `opacity` perform very well in that regard. While it's true that this alone is unlikely to bring a website to its knees, this is a little trick can help make this effect much smoother.
+
+Obviously, the value for the shadow itself, as well as the transition, should be adjusted as needed and possibly extracted into other variables that can be re-used throughout the code base.
+
+=== Tooltip Arrows
+
+[source,scss]
+----
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:map';
+
+// Auxiliary mixin, could also be written without this.
+@mixin _arrow_absolute($top: null, $right: null, $bottom: null, $left: null) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  right: $right;
+  bottom: $bottom;
+}
+
+@mixin arrow($position: 'top', $color: currentColor, $size: .5em) {
+  &::before {
+    $_positions: ('top', 'right', 'bottom', 'left');
+    $_parsed-positions: ();
+    $_position-reference: (
+      'top': 'bottom',
+      'right': 'left',
+      'bottom': 'top',
+      'left': 'right',
+    );
+
+    // Parse the position string into first and second arguments
+    $_sep-idx: string.index($position, ' ');
+    $_first: null;
+    $_second: null;
+
+    @if ($_sep-idx) {
+      $_first: string.slice($position, 1, $_sep-idx - 1);
+      $_second: string.slice($position, $_sep-idx + 1);
+    } @else {
+      $_first: $position;
+    }
+
+    //  Validate arguments provide a valid position
+    @if ($_first == $_second) {
+      @error 'ERROR: position axis cannot be the same.';
+    }
+
+    @if (not list.index($_positions, $_first) or ($_second and not list.index($_positions, $_second))) {
+      @error 'ERROR: invalid position arguments.';
+    }
+
+    $_opposite: '';
+    @each $_pos in $_positions {
+      border-#{$_pos}: $size solid transparent;
+      @if ($_first == $_pos) {
+        $_parsed-positions: list.append($_parsed-positions, -$size);
+        $_opposite: map.get($_position-reference, $_first);
+      } @else if ($_second == $_pos) {
+        $_parsed-positions: list.append($_parsed-positions, $size);
+      } @else {
+        $_parsed-positions: list.append($_parsed-positions, null);
+      }
+    }
+    border-#{$_opposite}: $size solid $color;
+    border-#{$_first}: unset;
+
+    @if (not $_second) {
+      @if ($_first == 'top' or $_first == 'bottom') {
+        $_parsed-positions: list.set-nth($_parsed-positions, 2, 50%);
+        transform: translateX(50%);
+      } @else {
+        $_parsed-positions: list.set-nth($_parsed-positions, 1, 50%);
+        transform: translateY(-50%);
+      }
+    }
+
+    content: '';
+    width: 0;
+    height: 0;
+    @include _arrow_absolute($_parsed-positions...);
+  }
+}
+----
+
+This one is quite lengthy, but it's really worth it. I don't write tooltips every day and I forget how to do them properly, things like deciding which properties should remain open for customization, the right position, size, etc. And most importantly, how to actually use it.
+
+TIP: If you make this page full screen, you should see the arrow appear in this side note!
+
+This mixin has all of that and more, including error handling, and is as simple as this to use:
+
+[source,scss]
+----
+.card.tooltip {
+    @include arrow('left top', $color: var(--tooltip-color), $size: 1em);
+}
+----
+
+== Useful Functions To Save The Day
+
+TBD ...
+
+Source: https://sprucecss.com/blog/8-helpful-sass-mixins-and-functions/
+
+[source,scss]
+----
+/// Generate responsive font-size value using clamp().
+/// @param {number} $size - The font size.
+/// @param {number} $scaler - The scaler value (15 = 15% smaller).
+/// @param {number} $optimal-size - The optimal font size.
+/// @return {string} - The responsive font-size value.
+@function responsive-font-size(
+  $size,
+  $scaler: 15,
+  $optimal-size: map.get($settings, 'optimal-responsive-font-size')
+) {
+  @if $scaler < 0 or $scaler > 100 {
+    @error 'The $scaler value must be between 0 and 100.';
+  }
+
+  @return clamp(#{$size * math.div(100 - $scaler, 100)}, #{$optimal-size}, #{$size});
+}
+----

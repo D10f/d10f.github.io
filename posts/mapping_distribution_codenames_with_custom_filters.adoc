@@ -1,0 +1,164 @@
+= Mapping Distribution Codenames With Custom Filters
+D10f <devontheroof@pm.me>
+v0.1, 2025-07-18
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: write a custom ansible filter plugin to map linux distribution codenames from derivatives back to their parent.
+:keywords: ansible python filters jinja linux
+:technologies: ansible python
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Using automation tools like Ansible makes very easy to configure multiple computers. However, the same steps are not always _exactly_ the same across different Linux distributions, and one source of frustration for me has been when dealing with similar code names which can cause annoying and unexpected errors when doing things like adding third party repositories.
+
+== Example: Installing Docker
+
+Consider the following task to add Docker's repositories on Debian-based distributions:
+
+[source, yaml]
+----
+- name: Add Docker repositories
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/debian
+    signed_by: https://download.docker.com/linux/debian/gpg
+    suites: [bookworm]
+    components: [stable]
+    state: present
+    enabled: True
+    architectures: amd64
+----
+
+This works fine on Debian 12 (Bookworm), but it will fail on forks like Linux Mint Debian Edition or MX Linux, because the distribution code name doesn't match the repository's "suite" field. Docker, understandably, did not account for every possible variation.
+
+One way to fix this would be to set environment variables on the host machine that can make this translation. And, in fact, most distributions already provide this information that can be parsed and used for this type of situation. However, this will increase the complexity of this task, making it needlessly long as more distributions need to be properly supported, especially since different distributions have their own little ways of getting about doing this.
+
+Another way that I find much more intuitive is to create a custom filter plugin, written in Python, where we can put all that logic. Then, we can use it like any other regular Ansible filter:
+
+[source, yaml]
+----
+- name: add docker repositories
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/debian
+    signed_by: https://download.docker.com/linux/debian/gpg
+    suites: [bookworm] # [!code --]
+    suites: ["{{ ansible_lsb.codename | lsb_mapper }}"] # [!code ++]
+    components: [stable]
+    state: present
+    enabled: true
+    architectures: amd64
+----
+
+The distribution's code name can be easily retrieved from gathered Ansible facts, and piped into the custom filter plugin that will handle the conversion.
+
+== Writing A Custom Filter Plugin
+
+Luckily, filter plugins are the easiest to work with. All they really do is take some input and produce some output, and they are nothing more than regular functions. The only real work to do is write it in such a way that Ansible can pick it up to be able to use it.
+
+The documentation could be a little better, as there are a few gotchas that aren't mentioned in there. Let's take a look at the plugin:
+
+[source,python,title=filter_plugins/lsb_mapper.py]
+----
+CODENAME_MAP = {
+    # Linux Mint Debian Edition
+    "faye": "bookworm",
+
+    # MX Linux
+    "libretto": "bookworm",
+}
+
+class FilterModule:
+    def filters(self):
+        return {
+            "lsb_mapper": self.translate_codename
+        }
+
+    def translate_codename(self, codename: str):
+        return CODENAME_MAP[codename]
+----
+
+The most important pieces are the name of the class, which must be "FilterModule", and the "filters" method which returns a dictionary to map each filter available to Ansible with an associated function or method. +
+This means that you could add more filters and return them all from within this single file. Whatever name you choose for the keys will be the names of the filters that you will use in the Ansible playbook.
+
+Finally, to make sure that Ansible is able to read this file, it needs to be located at an expected location. This is very common when working with Ansible so it should be no surprise. Personally, for something as simple as this, I rather have it at the root level of my playbook repository, inside a folder that must be named "filter_plugins".
+
+IMPORTANT: That's it! This is how you can write and use a custom Ansible filter plugin for all your needs. Next, I will address a bug in the code, and extend the usefulness of the plugin beyond Debian-based distributions:
+
+== Extending The Scope Of The Plugin
+
+When looking at the documentation to install Docker, we see there are different instructions for the major Linux distributions. But all of them are roughly the same, at least when it comes to derivatives. For instance, the Debian and Ubuntu instructions are exactly the same with only one word different, their respective distribution names, in the repository and GPG key URL &mdash; and the expected variance in the distribution code names.
+
+We can very easily add more information to our map to account for those distributions that need translating:
+
+[source,python,title=filter_plugins/lsb_mapper.py]
+----
+CODENAME_MAP = {
+    # Linux Mint // [!code ++]
+    "victoria": "jammy", # [!code ++]
+    "virginia": "jammy", # [!code ++]
+    "wilma": "noble", # [!code ++]
+    "xia": "noble", # [!code ++]
+
+    # Linux Mint Debian Edition
+    "faye": "bookworm",
+
+    # MX Linux
+    "libretto": "bookworm",
+}
+
+class FilterModule:
+    def filters(self):
+        return {
+            "lsb_mapper": self.translate_codename
+        }
+
+    def translate_codename(self, codename: str):
+        return CODENAME_MAP[codename]
+----
+
+Granted, this means that the plugin will need some maintenance over time, but adding a few lines of code every couple of years (Debian's release cadence at the time of this writing) is not the end of the world.
+
+Then, we can also adjust our original task to add Docker's repository, so that it works for Debian- and Ubuntu-based distributions:
+
+[source, yaml]
+----
+- name: add docker repositories
+  vars: # [!code ++]
+    os_family: "{{ ansible_facts.os_family | lower }}" # [!code ++]
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/debian # [!code --]
+    signed_by: https://download.docker.com/linux/debian/gpg # [!code --]
+    uris: https://download.docker.com/linux/{{ os_family }} # [!code ++]
+    signed_by: https://download.docker.com/linux/{{ os_family }}/gpg # [!code ++]
+    suites: ["{{ ansible_lsb.codename | lsb_mapper }}"]
+    components: [stable]
+    state: present
+    enabled: true
+    architectures: amd64
+----
+
+But there are certain distributions that do not have code names, and inherit the one from their parent e.g., Pop!_OS or Zorin OS.
+
+In those cases, this task will fail to find the correct key in the `CODENAME_MAP`; in fact, this will also fail for Debian and Ubuntu themselves! This subtle bug can be addressed easily by returning the original code name when nothing is found:
+
+[source,python,title=filter_plugins/lsb_mapper.py]
+----
+class FilterModule:
+    def filters(self):
+        return {
+            "lsb_mapper": self.translate_codename
+        }
+
+    def translate_codename(self, codename: str):
+        return CODENAME_MAP[codename] # [!code --]
+        return CODENAME_MAP.get(codename, codename) # [!code ++]
+----
+
+This looks a bit funny, but it's the easiest way to ensure a valid string is returned from a dictionary lookup in Python.

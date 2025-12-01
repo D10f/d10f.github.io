@@ -1,0 +1,47 @@
+= Startup Commands On Linux
+D10f <devontheroof@pm.me>
+v0.1, 2024-09-14
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: 
+:keywords: shell bash linux
+:technologies: shell
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+...
+
+== At Scheduled Intervals
+
+=== Cronjob
+
+=== Systemd Timers
+
+== At A Later Time
+
+// at command
+
+== On Startup
+
+// Xinit
+// Equivalent for Wayland
+
+https://thelinuxcode.com/use-etc-rc-local-boot/
+https://www.jamescherti.com/ansible-config-etc-rc-local-linux-systemd/
+https://wiki.archlinux.org/index.php/XDG_Autostart
+
+== On Certain Events
+
+Discuss Dbus, notify watchers, etc.
+
+=== Startup
+
+// https://specifications.freedesktop.org/autostart-spec/0.5/
+
+=== User Login
+
+=== Lock/Unlock
+
+=== Suspend/Wake Up

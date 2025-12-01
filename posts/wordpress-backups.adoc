@@ -1,0 +1,192 @@
+= WordPress Backups
+D10f <devontheroof@pm.me>
+v2, 2021-05-22
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: Plan your backup strategy for WordPress deployments using Docker, or installed directly on the OS.
+:keywords: linux, docker, wordpress, bash, backups
+:technologies: shell docker
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+There are two types of people: those who make backups, and those who have never lost any data.
+
+== Creating Backups
+
+Losing data can happen for a variety of reasons, from hardware failure to software updates gone wrong. No matter the reason, a system administrator should have a backup strategy in place to ensure that when this happens things can get back to normal with as little downtime and data loss as possible.
+
+A WordPress site can be divided into two big data components: the database components and the file system components. The database contains things like post and publications, user accounts, passwords and other related settings. The file system deals with bare-bones files that make WordPress work, including themes and plugins, as well as any user-media that was uploaded. Let's start with the database contents.
+
+To create a backup of the database we can run one of these commands:
+
+[source,console]
+----
+$ mysqldump -u $db_user -p${db_pass} $db_name > filename.sql
+$ mysqldump -u $db_user -p${db_pass} $db_name | gzip -9 > filename.sql
+----
+
+IMPORTANT: Starting with MariaDB 10.1, exclusive utilities were introduced that should be used instead of the tools that were available and compatible with MySQL.
+
+However, it's often used in conjunction with another command to provide compression as these type of data dumps tend to grow in size rather quickly. This is a game of balance between storage efficiency and CPU processing &mdash; both during the backup and restore processes &mdash; so you'll have to choose whichever option works best.
+
+To create a backup of the file system files we use this command:
+
+[source,console]
+----
+$ tar -czvf backup_name.tar.gz -C /var/www/html .
+----
+
+IMPORTANT: I find it easier to use the `-C` flag to create archives with the tar command. However, mind that this won't create absolute paths and when restoring the site you'll have to use this option as well.
+
+== Restoring A WordPress Site
+
+First, the database. Make sure to have one instance of MySQL/MariaDB already up and running, then run one of these commands depending on the format of the data dump:
+
+[source,console]
+----
+$ sudo mysql -u $db_user $db_name < filename.sql # <1>
+$ gunzip < filename.sql.gz | sudo mysql -u $db_user $db_name # <2>
+----
+<1> If the backup is not compressed
+<2> If the backup is compressed.
+
+As for the file system files, we need a location to unarchive the files first and foremost, typically `/var/www/html`.
+
+[source,console]
+----
+$ tar -xf backup_name.tar.gz -C /var/www/html # <1>
+----
+<1> Mind the use of the `-C` flag, this will depend on how the original archive was made.
+
+Almost done! For good measure, run this command to update file permissions and ownership on the new system.
+
+[source,console]
+----
+$ chown -R your-user:www-data /var/www/html
+$ find /var/www/html -type d -exec chmod 755 {} \;
+$ find /var/www/html -type f -exec chmod 644 {} \;
+$ find /var/www/html/wp-content -type d -exec chmod 775 {} \;
+$ find /var/www/html/wp-content -type f -exec chmod 664 {} \;
+----
+
+== Script, Automate
+
+Manually running commands to create backups is not very efficient. It's also not very safe to do, as sensitive information may accidentally leak into the shell's history, and anyone who's monitoring running processes will be able to see all the passwords in clear text! Let's create a couple of scripts to automate this task.
+
+[source,bash,title=db_backup.sh]
+----
+#!/bin/bash
+
+db_user=your_db_username
+db_pass=your_db_user_password
+db_name=your_db_name
+filename=your_site_`date +%F_%H%M`.sql.gz
+
+mysqldump -u $db_user -p${db_pass} $db_name | gzip -9 > /path/to/backup/$filename
+----
+
+[source,bash,title=wp_backup.sh]
+----
+#!/bin/bash
+
+filename=your_site_`date +%F_%H%M`.tar.gz
+
+tar -czf $filename -C /var/www/html .
+----
+
+Now, we can run the scripts to create a new backup whenever we want, but this still has a few drawbacks. Mainly, we still have to manually log in to the server and do this manually, which may be fine for a handful of sites but not if there are dozens to administer. So let's put this into a cron job so that our system handles this automatically at whatever interval we specify.
+
+TIP: We could put this inside a single file as well. However, database content is likely to change more frequently than theme and plugin data, and don't need to be backed up at the same rate. It's up to you.
+
+[source,bash]
+----
+# min hour dom mon dow command
+  30  5    *   *   *   /bin/bash /root/db_backup.sh >/dev/null 2>&1
+  30  6    *   *   6   /bin/bash /root/wp_backup.sh >/dev/null 2>&1 # <1>
+----
+<1> You can also use names for some of these fields, like "sat" for Saturday or "apr" for April (not that I would recommend running backups once a year!).
+
+TIP: Try not to run potentially intensive tasks all at the same time. This is probably fine for a few small sites, just keep in mind that the more files to back up the longer this will take, and the more resources it will consume.
+
+Notice that the location of the scripts. The `/root` directory is like a regular user's home directory, but for the root user. The thing is, these scripts still contain sensitive information, and it's best to make this as difficult to gain access to in case of security breach. To that end, change the ownership and permissions of the scripts and move them to their new location. When you add a new entry to `cron`, you'll have to run `sudo crontab -e` so that these scheduled tasks run as sudo.
+
+[source,console]
+----
+$ sudo chown root: {db,wp}_backup.sh
+$ sudo chmod 700 {db,wp}_backup.sh
+$ sudo mv /home/user/{db,wp}_backup.sh /root # <1>
+$ sudo crontab -e
+----
+<1> Make sure to specify the right location for your scripts, of course.
+
+== Docker Containers
+
+When considering our backup strategy we might encounter setups where Docker containers are used, as it's increasingly common &mdash; let's not kid ourselves, it's well past the point of being trendy and more of _de facto_ standard, and has been for some time. The good news is that the same backup files will work regardless of how we decide to deploy our WordPress site.
+
+The overall process is largely the same as well, so it's really a matter of figuring out how to get data out of the container and to a save permanent location. In the case of the database, there's should be a built-in utility that can be used directly even on a live database:
+
+[source,console]
+----
+$ docker exec -i <database_conatiner_id> \
+    mysqldump \
+        -u${db_user} \
+        -p${db_pass} \
+        ${db_name} \
+    | gzip -9 < filename.sql.gz
+----
+
+This example attaches to a running container and runs the `mysqldump` command which outputs the resulting file to standard output, and we capture and redirect it to our file. Simple enough, not much to think about as it's pretty much the same (again, mind the spacing when entering the credentials).
+
+If you are using some form of secret management solution you won't know in advance the credentials as these can rotate at any time depending on the provider. What you can do in this case is provide a command to be executed by the shell _inside_ the container, without expanding those values in the current shell:
+
+[source,console]
+----
+$ docker exec -i <database_conatiner_id> \
+    bash -c 'mysqldump \
+        -u$(cat /run/secrets/mariadb_root_user) \
+        -p$(cat /run/secrets/mariadb_root_pass) \
+        $(cat /run/secrets/mariadb_db_name)' \
+    | gzip -9 < filename.sql.gz
+----
+
+To restore a database while using Docker, it's once again very similar: make sure you have a database already running (this means having a container instance running) and attach to it in order to execute the same command as before, providing the backup from the host.
+
+[source,console]
+----
+$ docker exec -i <container_id> \ # <1>
+  mysql -u${db_user} -p${db_pass} $db_name < filename.sql
+
+$ gunzip < filename.sql | docker exec -i <container_id> \ # <2>
+  mysql -u${db_user} -p${db_pass} $db_name
+----
+<1> Uncompressed data backup.
+<2> Compressed data backup.
+
+As before, be sure to pick the right command based on whether the input data is compressed or not.
+
+For the file system components, since there's no dedicated utility we should spin a temporary container and mount the volumes we're interested in, and create the archive from there. In this example, I'm using a WordPress image for the temporary container as it's guaranteed to already exist in the host downloaded images, but you can use a different one too (so long it has the tar command installed).
+
+[source,console]
+----
+$ docker run --rm -i \
+      --mount type=bind,src=${HOST_BACKUP_DIR},dst=/backup \
+      --mount type=volume,src=${WP_DATA_VOLUME},dst=/mnt/data,readonly=true \
+      wordpress:php8.2-fpm \
+      tar -czf /backup/filename.tar.gz -C /mnt/data .
+----
+
+The restore process is nearly identical, see if you can spot the differences (not a trick question):
+
+[source, console]
+----
+$ docker run --rm -i \
+  --mount type=bind,src=${HOST_BACKUP_DIR},dst=/backup/filename.tar.gz \ # <1>
+  --mount type=volume,src=${WP_DATA_VOLUME},dst=/var/www/html,readonly=false \ # <2>
+  wordpress:php8.2-fpm \ # <3>
+  tar -xf /backup/filename.tar.gz -C /var/www/html
+----
+<1> Mount the archive file somewhere in the container.
+<2> Do not mount volume data as read only as we want to overwrite the contents.
+<3> Using WordPress image for convenience, as it's pretty much guaranteed to exist in the server already, but any image with the tar command would do.

@@ -1,0 +1,38 @@
+= Vitest Common Recipe Cheat Sheet
+D10f <devontheroof@pm.me>
+v1, 2025-10-24
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: A quick cheat sheet for common tasks that I can never remember how to do properly
+:keywords: nodejs vitest typescript
+:technologies: vitest typescript
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+"Recipes" for common use cases while writing tests.
+
+== Mocking Modules
+
+Let's start with something simple. Mocking modules imported into our code is a fairly common thing to do, and for good reason, as it makes following the logic much simpler. And it's fairly easy to do, too:
+
+[source,typescript,title=index.test.ts]
+----
+import { vi } from 'vitest';
+
+vi.mock('node:fs', () => ({
+	realpathSync: vi.fn(),
+	readdirSync: vi.fn()
+}));
+----
+
+== Hoist Your Mock Function Declarations
+
+All mocked modules using https://vitest.dev/api/vi.html#vi-mock[vi.mock] or similar are hoisted to the top of the file by Vitest. That means that any function declarations are not yet available to those mocked modules, and trying to run code like this will result in an error:
+
+
+[literal]
+----
+Caused by: ReferenceError: Cannot access 'mockedModule' before initialization
+----

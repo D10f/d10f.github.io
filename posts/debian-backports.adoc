@@ -1,0 +1,119 @@
+= Upgrading Packages In Debian Stable
+D10f <devontheroof@pm.me>
+v1, 2024-10-24
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: How to upgrade package from the Debian stable repositories.
+:keywords: linux debian backports package-management
+:technologies: debian shell linux
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Debian has gained a well deserved reputation of being a robust and reliably system. Part of that comes from the reliance on extensive testing of the packages available from the official repositories. However, these can be a little behind in terms of version numbers which may cause them to lack features or bug fixes. This isn't an issue most of the time (latest doesn't necessarily mean better), but it can become an issue.
+
+== Install From The Backports Repository
+
+The _backports_ repository offers re-compiled packages using libraries available for the current stable branch, albeit at higher versions of those available in the regular repositories. While these packages haven't been tested as thoroughly, they are the best choice for using more up to date software without risking the stability of the system. To install packages from this repository, first you need to tell the system where to download them from, by adding an entry to `/etc/apt/sources.list`:
+
+`deb http://deb.debian.org/debian stable-backports main`
+
+This uses the classic one-line format, and it will work just as well, but you can also use the now standard Deb822 format instead. For that, create a new file in `/etc/apt/sources.list.d` with a `.sources` extension and the following contents:
+
+[source,title="/etc/apt/sources.list.d/debian-backports.sources"]
+----
+# Debian backports
+Types: deb
+URIs: http://deb.debian.org/debian
+Architectures: amd64
+Suites: stable-backports
+Components: main
+Enabled: yes
+----
+
+NOTE: Instead of "stable" you can specify the codename of the current stable branch (bookworm, as of this writing).
+
+To confirm that everything works, update the cache with a simple `apt update` command, and check that there aren't any errors reported in the console. If all goes well, you are now ready to install packages from the _backports_ repository. This should be fairly easy, all that is needed is to specify the target release alongside the repository name. For example:
+
+[source,console]
+----
+$ sudo apt install cockpit/stable-backports
+----
+
+At the time of this writing, `cockpit` is at version `287` whereas the _backports_ version is at a much higher `331`. This would allow us to install this version in case we needed it for whatever reason, at the cost of possibly introducing some instability due to lack of testing.
+
+You could also use the `-t, --target-release` flag instead:
+
+[source,console]
+----
+$ sudo apt -t stable-backports install cockpit
+----
+
+== Install From Testing Branch
+
+When neither the stable nor the backports repositories have a package that you need at the desired version, you can take things one step further and install from the _testing_ branch. For example, at the time of this writing there is not package available for `nftables` in the _backports_ repository:
+
+[source,console]
+----
+$ apt show nftables/stable-backports
+----
+
+[literal]
+Package: nftables
+State: not a real package (virtual)
+N: Release 'stable-backports' for 'nftables' was not found
+N: Release 'stable-backports' for 'nftables' was not found
+N: No packages found
+
+This is unfortunate, since there's an outstanding bug within `nftables` that is already fixed in a later version. This is where the _testing_ branch can really help by offering packages that are at a higher version.
+
+Before adding the appropriate repositories to your list, it's important that you set a preferences &mdash; also known as pinning down the repository sources &mdash; to avoid installing any packages from the _testing_ accidentally. As mentioned, and as the name suggests, this packages are still undergoing testing and may introduce bugs and other stability issues. You want to make sure that you only install them explicitly. +
+For that, create a new configuration file in `/etc/apt/preferences.d/99-debian-testing` &mdash; the name does not matter, but rules specified here are processed in alphabetical order.
+
+[source]
+----
+Package: *
+Pin: release a=testing
+Pin-Priority: 50
+----
+
+This ensures that all packages coming from the testing repository will have a priority of 50, which is lower than the default of 500 from the stable repositories. This way, if a package with the same name exists on both repositories, the stable one will take precedence. +
+The backports repository has a default priority of 100 which is why you don't need to do this step when adding the backports repository alone.
+
+Now, update the repository list by adding the appropriate entries for `apt` to find. Use whatever format you prefer, I'll use Deb822-style:
+
+[source,title="/etc/apt/sources.list.d/debian-testing.sources"]
+----
+# Debian testing and updates
+Types: deb deb-src
+URIs: http://deb.debian.org/debian
+Architectures: amd64
+Suites: testing testing-updates
+Components: main
+Enabled: yes
+
+# Debian testing security
+Types: deb deb-src
+URIs: http://security.debian.org/debian-security
+Architectures: amd64
+Suites: testing-security
+Components: main
+Enabled: yes
+----
+
+Same as before, make sure there are no errors when running `apt update` to refresh the repository cache. To install something from this repository, specify that as part of the package name:
+
+[source,console]
+----
+$ apt show nftables/testing
+----
+
+[literal]
+Package: nftables
+Version: 1.1.1-1
+...
+APT-Sources: http://deb.debian.org/debian testing/main amd64 Packages
+...
+
+At the time of this writing, the stable repository has `nftables` at version 1.0.6 which has a bug that makes it crash when used alongside `firewalld`. Now, I can use this version, hopefully without issues.

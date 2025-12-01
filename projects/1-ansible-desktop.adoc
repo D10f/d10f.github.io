@@ -1,0 +1,16 @@
+= Ansible Desktop
+D10f <devontheroof@pm.me>
+v1, 2024-07-07
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: 
+:keywords: 
+:technologies: ansible shell
+:source-highlighter: pygments
+:icons: font
+
+A collection of Ansible roles that I use to configure my personal workstation between fresh installs.
+
+https://codeberg.org/D10f/ansible-desktop[See More,window="_blank"]
+

@@ -1,0 +1,18 @@
+= Service Management
+D10f <devontheroof@pm.me>
+v1, 2025-03-03
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: What is a service on Linux, and how to manage them
+:keywords: linux debian systemd sysvinit
+:technologies: debian linux
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Preamble about services and daemons...
+
+== System Services
+
+== Example: Mullvad VPN

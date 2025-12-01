@@ -1,0 +1,13 @@
+// tag::title[]
+= Ruby
+// end::title[]
+
+This is a language that has been on my radar for a while, but unfortunately it's been in my ever-growing list of _things to look into at some point_ for far too long.
+
+I immediately caught some hints of Perl here and there, but the syntax felt more intuitive or at least more similar to what I'm already used to compared to other languages.
+
+.Day 1
+[,ruby]
+----
+include::day1.rb[]
+----

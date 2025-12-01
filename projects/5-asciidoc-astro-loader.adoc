@@ -1,0 +1,16 @@
+= Asciidoc Astro Loader
+D10f <devontheroof@pm.me>
+v1, 2025-10-31
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: 
+:keywords: asciidoc asciidoctor astro loader collections
+:technologies: typescript astro asciidoc
+:source-highlighter: pygments
+:icons: font
+
+An Astro custom loader function to create collection out of documents written in Asciidoc format.
+
+https://codeberg.org/D10f/asciidoc-astro-loader[See More,window="_blank"]
+

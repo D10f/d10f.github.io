@@ -1,0 +1,74 @@
+= Cryptography In The Browser
+D10f <devontheroof@pm.me>
+v1, 2024-09-23
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: A brief introduction to cryptography in the browser using the Crypto API.
+:keywords: javascript, typescript, browser, cryptography, crypto
+:technologies: javascript typescript
+:source-highlighter: pygments
+:icons: font
+:y: icon:check[]
+:toc:
+
+WIP!
+
+== Key Usages
+
+Each algorithm used to generate or derive keys can be used for certain tasks.
+
+.Algorithms and their respective key usages
+[%autowidth%header, cols="1,8*^"]
+|===
+|| Derive Key | Derive Bits | Encrypt | Decrypt | Wrap | Unwrap | Sign | Verify
+
+| HKDF              | {y} | {y} |     |     |     |     |     |
+| PBKDF2            | {y} | {y} |     |     |     |     |     |
+| X25519            | {y} | {y} |     |     |     |     |     |
+| ECDH              | {y} | {y} |     |     |     |     |     |
+| AES-KW            |     |     |     |     | {y} | {y} |     |
+| AES-CBC           |     |     | {y} | {y} | {y} | {y} |     |
+| AES-CTR           |     |     | {y} | {y} | {y} | {y} |     |
+| AES-GCM           |     |     | {y} | {y} | {y} | {y} |     |
+| RSA-OAEP          |     |     | {y} | {y} | {y} | {y} |     |
+| HMAC              |     |     |     |     |     |     | {y} | {y}
+| RSASSA-PKCS1-v1_5 |     |     |     |     |     |     | {y} | {y}
+| RSA-PSS           |     |     |     |     |     |     | {y} | {y}
+| ECDSA             |     |     |     |     |     |     | {y} | {y}
+| Ed25519           |     |     |     |     |     |     | {y} | {y}
+
+|===
+
+Keep in mind that in the case of asymmetric cryptography, each key undoes the operation of its counterpart. For example, in the `RSA-OAEP` algorithm, the public key can be used only for encryption, while the private key can only be used for decryption.
+
+== External Formats
+
+.Supported import/export format per algorithm
+[%autowidth%header]
+|===
+|| Format
+
+| Raw       | {y}
+| PKCS#8    |     
+| SPKI      |     
+| JWK       |     
+
+|===
+
+=== PKCS8
+
+[source,typescript]
+----
+const wrappedPrivateKey = await window.crypto.subtle.wrapKey("pkcs8", keyPair.privateKey, mKey, { name: 'AES-KW' });
+----
+
+The following does not work due to inherit restriction of the `AES-KW` algorithm, which requires the input to be a divisible by 64. While you could artificially pad the input to satisfy this criterion, it's best to use the more standard `AES-GCM` providing an _initialization vector_.
+
+[source,typescript]
+----
+const wrappedPrivateKey = await window.crypto.subtle.wrapKey("pkcs8", keyPair.privateKey, mKey, { name: 'AES-GCM', iv: new Uint8Array(12) });
+----
+
+Keep in mind that in this case the _iv_ needs to be stored alongside the encrypted key in order to be able to decrypt it
+

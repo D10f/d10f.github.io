@@ -1,0 +1,15 @@
+= Bookmark Manager
+D10f <devontheroof@pm.me>
+v1, 2024-07-07
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: sdfsd
+:keywords: bookmark laravel vue inertia
+:technologies: tailwind vue laravel
+:source-highlighter: pygments
+:icons: font
+
+A self-hosted and privacy-respecting bookmark manager and home page for your browser. It features a dynamic and customizable UI, fuzzy find search, hierarchical structure compatible with browser bookmarks, import/export and more.
+
+https://github.com/D10f/bookmark_manager[See More,window="_blank"]

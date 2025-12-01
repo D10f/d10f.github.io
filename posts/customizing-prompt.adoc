@@ -1,0 +1,195 @@
+= Customizing The Shell Prompt
+D10f <devontheroof@pm.me>
+v2, 2022-12-15
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: Configure the shell prompt to show useful information while looking better than out of the box stock.
+:keywords: shell bash prompt customization
+:technologies: shell
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+A shell is program that provides an interface to the operating system, by processing input in the form of text. The prompt is the part of the shell that disappears while a command is being processed, or running, and comes back when it's ready to accept more input. This post explores how this works and how to customize it to fit your needs.
+
+== Different Types Of Shells
+
+Over the decades there have been many types of shell interpreters that provide different sets of features. Many of the concepts are similar but the syntax of built-in capabilities change.
+
+The rest of this post assumes https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html[Bash], as being one of the most popular and widely implemented in most Linux distributions by default.
+
+== Customize The Prompt
+
+Whether it's for productivity reasons or aesthetic appeal, people like to customize the shell prompt in their computers. It's a great place to display useful information about the system such as the hostname, current directory or background jobs.
+
+Head over to the ~/.bashrc script file add this at the end of the file:
+
+[source,bash]
+----
+PS1='\u@\h:\w\$'
+----
+
+There are a few https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html[special characters that Bash recognizes] and substitutes with variable information such as username, hostname or working directory. Some of these escape sequences affect the terminal itself instead of printing something, and can be used to change the text color or move the cursor to another location.
+
+[source,bash]
+----
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+----
+
+This last snippet is the same as the one before, but printing each part of the prompt in a different color. Unfortunately it's hard to visually parse what's happening.
+
+== Terminfo Escape Sequences
+
+The terminfo database holds information about the capabilities of the terminal emulator. We can leverage this for customizing our prompt in a much cleaner syntax, while at the same time adding a few capabilities. We use the `tput` command to access the terminfo database and get the escape sequence that we want:
+
+[source,bash]
+-----
+PS1='$(tput setaf 10)\u@\h$(tput sgr0):$(tput setaf 75)\w$(tput sgr0)\$ '
+-----
+
+This already looks much better, albeit still a bit cryptic, so let's break it down. The `setaf` escape sequence sets the foreground color of the prompt to a numeric value that matches a different color out of 256 colors. While not all terminals support 256 colors, the most popular ones do. The `sgr0` sequence resets all escape sequences applied.
+
+We can take things a step further by moving the escape sequences into separate variables, making things easier to use and read.
+
+[source,bash]
+----
+GREEN=$(tput setaf 10)
+BLUE=$(tput setaf 75)
+RESET=$(tput sgr0)
+
+PS1='${GREEN}\u@\h${RESET}:${BLUE}\w${RESET}\$ '
+----
+
+There is still one problem with this script which we introduced when using `tput`. If the command line input is too long, it will wrap around and start over overwriting what we have written previosuly. This is a visual bug as our command would still run normally, but it's annoying nonetheless, and important to understand to customize our prompt using external functions later on.
+
+For now, the solution is to use Bash's escape characters for non-printable content. This will tell the terminal where a new sequence starts so that it can keep track of the correct cursor position.
+
+[source,bash]
+----
+PS1='\[$GREEN\]\u@\h\[$RESET\]:\[$BLUE\]\w\[$RESET\]\$ '
+----
+
+This hurts readability a bit, so if you prefer you could add the wrapping escape characters above in the variable declaration instead.
+
+== ASCII Color Codes
+
+You can copy/paste this code to print a table with all the available colors that you can pass to `tput`. I got it from a https://mywiki.wooledge.org/BashFAQ/037[fantastic website with tons of resources to learn more about the shell].
+
+[source,bash]
+----
+colors256() {
+    local c i j
+
+    printf "Colors 0 to 15 for the standard 16 colors\n"
+    for ((c = 0; c < 16; c++)); do
+        printf "|%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n\n"
+
+    printf "Colors 16 to 231 for 256 colors\n"
+    for ((i = j = 0; c < 232; c++, i++)); do
+        printf "|"
+        ((i > 5 && (i = 0, ++j))) && printf " |"
+        ((j > 5 && (j = 0, 1)))   && printf "\b \n|"
+        printf "%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n\n"
+
+    printf "Greyscale 232 to 255 for 256 colors\n"
+    for ((; c < 256; c++)); do
+        printf "|%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n"
+}
+----
+
+== Embedding Custom Functions
+
+One really useful thing to do while customizing our prompt is to write our own commands and use them at the prompt. This will give us all the flexibility Bash has to offer to create prompts that adjust to our needs.
+
+[source,bash]
+----
+source /usr/lib/git-core/git-sh-prompt
+
+PS1='\[$GREEN\]\u@\h\[$RESET\]:\[$BLUE\]\w \[$ORANGE\]$(__git_ps1 "%s") \[$RESET\]\$ '
+----
+
+Some projects like Git come with https://github.com/git/git/tree/master/contrib/completion[ready to use functions] that we can incorporate in our prompt very easily. In this example we append a function that checks whether the current directory is being tracked by git and, if so, prints the current checked out branch on that particular project.
+
+Depending on your distribution this script may not be included by default, but can be found in the git repository as linked above.
+
+Let's write our own function that checks the number of background jobs:
+
+[source,bash]
+----
+function bg_jobs() {
+    local job_count
+    job_count=$(jobs | wc -l)
+
+    if [ "$job_count" -eq 0 ]; then
+        printf "" >&2
+    else
+        printf "%s " "$job_count"
+    fi
+}
+
+PS1='\[$GREEN\]\u@\h\[$RESET\]:\[$BLUE\]\w \[$ORANGE\]$(__git_ps1 "%s") $(bg_jobs)\[$RESET\]\$ '
+----
+
+We can test this works by running `sleep 10 &` which would run the `sleep` command in the background, giving us the opportunity to see a glorious number 1 telling us there's one background process running.
+
+WARNING: Adding functions to the .bashrc file will initialize them on every new shell instance. This will add some overhead, albeit small, that can add up to a noticeable delay when launching new shells. An alternative to this is write functions that are available in your path.
+
+
+Notice that when there are no jobs the output is discarded. This is to prevent a weird looking empty space in the prompt when there's no useful information to display. This pattern becomes much more obvious when using multiple functions at once.
+
+== Using Font Icons
+
+Now that we know how to use different colors and output whatever information we like with functions, let's spice things up with icons. Since most icons are simply text, all we need is to download and setup our terminal emulator of choice to use a font compatible with icons.
+
+https://www.nerdfonts.com/[Nerd Fonts] is a collection of fonts that support this, and includes popular fonts that have been "patched" with this capability. Download whatever font(s) you want to `~/.local/share/fonts`. This should location will be picked up by your terminal emulator and other programs whenever you want to change the font that program uses. Check your the documentation of your distribution to know more about how fonts should be setup if this doesn't work. To test if things are working, open a new terminal window and copy/paste one of the icons from their cheatsheet. If it shows up correctly, we can proceed.
+
+At this point you can directly copy/paste whatever icons you want from the cheat-sheet to be part of the prompt. Another approach that can be useful for a more "programatic" approach, or simply to remember the exact name of the icon for future reference, is to use the https://github.com/ryanoasis/nerd-fonts/wiki/Icon-Names-in-Shell[shell script provided by Nerd Fonts]. This makes the same icons available as variables.
+
+For example, if we wanted to display a cog icon in front of the number of jobs running in the background, we could do this:
+
+[source,bash]
+----
+source ~/.local/bin/nerd-fonts/i_all.sh
+
+function bg_jobs() {
+  local job_count
+  job_count=$(jobs | wc -l)
+
+  if [ "$job_count" -eq 0 ]; then
+    printf "" >&2
+  else
+    printf "%s %s " "$i_fa_cog" "$job_count"
+  fi
+}
+----
+
+Or simply copy/paste the icon directly and write the reference down somewhere, whatever approach works best for you.
+
+IMPORTANT: Since I wrote this I have since moved to a much simpler approach: copy the single character that I need directly as part of the prompt. I realized that I don't use this little functions nearly as much, and the icon itself can be more descriptive, helping ease the rather cryptic PS1 variable.
+
+== Putting Things Together
+
+With colored output, icons and custom functions we are ready to create a custom prompt that adjust to our needs. I like to keep things simple, so for now all I will do is add an icon in front of each section of the prompt and use a dedicated color for it.
+
+[source,bash]
+----
+PS1='\[$BOLD\]\[$GREEN\]$i_mdi_desktop_tower \h \[$BLUE\]$i_fa_folder \W \[$ORANGE\]$(__git_ps1 "%s") \[$TEAL\]$(bg_jobs)\[$RESET\]\$ '
+----
+
+What I'd like to do now to improve things is create dedicated functions for each section of the prompt. Each function will be responsible for printing it's own color escape sequence and icon. Additional logic can also be included here, such as the background jobs function we wrote earlier. This will allow me to write the prompt almost in a much more readable way.
+
+[source,bash]
+----
+PS1='$(bold)$(host_icon) \h $(folder_icon) \W $(git_sh)$(docker_count)$(bg_jobs)$(prompt)'
+----
+
+Remember, the `tput` function needs to be escaped when used in the prompt or Bash will lose track of the cursor position. But now, the escaping happens inside each function that prints it's own color escape sequence. Because of this there's another escape sequence that Bash needs to use for non-printable characters: `001` and `002`.
+
+Also it's important, in this example, to keep track of the spaces. We don't want our functions to output emtpy spaces when there are no background jobs to print, or we're not inside a directory tracked by git. This is why they are all written back to back without spaces, and they all output one extra space at the end when needed.

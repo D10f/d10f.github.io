@@ -1,0 +1,33 @@
+= Project Migration
+D10f <devontheroof@pm.me>
+v1, 2025-11-28
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: A step by step walk though on how to manage a complete re-write of a project while preserving the git history
+:keywords: git scm version-control project-management
+:technologies: git
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Over the years, I've re-written my personal website many times. One of the reasons was to untangle spaghetti code that pilled on (which by the way is surprisingly pleasant to replace with "real" coding standards), but also to explore new technologies that I felt curious about. I began using nothing but the barebones of the web: HTML, CSS and JavaScript, and eventually upgraded it to include things like Sass or TypeScript. I even did a complete re-write to migrate over to WordPress entirely for a while, and then again to Next.js. +
+Now, I intend to migrate from Next.js to Astro, which is not _all_ that different (for a simple site like this, anyway) but it does mean deleting a lot of files, and that's always scary. Let's see how this can be done without making a complete mess out of our git commit history, in case we want to roll back to it later, or just review it.
+
+== Creating A New Branch For The Migration
+
+First, create a new branch for the migration.
+
+[source,console]
+----
+git checkout -b migration/astro-rewrite
+----
+
+Optionally, create a new tag at this point to be able to go back later if you need to:
+
+[source,console]
+----
+git tag nextjs-final 5fa87
+----
+
+

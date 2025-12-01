@@ -1,0 +1,126 @@
+= Customizing The Firefox UI
+D10f <devontheroof@pm.me>
+v1, 2025-03-11
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: A quick guide to getting started with customizing Firefox's UI layer.
+:keywords: firefox browsers customization
+:technologies: firefox css
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+While this article is largely aimed at Firefox, the same steps should work for any forks of the project such as LibreWolf. To avoid repeating myself here, assume that every time I mention Firefox I'm also referring to any derived browsers as well.
+
+== Prerequisites
+
+=== The "chrome" directory
+
+TIP: The term "chrome" refers to any visible aspect of a browser aside from the webpages themselves. It appears this used to be a slang automotive enthusiasts would use to refer customizing their cars with shiny features. It has no connection to Google Chrome, which was named ironically so as a pun with the aim to create a minimal, distraction-free experience for their users.
+
+When Firefox launches, it will read the current profile in use and load things like custom preferences, extensions and of course, the topic of this article, styling rules. These styles are read from a CSS file located at `chrome/userChrome.css`. Make sure to create this location (both the directory and the file) if it doesn't already exist (see Appendix A).
+
+=== Enable The Browser Toolbox Mode
+
+This is a two-step process:
+
+1. Enable the option "Enable remote debugging" in the developers tools. Press `Ctrl` + `Shift` + `I` and move on to the "Settings", under the menu at the right-hand side.
+
+2. Navigate to `about:config` up at the address bar, and set the option "toolkit.legacyUserProfileCustomizations.stylesheets" to true.
+
+IMPORTANT: In LibreWolf, you will find this setting available in the Settings > LibreWolf > "Allow userChrome.css customization".
+
+== Inspecting The Browser
+
+Even if you already know CSS, how do you know what selectors to use? That's when inspecting the browser's *chrome* can be helpful. To access the toolbox, press `Ctrl` + `Shift` + `Alt` + `I` and accept the incoming network request (should be from localhost) at the prompt.
+
+CAUTION: This can be a vector for attack which is why it's disabled by default. It's important that you don't accept any prompts like this if you didn't explicitly request them.
+
+To inspect elements freely, click on the element picker &mdash; you can focus it directly with the keyboard shortcut `Ctrl` + `Shift` + `C` &mdash; and hover your mouse over any of the elements of Firefox. This should highlight them also in the inspector, the box describing the markup of each element. On the right, you can start manipulating elements in real time by entering CSS rules, and see the changes take effect until you like what you see.
+
+For example, let's place the new tab button all the way to right of the browser toolbar, and remove the all tabs button.
+
+.Before making changes in the browser inspector.
+image::firefox_custom_toolbar_before.jpg[Before making changes in the browser inspector]
+
+This seems easy enough, change the display property to *none* on the all tabs button, and create a margin of *auto* on the new tab button.
+
+.After making changes in the browser inspector.
+image::firefox_custom_toolbar_after.jpg[After making changes in the browser inspector]
+
+Once you are happy with the changes you've made, move on to the "Changes" tab (still within the inspector view). You will see there all the changes that you've made and copy the entire rules, which you can then paste inside that `userChrome.css` file that you created earlier. Keep in mind that changes will only take effect after you restart the browser.
+
+TIP: If you are new to CSS, take your time and play around. There's no rush.
+
+One word of caution about this: the "Changes" tab will show you all the changes you've made to the chrome, including the ones that you may not want to include in your final CSS. I suggest to work slowly, making small changes at a time. Close the browser inspector and re-open it again to have a clean slate for the next change that you have in mind.
+
+.Changes made to the chrome.
+image::firefox_custom_toolbar_css_changes.jpg[Changes made to the chrome]
+
+== Organizing Your Code
+
+While you could write all of your CSS rules inside a single file, it can get out of hand very quickly. It's probably fine for a few rules but if you have multiple, you might want to create a dedicated file and use the `@import` CSS directive to keep things modular.
+
+For example, you may want to create a file called `toolbar.css` and import it from `userChrome.css`:
+
+[source,css,title="toolbar.css"]
+----
+#alltabs-button {
+    display: none;
+}
+
+#tabbrowser-arrowscrollbox-periphery {
+    margin-left: auto;
+}
+----
+
+[source,css,title="userChrome.css"]
+----
+@import "toolbar.css"
+----
+
+You can take things a bit further, if you want, and create directories that address specific sections of the browser. On time, you will find that this helps to keep things much more organized.
+
+This is what my current configuration looks like at the time of this writing:
+
+[source,css,title="userChrome.css"]
+----
+@import 'catppuccin/frappe.css';
+
+@import 'layout/desktop.css';
+@import 'layout/tablet.css';
+
+@import 'menubar/floating-menubar.css';
+@import 'menubar/hide-account-toolbar-button.css';
+
+@import 'navbar/change-overflow-menu-icon.css';
+@import 'navbar/remove-main-menu-button.css';
+@import 'navbar/remove-navbar-overflow-button.css';
+@import 'navbar/remove-save-to-pocket.css';
+@import 'navbar/remove-spacers.css';
+@import 'navbar/remove-star-icon.css';
+@import 'navbar/sort-navbar-items.css';
+
+@import 'tabs/hide-close-btn-one-tab.css';
+@import 'tabs/hide-close-btn-until-hover.css';
+@import 'tabs/hide-secondary-label.css';
+@import 'tabs/missing-tab-favicon.css';
+@import 'tabs/speaker-icon-always-visible.css';
+@import 'tabs/tab-label-color.css';
+@import 'tabs/tab-loading-indicator-color.css';
+@import 'tabs/tab-outline-color.css';
+
+@import 'titlebar/new-tab-button-push-right.css';
+@import 'titlebar/prevent-color-shift-when-not-focused.css';
+@import 'titlebar/remove-action-buttons.css';
+@import 'titlebar/remove-all-tabs-button.css';
+@import 'titlebar/remove-firefox-view-button.css';
+@import 'titlebar/remove-spacers.css';
+----
+
+== Appendix A
+
+To locate your current profile, navigate to `about:profiles` in the address bar. You should have at least one with fewer options and a text that reads "This is the profile in use". Whatever path shows in the "Root Directory", that's your profile location.
+
+

@@ -1,0 +1,520 @@
+= DIY Laravel Sail From Scratch
+D10f <devontheroof@pm.me>
+v2, 2023-01-30
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: Setting up our own local development environment for Laravel using Docker.
+:keywords: linux, docker, laravel
+:technologies: nginx shell docker laravel
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+The Laravel ecosystem comes with a very handy tool to spin up a local environment levering the benefits of containerization, with the use of Docker. At it's core, it's a docker-compose.yml file that contains a handful of services, wrapped around a utility CLI script to interact with the containers.
+
+== Motivation
+
+One of the best things about Laravel is the vibrant ecosystem of tools, utilities and services that exists. This makes for a great developer experience, faster builds shipped to customers, easier and more reliable deployments, etc. However, reaching for off-the-shelf solutions often comes with tradeoffs to consider depending on: lack customization options, difficult integration with different set of tools, and perhaps the most important tradeoff off them all, abstraction.
+
+Abstraction is great to hide complexity, is not only needed, but desirable, to be able to be productive while working with complex system with many moving parts. While that's all well and good, it also gets in the way of learning the tools being used, which in turns prevents us from using them effectively. Hence, the expression, "looking under the hood".
+
+That's exactly the motivation for this article. An exploration under the hood with the purpose of understanding how Laravel Sail manages to make things simpler for the inexperienced developer who only wants to get some work done.
+
+== Goals And Expectations
+
+Laravel Sail was released by the end of 2020 by the creator of Laravel himself, Taylor Otwell. In this relatively short period, at the time of this writing, Laravel Sail is already being used by over 500k developers around the world, and has received contributions from nearly 100 developers.
+
+Needless to say, the goal of this article is not to replace nor compete with Laravel Sail but rather learn from it. The nature of open source is to share and examine code with the purpose of learning and improving. With that in mind, the goal is to create a simplified version of Laravel Sail that works closely enough to the original.
+
+The final product will be a development environment that supports a standard Laravel installation, attached to a database and a Node.js development server for frontend asset bundling and hot module replacement.
+
+Nevertheless, it will be flexible enough to expand on the configuration to include additional services, such as Redis, found on the original Laravel Sail utility.
+
+== Prerequisites
+
+The only real requirement to follow along is Docker and Docker Compose. The latter should already be installed alongside the former in modern versions. In addition, a `Makefile` will be used as the wrapper for the containerized services but is not required. The commands run (outside the context of Docker) should be valid for any flavor of Linux but have not been tested for any other OS.
+
+== One Process, One Container
+
+One of the https://docs.docker.com/develop/develop-images/dockerfile_best-practices/[basic principles of containers] is to run processes in isolation from one another. Running a single process per container allows for "stateless" processes that can be easily replaced without affecting the overall behavior of the application. There are other benefits to this approach that are well documented, as well (along with their own drawbacks). In short, a complex application that requires of multiple processes to run should ideally use multiple containers as well.
+
+This is in contrast to what happens under the hood of Laravel Sail. Upon examining the source code we find a monolith container running multiple processes at once, with hundreds of dependencies installed and shipped down the wire every time the tool is being downloaded.
+
+Being dogmatic about best practices or coding standards is not the intent of this article. There is value in simplifying things, provided there is an understanding of the tradeoffs involved and the ultimate goal to be achieved. This makes sense for a project like Laravel Sail, a tool targeted at creating development environments only, and which has proven that is well capable of delivering on that promise.
+
+However, there are a number of downsides that we can easily work around by sticking to the basic principle of "one process, one container" as closely as possible.
+
+== Creating A Laravel Project
+
+According to the documentation, we need to have PHP and Composer installed before creating a new Laravel project. This is where Docker comes in &mdash; instead of installing this in our machine directly we'll run containers that have all the necessary dependencies, and run Laravel from there.
+
+Let's start by creating a new directory structure to keep things organized. At the root level we want to store configuration related to the project, that is, things like git, Dockerfiles, compose files, etc. The Laravel source code will go in its own dedicated directory (not technically required but will help to keep things organized):
+
+[literal]
+project/
+├── docker-compose.yml
+├── nginx/
+│   ├── nginx.conf
+│   └── Dockerfile
+├── php/
+│   └── Dockerfile
+└── src/
+
+[source,docker,title=php/Dockerfile]
+----
+FROM php:8.2-fpm AS base
+
+ARG UID
+ARG GID
+ENV UID=${UID}
+ENV GID=${GID}
+ENV PHP_USER=laravel
+
+WORKDIR /var/www/html
+
+RUN groupadd -g ${GID} ${PHP_USER} && \ # <1>
+    useradd -u ${UID} -g ${GID} ${PHP_USER} && \
+    sed -i -E "s/^(user|group) = www-data/\1 = ${PHP_USER}/g" /usr/local/etc/php-fpm.d/www.conf
+
+RUN apt-get update && apt-get install -y \ # <2>
+    libzip-dev \
+    zip \
+    git
+
+RUN docker-php-ext-install \ # <3>
+    zip \
+    pdo \
+    pdo_mysql
+
+FROM base AS composer # <4>
+RUN curl -sS https://getcomposer.org/installer | \
+    php -- --install-dir=/usr/local/bin --filename=composer
+USER ${PHP_USER}
+ENTRYPOINT ["composer"]
+
+FROM base AS app
+USER ${PHP_USER}
+CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
+----
+<1> Create new non-root user and group to run all the code inside the container.
+<2> The bare minimum dependencies required to startup Laravel. Depending on the needs of your app, you'll have to add more.
+<3> Some packages need to be installed and/or configured separately as PHP extensions.
+<4> We're specifying stages so that we can create multiple containers out of the same Dockerfile. One container will run the app while others will be used exclusively for administrative task such as installing packages or seeding the database.
+
+[source,docker,title=nginx/Dockerfile]
+----
+FROM nginx:1.23
+
+ARG UID
+ARG GID
+ENV UID=${UID}
+ENV GID=${GID}
+ENV NGINX_USER=laravel
+
+# <1>
+RUN groupadd -g ${GID} ${NGINX_USER} && \
+    useradd -u ${UID} -g ${GID} ${NGINX_USER} && \
+    sed -i -E "s/^user\s+(www-data|nginx)/user\t${NGINX_USER}/" /etc/nginx/nginx.conf
+
+EXPOSE 80
+----
+<1> Same as above, we want a dedicated non-root user to run our reverse proxy.
+
+[source,nginx,title=nginx.conf]
+----
+server {
+    listen 80;
+    server_name localhost;
+
+    root /var/www/html/public; # <1>
+    index index.php index.html;
+
+    resolver 127.0.0.11 ipv6=off valid=180s; # <2>
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args; # <3>
+    }
+
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        try_files $fastcgi_script_name =404;
+        set $path_info $fastcgi_path_info;
+        fastcgi_param PATH_INFO $path_info;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+        fastcgi_pass laravel:9000; # <4>
+    }
+}
+----
+<1> The root of the directory where the source code will be located (see docker-compose.yml).
+<2> A little hack to prevent a mildly annoying issue with Docker failing to resolve hostnames sometimes.
+<3> Instruct Nginx the order to resolve URLs. Possibly later can be updated to handle special routes separately
+<4> The domain name needs to match the name of the container (see docker-compose.yml). Port 9000 is the default port for PHP-FPM.
+
+[source,yaml,title=docker-compose.yml]
+----
+services:
+  nginx: # <1>
+    build:
+      context: .
+      dockerfile: nginx/dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/:/etc/nginx/conf.d/
+    ports:
+      - 8080:80
+    depends_on: # <2>
+      - laravel
+
+  laravel: # <3>
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+      target: app
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    volumes:
+      - ./src:/var/www/html # <4>
+
+  composer:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+      target: composer
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    volumes:
+      - ./src:/var/www/html
+----
+<1> The reverse proxy that will act as the entry point of the development setup.
+<2> Specify a dependency list to avoid issues with some containers running before others. This will help later on also to start only the containers that are needed.
+<3> Remember to match the service name with the domain name used in the Nginx configuration.
+<4> Mount the source code on all containers that need it. The target directory inside the container doesn't need to match, but it helps to simplify things.
+
+At this point we have a basic development environment ready, and we can create our Laravel application. Remember, we have a container dedicated to run this type of commands, but instead of starting that container, attaching to it, run the commands and then exit (just typing all of that is tiring), we can take advantage of Docker Compos's CLI &mdash; mind the dot at the end:
+
+[source,console]
+----
+$ docker compose run --rm composer create-project laravel/laravel .
+----
+
+And we can start our server, open up our browser and visit _localhost:8080_ to see the default Laravel screen.
+
+[source,console]
+----
+$ docker compose up -d nginx
+----
+
+[source,console]
+
+== Database And Artisan Containers
+
+We're going to run a dedicated container for the database, but luckily we don't need to build the image; we can just specify a new service inside the compose file. In addition, we want to have a dedicated container for running `artisan` commands, just like we did with `composer`, so we have to add a new stage to the Dockerfile and add a new service:
+
+[source,docker,title=php/Dockerfile]
+----
+FROM php:8.2-fpm AS base
+
+# ...
+
+FROM base AS artisan
+USER ${PHP_USER}
+ENTRYPOINT ["php", "/var/www/html/artisan"]
+----
+
+[source,yaml,title=docker-compose.yml]
+----
+services:
+
+  # ...
+
+  artisan:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+      target: artisan
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      mariadb: # <1>
+        condition: service_healthy
+
+  mariadb:
+    image: mariadb:10.7
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file: # <2>
+      - ./src/.env
+    healthcheck: # <3>
+      test: mysqladmin ping -h localhost
+      timeout: 30s
+      retries: 5
+----
+<1> Since a lot of artisan commands interact with the database, we need to make sure it's up and running.
+<2> The database connection details are stored inside an `.env` file, as per Laravel's code structure. The other containers are wired to read from this location already, so we don't need to specify this explicitly.
+<3> To avoid race conditions when running artisan commands, write some check to ensure that the container is not only running but that the database process is listening for connections.
+
+IMPORTANT: As of Laravel 11 the default database is SQLite. We don't need to run a dedicated container for it, as it will be handled by Laravel itself. If you want to stick with this approach, don't add a new container for MariaDB in the compose file, but make sure to update the artisan depends_on to point to the `laravel` container.
+
+We can now start running artisan commands for things like migrations and creating controllers. We can follow the same approach as before, running commands leveraging the Docker composer CLI:
+
+[source,console]
+----
+$ docker compose run --rm artisan migrate
+$ docker compose run --rm artisan make:controller CustomController
+----
+
+== Frontend Asset Bundling
+
+The last couple of versions of Laravel introduced the use of Vite as a bundler tool, replacing Laravel Mix which was powered by Webpack. We will need another container for the Node.js process that will run both the development server (for things like hot module reloading) and bundling of whatever frontend assets we may have. Without Docker, we would have two web servers running at different ports and things _just work™_, but as we saw earlier we have a single entry point through Nginx, so we'll have to make some changes there:
+
+[source,yaml]
+----
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/:/etc/nginx/conf.d # [!code ++]
+    ports:
+      - 8080:80
+      - 5173:5173 # [!code ++]
+    depends_on:
+      - laravel
+      - npm # [!code ++]
+
+  # ...
+
+  npm:
+    image: node:20-bookworm-slim # <1>
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    user: node # <2>
+    entrypoint: ["npm"]
+    command: ["run", "dev"]
+----
+<1> For some reason the Node.js image and Alpine Linux don't play along very well. I prefer to use the slim variant which at the end of the day still is quite small, and works flawlessly.
+<2> In most cases this configuration will do fine. But if your host machine's user UID doesn't match with the built-in node user here, you might run into issues with file permissions. The best way to fix that is to create a dedicated image similarly to how we did with PHP and Nginx early on.
+
+Note that Nginx now depends on the npm container being up and running and listens to port 5173, which is what Vite uses and where we'll be forwarding all incoming connections. We can create a new configuration file to wire things up, inside the previously created directory for Nginx.
+
+[source,nginx,title=nginx/vite.conf]
+----
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
+server {
+    listen 5173;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+
+        proxy_pass  http://npm:5173; # <1>
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_read_timeout 86400;
+    }
+}
+----
+<1> Remember to match the domain name with the container name used in the compose file.
+
+[source,javascript,title=src/vite.config.js]
+----
+import { defineConfig } from "vite";
+import laravel from "laravel-vite-plugin";
+
+export default defineConfig({
+    plugins: [
+        laravel({
+            input: ["resources/css/app.css", "resources/js/app.js"],
+            refresh: true,
+        }),
+    ],
+    server: {
+        host: true, // <1>
+    },
+});
+----
+<1> Since Node.js is now running within a container, we need to specify the development server to listen on all interfaces instead of just localhost.
+
+[source%mixed,php,title=src/resources/views/app.blade.php]
+----
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    @vite('resources/js/app.js') # [!code highlight]
+    @vite('resources/css/app.css') # [!code highlight]
+  </head>
+  <body></body>
+</html>
+----
+
+Finally, we can install the necessary dependencies to run our development server and spin things up. Try making a change or two in your code and see how things update in real time.
+
+[source,console]
+----
+$ docker compose run --rm npm install
+$ docker compose up -d nginx
+----
+
+WARNING: If you have https-only mode enabled in your browser, this may block some connections and throw CORS errors. Make sure to add an exception in your browser for "localhost" or whatever custom domain name you may be using for development, if any.
+
+== Install TailwindCSS
+
+We're done with Laravel, but how about some TailwindCSS support? If you've tried to run our current setup your probably noticed you can change things on the fly but the default landing page, built with Tailwind, doesn't seem to know what classes are available. Let's https://tailwindcss.com/docs/guides/laravel[install Tailwind by following the official documentation]. It should be mostly the same, we just need to run the commands respecting our existing setup:
+
+[source,console]
+----
+$ docker compose run --rm npm install -D tailwindcss postcss autoprefixer # <1>
+$ docker compose run --rm --entrypoint /bin/sh npm -c "npx tailwindcss init -p" # <2>
+----
+<1> Install Tailwind and dependencies.
+<2> Initialize Tailwind configuration.
+
+That's it! Just copy and paste these lines of code from the docs in their respective files, and make sure to restart the services to make sure they read the changes made. As you can see the process is the nearly same, with the only difference being that we must run the installation commands from within our containers.
+
+[source,javascript,title=src/tailwind.config.js]
+----
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./resources/**/*.blade.php",
+    "./resources/**/*.js",
+    "./resources/**/*.vue",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+----
+
+[source,css,title=src/resources/css/app.css]
+----
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+----
+
+== Install Vue and Inertia
+
+Now that we have a base setup, and we know how to install packages for our application front-end, we may be interested in taking things a bit further improve our development experience. For this example we'll install Intertia, a popular library that acts as the glue between Laravel and frontend frameworks like React and Vue; we'll go with the latter in this example. Same as the previous step, we only have to follow the https://inertiajs.com/server-side-setup[instructions from the official Inertia documentation], and run the commands from within our containers.
+
+[source,console]
+----
+$ docker compose run --rm composer require inertiajs/inertia-laravel # <1>
+$ docker compose run --rm artisan inertia:middleware # <2>
+$ docker compose run --rm npm install vue@next @vitejs/plugin-vue @inertiajs/vue3 # <3>
+----
+<1> Install Inertia package for the Laravel backend.
+<2> Initialize Inertia middleware.
+<3> Install Vue, Vite plugin for Vue, and the Intertia adapter for the frontend.
+
+There's a fair bit of setup to get things working now that we have all the necessary dependencies installed. Make sure to check out the https://laravel.com/docs/10.x/vite[documentation for Laravel] and relevant projects. I also found some https://dev.to/kodeas/using-vite-with-inertia-laravel-vue-tailwind-2h5k[excellent articles on Vue, Laravel and Tailwind] online.
+
+[source%mixed,php,title=src/resources/views/app.blade.php]
+----
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+      @vite('resources/js/app.js')
+      @vite('resources/css/app.css') # [!code --]
+      @inertiaHead # [!code ++]
+    </head>
+    <body>
+      @inertia # [!code ++]
+    </body>
+</html>
+----
+
+[source,php,title=src/app/Http/Kernel.php]
+----
+protected $middlewareGroups = [
+    'web' => [
+        // ...
+        \App\Http\Middleware\HandleInertiaRequests::class,
+    ],
+];
+----
+
+[source,javascript,title=src/vite.config.js]
+----
+import { defineConfig } from "vite";
+import laravel from "laravel-vite-plugin";
+import vue from "@vitejs/plugin-vue"; // [!code ++]
+
+export default defineConfig({
+    plugins: [
+        laravel({
+            input: ["resources/css/app.css", "resources/js/app.js"],
+            refresh: true,
+        }),
+        vue(), // [!code ++]
+    ],
+    server: {
+        host: true,
+    },
+});
+----
+
+[source,javascript,title=src/resources/js/app.js]
+----
+import { createApp, h } from "vue";
+import { createInertiaApp } from "@inertiajs/vue3";
+import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
+import "../css/app.css";
+
+createInertiaApp({
+  resolve: (name) =>
+    resolvePageComponent(
+      `./Pages/${name}.vue`,
+      import.meta.glob("./Pages/**/*.vue"),
+    ),
+  setup({ el, App, props, plugin }) {
+    createApp({ render: () => h(App, props) })
+      .use(plugin)
+      .mount(el);
+  },
+});
+----
+
+[source,php,title=src/routes/web.php]
+----
+<?php
+
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+Route::get('/', function () {
+    return Inertia::render('Welcome');
+});
+----
+
+That's about it, much of what we did here is boilerplate code required to have Inertia intercede for each incoming request and load the appropriate JavaScript file to load our webpage. Do note that we're now loading the CSS from within our JavaScript file, that's important as otherwise we won't be able to have Vite nor TailwindCSS work with styling.
+
+_wq!_

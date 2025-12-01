@@ -1,0 +1,20 @@
+= Over Engineering
+D10f <devontheroof@pm.me>
+v1, 2024-12-22
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: A short dive into the importance of knowing the tools we use everyday
+:keywords: shell vim vi ansible efficieny plugins
+:technologies: vim ansible
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Using Ansible Vault to encrypt sensitive files in projects is really powerful and easy to use. The other day, however, I re-installed my operating system as it was overdue for a maintenance check up, and when I went back to work I realized I had forgotten to install Ansible. No big deal, but I had the idea of creating a Neovim plugin to work with files encrypted with Ansible Vault. Of course, the first option was to check the interwebs to find that someone had already done that work for me. Still, out of curiosity, I peeked at the code to see how they achieved that.
+
+I was a bit disappointed to find that all plugins that I looked at were leveraging the Ansible Vault executable, assuming it would be installed in the user's machine, to be able to function properly. That makes sense, of course, why do the hard work twice... But, still, I was hoping to find a bit more juicy programming cleverness around this problem.
+
+Given how I would need to install Ansible, not that I wouldn't have done that anyway, I figured I would go for the even easier approach of using Vim's shell execution capability. In Vim, you can press `!!` to take the line at the cursor position and send it to an external shell. The returned value from that command would be replacing the line at that position. Simple. No plugins and no wizardy required.
+
+sdfsd

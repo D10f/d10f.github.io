@@ -1,0 +1,142 @@
+= React Transitions With Framer Motion
+D10f <devontheroof@pm.me>
+v2, 2021-05-02
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: How to create transitions and animations, the React way.
+:keywords: react, transitions, animations
+:technologies: react
+:source-highlighter: pygments
+:icons: font
+:toc:
+
+Preamble goes here...
+
+== How It Works
+
+Framer Motion comes with all the HTML elements available as React components. These accept a number of props that are designed to declare the initial and ending states of that element, using regular CSS properties such as _scale_, _translate_, _opacity_, etc. At its most basic form, this is how it looks like:
+
+[source, javascript]
+----
+import { motion } from 'framer-motion';
+
+const Button = () => (
+    <motion.button animate={{ scale: 1.5 }}>
+        Click Me
+    </motion.button>
+);
+----
+
+The `animate` property is the final state of the transition, but without an `initial` property there is no actual transition. In other words this would just show the button element as being 1.5 times as large but without any indication that it has transitioned from an original value.
+
+If the `initial` and `animate` properties handle the initial and ending states of a transition, respectively, we can use the `transition` property to control the process itself. Things like the duration, delays and ease functions are all declared through here:
+
+[source, javascript]
+----
+import { motion } from 'framer-motion';
+
+const Button = () => (
+    <motion.button
+        initial={{ scale: 1 }}
+        animate={{ scale: 1.5 }}
+        transition={{
+            duration: 1.2,
+            type: 'spring', // <1>
+            stiffness: 350
+        }}
+    >
+        Click Me
+    </motion.button>
+);
+----
+<1> "spring" is the default type of animation, but there are many more types of transition with their own properties to tweaks it. Refer to the documentation to learn more about it.
+
+== Variants
+
+Things can become messy very quickly when we have more than one element transitioning inside the same component. The declarative way of doing things would be to extract this logic outside the component and apply the same logic as needed, which is what `variants` are for:
+
+[source, javascript]
+----
+const menuAnimation = {
+  initial: { scale: 0, opacity: 0 },
+  visible: { scale: 1, opacity: 1 }
+};
+
+const optionsAnimation = {
+  initial: { x: '-100vw' },
+  visible: {
+    x: 0,
+    transition: {
+      delay: 0.5
+    }
+  }
+};
+
+const Menu = ({ options }) => (
+  <div>
+    <h2>Your Options Are:</h2>
+    <motion.ul
+      variant={menuAnimation} // <1>
+      initial='initial'
+      animate='visible'
+    >
+      {
+        options.map(option => (
+          <motion.li variant={optionsAnimation}> // <2>
+            <span>{option}</span>
+          </motion.li>
+        ))
+      }
+    </motion.ul>
+  </div>
+};
+----
+<1> You can use whatever names you want for the initial and animate properties, like "hidden" instead of "initial", but this makes it harder to reuse the same variant through nested components.
+<2> Here we are specifying the same animation but not the "initial" or "animate" variants, because it inherits them from the parent component. Even though the variant is not the same!
+
+== Animate Presence
+
+In order to animate components as they are mounted and unmounted from the virtual DOM, we need to use the `AnimatePresence` component around it.
+
+[source,javascript]
+----
+import { AnimatePresence } from 'framer';
+import { motion } from 'framer';
+import { useEffect } from 'react';
+
+const Error = ({ message, setError }) => {
+
+  useEffect(() => {
+    setTimeout(() => setError(null), 4000);
+  }, []);
+
+  return (
+    <motion.p
+      key="someuniquekey"
+      initial={{ x: 10, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: 10, opacity: 0 }} // <1>
+    >
+      {message}
+    </motion.p>
+  );
+};
+
+const LoginForm = () => {
+  // obtain error/setError from context
+  return (
+    <form>
+      <input placeholder="userame" />
+      <input placeholder="password" />
+      <AnimatePresence> // <2>
+        {error && (
+          <Error message={error} setError={setError} />
+        )}
+      </AnimatePresence>
+    </form>
+  );
+};
+----
+<1> Setting the error to null would make the component to unmount.
+<2> `AnimatePresence` wraps the component outside the conditional.

@@ -1,0 +1,15 @@
+= Expense Manager
+D10f <devontheroof@pm.me>
+v1, 2024-07-07
+:license-url: https://creativecommons.org/licenses/by-sa/4.0/
+:license-title: CC BY-SA 4.0
+:doctype: article
+:description: sdfsd
+:keywords: bookmark laravel vue inertia
+:technologies: sass react nestjs
+:source-highlighter: pygments
+:icons: font
+
+Privacy-focused expense manager. Features multiple wallets to manage expenses for different purposes e.g., daily expenses, vacation or business trips, etc. Fully end-to-end encrypted using AES256-GCM.
+
+https://github.com/D10f/bitbudget[See More,window="_blank"]

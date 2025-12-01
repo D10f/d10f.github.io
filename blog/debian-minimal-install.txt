@@ -1,0 +1,892 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[1322,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],"default"]
+7:I[7311,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],"default"]
+8:I[231,["231","static/chunks/231-5c2edefe0a567a0f.js","404","static/chunks/app/blog/page-9a418f1f8ae9b8e1.js"],""]
+4:["slug","debian-minimal-install","d"]
+0:["JQ0YaEzUq39y5BB9-c65N",[[["",{"children":["blog",{"children":[["slug","debian-minimal-install","d"],{"children":["__PAGE__?{\"slug\":\"debian-minimal-install\"}",{}]}]}]},"$undefined","$undefined",true],["",{"children":["blog",{"children":[["slug","debian-minimal-install","d"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","blog","children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","blog","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","$L6",null,{}],["$","div",null,{"className":"separator"}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":null}],["$","footer",null,{"className":"footer","children":[["$","$L7",null,{}],["$","div",null,{"className":"footer__links","children":[["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"This site is built with:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address","aria-describedby":"footer__nextjs","href":"https://nextjs.org","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-nextjs"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer_nextjs","children":"Next.js"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address","aria-describedby":"footer__asciidoctor","href":"https://asciidoctor.org","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-asciidoc"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer_asciidoctor","children":"Asciidoctor"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Source code for this website","aria-describedby":"footer__git","href":"https://github.com/d10f/devontheroof","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-git"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__git","children":"Git version control"}]]}]]}]]}],["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"Find more about me:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codeberg profile","href":"https://codeberg.org/D10f","aria-describedby":"footer__codeberg","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codeberg"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codeberg","children":"Codeberg"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Github profile","href":"https://github.com/D10f","aria-describedby":"footer__github","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-github"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__github","children":"GitHub"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codepen profile","href":"https://codepen.io/D10f","aria-describedby":"footer__codepen","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codepen"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codepen","children":"Codepen"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Exercism profile","href":"https://exercism.org/profiles/quasimodo","aria-describedby":"footer__exercism","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-exercism"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__exercism","children":"Exercism"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codewars profile","href":"https://www.codewars.com/users/imperation_bypasser","aria-describedby":"footer__codewars","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codewars"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codewars","children":"Codewars"}]]}]]}]]}],["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"Get in touch:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address devontheroof@pm.me","aria-describedby":"footer__email","href":"mailto:devontheroof@pm.me","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-email"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__email","children":"Email"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to a public PGP key to encrypt the body of an email","aria-describedby":"footer__pgp","href":"#","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-gpg-key"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__pgp","children":"PGP public key"}]]}]]}]]}]]}],["$","p",null,{"className":"footer__license","children":["All content by me © 2024",["$","$L8",null,{"className":"pl-1","href":"https://creativecommons.org/licenses/by-sa/4.0/","target":"_blank","rel":"license noopener noreferrer","children":"CC BY-SA 4.0"}]]}]]}],["$","noscript",null,{"children":["$","style",null,{"children":".js-required { display: none }"}]}]]}]}],null],null],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/66bf765195623c3a.css","precedence":"next","crossOrigin":"$undefined"}]],"$L9"]]]]
+9:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"D10f | Debian Minimal Installation"}],["$","meta","3",{"name":"keywords","content":"linux debian xorg dwm, debian,shell,linux"}]]
+1:null
+a:I[3475,["750","static/chunks/750-0f816d740819c251.js","308","static/chunks/app/blog/%5Bslug%5D/page-920a7887c59b1504.js"],"default"]
+b:T1b762,<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I like the idea of a "minimal" Linux desktop because that means there are fewer things to understand, and the more effective I can be with it. However, I don&#8217;t like being dogmatic about things. Minimalism can become a very deep rabbit hole, and at the end of the day I need to be productive with my system. With that in mind, I&#8217;ll be making certain trade-offs in the name of convenience as I see fit for my personal use case.</p>
+</div>
+<div class="paragraph">
+<p>The goal of this exercise is to explore the different components that make up a Linux desktop and integrate them separately.</p>
+</div>
+</div>
+</div><menu class="toc"><li class="toc__item"><a href="#_graphical_environment">Graphical Environment</a><ul><li class="toc__item"><a href="#_xorg">Xorg</a></li><li class="toc__item"><a href="#_mesa_drivers">Mesa Drivers</a></li></ul></li><li class="toc__item"><a href="#_firmware">Firmware</a></li><li class="toc__item"><a href="#_suckless_utilities">Suckless Utilities</a><ul><li class="toc__item"><a href="#_patching">Patching</a></li><li class="toc__item"><a href="#_dwm">dwm</a></li><li class="toc__item"><a href="#_dmenu">dmenu</a></li><li class="toc__item"><a href="#_st">st</a></li><li class="toc__item"><a href="#_slstatus">slstatus</a></li><li class="toc__item"><a href="#_slock">slock</a></li></ul></li><li class="toc__item"><a href="#_login_startup_scripts">Login Startup Scripts</a></li><li class="toc__item"><a href="#_session_management_power_options">Session Management &amp; Power Options</a><ul><li class="toc__item"><a href="#_log_out">Log Out</a></li><li class="toc__item"><a href="#_suspend_reboot_power_off">Suspend, Reboot &amp; Power Off</a></li><li class="toc__item"><a href="#_lock_screen">Lock Screen</a></li><li class="toc__item"><a href="#_crafting_a_menu">Crafting A Menu</a></li></ul></li><li class="toc__item"><a href="#_privilege_escalation">Privilege Escalation</a><ul><li class="toc__item"><a href="#_sudo_rs">sudo-rs</a></li><li class="toc__item"><a href="#_opendoas">OpenDoas</a></li></ul></li></menu>
+<div class="sect1"><h2 id="_graphical_environment">Graphical Environment<a class="anchor" href="#_graphical_environment">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After a bare installation of Debian we&#8217;ll be greeted by a login prompt at the console; no graphical environment yet. This is where you&#8217;ll need to log in as the root user, instead of your own non-privileged account, to install a few packages.</p>
+</div>
+<div class="sect2"><h3 id="_xorg">Xorg<a class="anchor" href="#_xorg">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The Xorg display server handles the display of graphical applications, as well as user events like mouse movement and keystrokes.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> apt install xorg</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+
+            <div class="admonition admonition--left important">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-important" />
+                </svg>
+                <p>Xorg is an implementation of the X11 window system, which serves as a display server for Unix-like operating systems, including Linux.</p>
+            </div>
+<div class="paragraph">
+<p>This is a meta-package, that is, it links to other packages (that may also be meta-packages of their own) in order to facilitate the installation of the entire suite of software programs that make Xorg work properly. However, we can be a little more specific about what it is that we want to install:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> apt install \</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">    xinit \</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">    xkb-data \</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">    x11-xkb-utils \</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">    xserver-xorg-video-all \</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">    keyboard-configuration</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>We&#8217;re not saving a lot of space by doing this, only about 30 Mb, but at least we have a better understanding of what&#8217;s going on under the hood. We can now also install the remaining packages if we wish, depending on what we expect to do with our system:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> apt install \</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">    x11-utils \</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">    x11-xserver-utils \</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">    x11-session-utils \</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">    xfonts-utils \</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">    xinput</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+</div>
+<div class="sect2"><h3 id="_mesa_drivers">Mesa Drivers<a class="anchor" href="#_mesa_drivers">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Speaking of graphical applications, these days most applications will want to use the GPU to do things like hardware acceleration. To make the best out of the hardware, you can install the following package as well:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> apt install mesa-utils</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>This provides an assortment of open source implementations of industry-standard graphics programming API for things like 3D graphics, hardware acceleration, video processing, etc. So, not technically required, but it&#8217;s a good idea to have it in there just in case.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_firmware">Firmware<a class="anchor" href="#_firmware">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Depending on your hardware, you might need additional drivers to make the best out of it. This may apply to all types of peripherals, not just graphics cards, like network adapters, audio devices, webcams, etc.</p>
+</div>
+
+            <div class="admonition admonition--right important">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-important" />
+                </svg>
+                <p>The term "free" in this context means that the source code is licensed under an open source license. This allows to examine and modify the code publicly, as opposed to be kept a secret (proprietary).</p>
+            </div>
+<div class="paragraph">
+<p>There free and non-free versions available. You can choose which version you want to use during the installation of Debian, and I&#8217;d recommend using the non-free as much as possible. However, if you notice that your computer doesn&#8217;t work properly in terms of hardware compatibility or performance, it might be a good idea to install the non-free version as well:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> apt install firmware-linux-nonfree</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+</div>
+</div>
+<div class="sect1"><h2 id="_suckless_utilities">Suckless Utilities<a class="anchor" href="#_suckless_utilities">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since the goal is to have something minimal, the <a href="https://suckless.org">Suckless project</a> seems like a good place to browse for minimally crafted software. The tools created by this project are <em>very</em> minimal, offering nothing but the core functionality in order to offer something simple and lean. So minimal, in fact, that configuring these tools is done by editing the source code of the program directly, although this sounds a lot worse than it is.</p>
+</div>
+<div class="paragraph">
+<p>Another nuance about this project is that any additional features are provided through "patches" contributed by the community, and these can be tricky to apply, so it&#8217;s best to pick and choose only the ones that are really necessary &mdash; staying true to the philosophy of a minimalist setup!</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s start by installing a few dependencies that we&#8217;ll need.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> apt install libx11-dev libxinerama-dev libxft-dev git build-essential</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>Then, you can download the repository and build its source code with the following commands:</p>
+</div>
+
+            <div class="admonition admonition--left tip">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-tip" />
+                </svg>
+                <p>Use <code>pushd</code> and <code>popd</code> to quickly change in and out of directories. Unlike <code>cd -</code>, which only remembers the previous location, running <code>popd</code> will get you back to the initial location where you were at the time of running <code>pushd</code>. This is helpful when a command needs to be run from within a particular directory.</p>
+            </div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> git clone https://git.suckless.org/dwm /usr/local/src/dwm<i class="conum pl-2" data-value="1"><b>❶</b></i><i class="conum pl-2" data-value="2"><b>❷</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> pushd /usr/local/src/dwm </span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">;</span><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit"> make</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984"> ;</span><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit"> make</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> clean</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> install</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">;</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> p</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">opd</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>Change "dwm" from these commands with whatever program you want to download.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="2"></i>
+                <b>❷</b>
+            </td>
+            <td>You can also change the location where is downloaded. I like to keep programs I compile in <code>/usr/local/src</code>. Make sure that location exists already.</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+<div class="sect2"><h3 id="_patching">Patching<a class="anchor" href="#_patching">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>When talking about the Suckless utilities it&#8217;s important to understand that there&#8217;s no configuration options other than actually editing the source code. Some of the most easily accessible settings are easily editable, but adding new features is only possible through community contributions available as so-called "patches".</p>
+</div>
+<div class="paragraph">
+<p>These patches are git diff files that specify that modify the original source code directly at specific lines, and in specific ways. To apply a patch, you would need to download it first and then run the command, from the same directory where the source we&#8217;re patching is located:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> patch -p1 </span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">&#x3C;</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> path/to/patch.diff</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+
+            <div class="admonition admonition--right important">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-important" />
+                </svg>
+                <p>I tend to keep a folder named "patches" inside the source code for each program, to help me stay organized.</p>
+            </div>
+<div class="paragraph">
+<p>Since these files work under the assumption that the original source code has not been modified, it&#8217;s going to become more likely that this command will result in an error, due to the patch file expecting to find certain lines of code that aren&#8217;t in the now-modified source code.</p>
+</div>
+<div class="paragraph">
+<p>I will leave a link to a video that talks about this in more detail, including how to deal with these type of merge conflicts when they happen. But in any case, remember: less is more!</p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.youtube.com/watch?v=qIEUBvGvvRg">Patching dwm and suckless utilities - a friendly guide to patch and diff</a></p>
+</div>
+</div>
+<div class="sect2"><h3 id="_dwm">dwm<a class="anchor" href="#_dwm">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The Dynamic Window Manager is a simple tiling window manager. It provides the basic features that one would expect from such a program: automatic resizing of windows to make an efficient use of the screen, multiple layouts available, etc., and it will be our graphical environment, <em>in lieu</em> of a fully-fledged desktop environment.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;ll also apply the following patches:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">dwm-alwayscenter-20200625-f04cac6.diff </dt>
+<dd>
+<p>Makes floating windows appear centered to the screen.</p>
+</dd>
+<dt class="hdlist1">dwm-fullgaps-6.4.diff </dt>
+<dd>
+<p>Adds a gap between the edge of the screen and any tiled windows, as well as between them.</p>
+</dd>
+<dt class="hdlist1">dwm-movestack-20211115-a786211.diff </dt>
+<dd>
+<p>Enables keyboard shortcuts to move windows in the stack, similar to how other window managers do this, like <code>i3</code>.</p>
+</dd>
+<dt class="hdlist1">dwm-barpadding-20211020-a786211.diff (2021-10-20) </dt>
+<dd>
+<p>So that we can add some gaps also between the top bar and the edges of the screen.</p>
+</dd>
+<dt class="hdlist1">dwm-notitle-6.5.diff </dt>
+<dd>
+<p>I don&#8217;t like the title of the focused window to show up, since it tends to be quite large in browsers.</p>
+</dd>
+<dt class="hdlist1">dwm-status2d-20200508-60bb3df.diff </dt>
+<dd>
+<p>Allows special color codes to be used in the status bar.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2"><h3 id="_dmenu">dmenu<a class="anchor" href="#_dmenu">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The Dynamic Menu, another simple utility that serves as an application launcher.</p>
+</div>
+<div class="paragraph">
+<p>It reads newline-separated items from standard input, and returns whatever the user has selected to standard output. This can be leveraged in custom shell scripts to have some interactivity, as well, which is really useful.</p>
+</div>
+<div class="paragraph">
+<p>The following patches are applied:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">dmenu-center-20250407-b1e217b.diff </dt>
+<dd>
+<p>Instead of showing the menu at the top, it shows it centered to the screen.</p>
+</dd>
+<dt class="hdlist1">dmenu-border-20230512-0fe460d </dt>
+<dd>
+<p>Draws a border around the window to help it to stand out more. Works great with the previous patch.</p>
+</dd>
+<dt class="hdlist1">dmenu-fuzzymatch-5.3.diff </dt>
+<dd>
+<p>Matches words using non-consecutive portions of the items. Very useful to avoid typos and make search quicker.</p>
+</dd>
+<dt class="hdlist1">dmenu-caseinsensitive-20200523-db6093f.diff </dt>
+<dd>
+<p>Changes the default behavior when matching items to be case-insensitive.</p>
+</dd>
+<dt class="hdlist1">dmenu-desktoponly-20240811-475d809.diff </dt>
+<dd>
+<p>Provides a new function to search only for application launchers, as opposed to any executable file in the user&#8217;s <code>PATH</code>. This new function should be invoked by <code>dwm</code>, which needs to be adjusted in its configuration file.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>There&#8217;s one small caveat with the last patch: it doesn&#8217;t fully conform to the <a href="https://specifications.freedesktop.org/basedir-spec/0.8/">XDG Base Directory Specification</a>, as it ignores one critical location used by individual users. Luckily, it only requires changing one line of code from the launcher script, after applying the patch, on line 8:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn mt-6 js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="shell">
+                <span style="font-style: italic;">/usr/local/src/dmenu/dmenu_path_desktop</span>
+                <figure>
+                    <figcaption class="visually-hidden">/usr/local/src/dmenu/dmenu_path_desktop</figcaption>
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard has-diff" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line diff remove"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">dirs</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">=</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">""</span></span>
+<span class="line diff add"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">dirs</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">=</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">${</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">XDG_DATA_HOME</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">:-</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">${</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">HOME</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">}</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">/</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">.</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">local</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">/</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">share</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">}</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">/applications</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>This ensures that any custom desktop files that are placed in <code>XDG_DATA_HOME</code> will be picked up by <code>dmenu</code> as well.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_st">st<a class="anchor" href="#_st">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The Simple Terminal is exactly that. Simple, but powerful and effective:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">st-scrollback-ringbuffer-0.9.2.diff </dt>
+<dt class="hdlist1">st-scrollback-mouse-altscreen-20220127-2c5edf2.diff </dt>
+<dd>
+<p>These two patches enable terminal scrolling, which is otherwise disabled by default. More specifically, the second patch allows scrolling back using the mouse.</p>
+</dd>
+<dt class="hdlist1">st-anysize-20220718-baa9357.diff </dt>
+<dd>
+<p>This patch allows <code>st</code> to resize itself using pixels rather than character size, to avoid uneven gaps between windows.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2"><h3 id="_slstatus">slstatus<a class="anchor" href="#_slstatus">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The status bar monitor. We can use this similar to a taskbar in some desktop environments, although this unfortunately doesn&#8217;t have any interactivity. In that regard, I prefer something different like <em>dwmblock</em> or <em>polybar</em>. But this one has the advantage of being quite straight forward to set up.</p>
+</div>
+<div class="paragraph">
+<p>Only one patch is needed for this one:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">slstatus-signals-1.0.patch </dt>
+<dd>
+<p>This patch allows for each component of the status line to refresh on a separate interval, or when a predefined signal is sent to it.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2"><h3 id="_slock">slock<a class="anchor" href="#_slock">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The Simple Lock, as simple as any system utility can get. Use it to lock your computer when you&#8217;re away from it. With the following patches:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">slock-background-image-20220318-1c5a538.diff </dt>
+<dd>
+<p>Instead of displaying a full screen of a solid color, it shows background image.</p>
+</dd>
+<dt class="hdlist1">slock-dpms-1.4.diff </dt>
+<dd>
+<p>Automatically turns off the display if the session is not unlocked within a period of time.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_login_startup_scripts">Login Startup Scripts<a class="anchor" href="#_login_startup_scripts">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When I log in to my account, I&#8217;m used to seeing desktop icons, a background image, a taskbar loading, etc. But with this setup we only have a console environment that can&#8217;t even launch graphical applications such us Firefox, GIMP or even a window manager like dwm; we&#8217;ll see an error saying "cannot open display".</p>
+</div>
+<div class="paragraph">
+<p>This is because we need to have an X display server up and running in order to launch graphical applications. On a typical installation there&#8217;s another piece of software we haven&#8217;t looked up yet, the "display manager", that handles all of this when we log in.</p>
+</div>
+
+            <div class="admonition admonition--left warning">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-warning" />
+                </svg>
+                <p>This is a surprisingly complex topic. Depending on how we login there are a different set of scripts that get executed, and in seemingly different order. So, to keep this post as minimal as possible, I'm going to stick with the simplex option which is to manually run <code>startx</code>.</p>
+            </div>
+<div class="paragraph">
+<p>For now, let&#8217;s see how we can do this manually ourselves. It&#8217;s really simple, just run the <code>startx</code> command. This will initialize the X display server and also check a few file locations for commands to execute, one of the most known ones being a <code>~/.xinitrc</code> in our home directory. If we create this file in our home directory, we can specify which commands to run:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn mt-6 js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="shell">
+                <span style="font-style: italic;">~/.xinitrc</span>
+                <figure>
+                    <figcaption class="visually-hidden">~/.xinitrc</figcaption>
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">slstatus</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984"> &#x26;</span><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit"><i class="conum pl-2" data-value="1"><b>❶</b></i></span></span>
+<span class="line"><span style="color:#ED8796;font-style:italic;--shiki-catppuccin-light:#D20F39;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#E78284;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#DFA000;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#AF3A03;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FE8019;--shiki-gruvbox-dark-font-style:inherit">exec</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> dwm<i class="conum pl-2" data-value="2"><b>❷</b></i></span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>Programs need to run in the background to avoid blocking the execution of this script</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="2"></i>
+                <b>❷</b>
+            </td>
+            <td>The <code>exec</code> command here ensures that when the X server stops running we're also logged out of our accounts.</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+<div class="paragraph">
+<p>This is as minimal as it gets in this regard, basically going "full commando" on the login startup sequence. But, it helps with keeping things minimal!</p>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_session_management_power_options">Session Management &amp; Power Options<a class="anchor" href="#_session_management_power_options">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that we can log in to our account, we need a way to log out of it. In fact, we need a few other things to put our computer in sleep mode, reboot, power off, lock the screen, etc. All these niceties are readily available in most desktop environments through the start menu button, or something similar. We&#8217;ll have to "settle" with running a command in the terminal. But we can make our own menu through <code>dmenu</code> as we&#8217;ll see shortly.</p>
+</div>
+<div class="sect2"><h3 id="_log_out">Log Out<a class="anchor" href="#_log_out">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Logging out means to shut down all processes running by a particular user in the system. We can easily do this by running one command:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> pkill -u </span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">$USER</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+</div>
+<div class="sect2"><h3 id="_suspend_reboot_power_off">Suspend, Reboot &amp; Power Off<a class="anchor" href="#_suspend_reboot_power_off">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>On Debian, we can leverage <code>systemd</code> to do all of these:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> systemctl suspend</span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> systemctl reboot</span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> systemctl poweroff</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>For distributions using a different init system, such as Devuan, Artix, Alpine or GNU Guix, you could still install <code>pm-utils</code> to do the same thing.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_lock_screen">Lock Screen<a class="anchor" href="#_lock_screen">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Earlier we installed <code>slock</code> to do this, with a patch to display a background image instead of the default solid background color. To give it a bit more personality, I want to generate this image on the fly by taking a screenshot and blurring it, instead. There&#8217;s actually a patch that already does this, but the blur effect looks quite pixelated. So, I wrote my own version of this:</p>
+</div>
+
+            <div class="admonition admonition--right note">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-note" />
+                </svg>
+                <p>As of Debian 13 (Trixie) the <code>/tmp</code> directory is now mounted using <code>tmpfs</code>. You can use this location as an alternative to <code>/dev/shm</code>, for correctness, given it's more appropriate for temporary files.</p>
+            </div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="bash">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span style="color:#F5BDE6;font-style:italic;--shiki-catppuccin-light:#EA76CB;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#F4B8E4;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#859289;--shiki-everforest-dark-font-style:italic;--shiki-everforest-light:#939F91;--shiki-everforest-light-font-style:italic;--shiki-solarized-light:#93A1A1;--shiki-solarized-light-font-style:italic;--shiki-solarized-dark:#586E75;--shiki-solarized-dark-font-style:italic;--shiki-gruvbox-light:#928374;--shiki-gruvbox-light-font-style:italic;--shiki-gruvbox-dark:#928374;--shiki-gruvbox-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#939AB7;font-style:italic;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#949CBB;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#859289;--shiki-everforest-dark-font-style:italic;--shiki-everforest-light:#939F91;--shiki-everforest-light-font-style:italic;--shiki-solarized-light:#93A1A1;--shiki-solarized-light-font-style:italic;--shiki-solarized-dark:#586E75;--shiki-solarized-dark-font-style:italic;--shiki-gruvbox-light:#928374;--shiki-gruvbox-light-font-style:italic;--shiki-gruvbox-dark:#928374;--shiki-gruvbox-dark-font-style:italic"># Locks the current session, displaying a heavily blurred screenshot</span></span>
+<span class="line"><span style="color:#939AB7;font-style:italic;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#949CBB;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#859289;--shiki-everforest-dark-font-style:italic;--shiki-everforest-light:#939F91;--shiki-everforest-light-font-style:italic;--shiki-solarized-light:#93A1A1;--shiki-solarized-light-font-style:italic;--shiki-solarized-dark:#586E75;--shiki-solarized-dark-font-style:italic;--shiki-gruvbox-light:#928374;--shiki-gruvbox-light-font-style:italic;--shiki-gruvbox-dark:#928374;--shiki-gruvbox-dark-font-style:italic"># taken when the script runs.</span></span>
+<span class="line"><span style="color:#939AB7;font-style:italic;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#949CBB;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#859289;--shiki-everforest-dark-font-style:italic;--shiki-everforest-light:#939F91;--shiki-everforest-light-font-style:italic;--shiki-solarized-light:#93A1A1;--shiki-solarized-light-font-style:italic;--shiki-solarized-dark:#586E75;--shiki-solarized-dark-font-style:italic;--shiki-gruvbox-light:#928374;--shiki-gruvbox-light-font-style:italic;--shiki-gruvbox-dark:#928374;--shiki-gruvbox-dark-font-style:italic">#</span></span>
+<span class="line"><span style="color:#939AB7;font-style:italic;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#949CBB;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#859289;--shiki-everforest-dark-font-style:italic;--shiki-everforest-light:#939F91;--shiki-everforest-light-font-style:italic;--shiki-solarized-light:#93A1A1;--shiki-solarized-light-font-style:italic;--shiki-solarized-dark:#586E75;--shiki-solarized-dark-font-style:italic;--shiki-gruvbox-light:#928374;--shiki-gruvbox-light-font-style:italic;--shiki-gruvbox-dark:#928374;--shiki-gruvbox-dark-font-style:italic"># Requirements:</span></span>
+<span class="line"><span style="color:#939AB7;font-style:italic;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#949CBB;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#859289;--shiki-everforest-dark-font-style:italic;--shiki-everforest-light:#939F91;--shiki-everforest-light-font-style:italic;--shiki-solarized-light:#93A1A1;--shiki-solarized-light-font-style:italic;--shiki-solarized-dark:#586E75;--shiki-solarized-dark-font-style:italic;--shiki-gruvbox-light:#928374;--shiki-gruvbox-light-font-style:italic;--shiki-gruvbox-dark:#928374;--shiki-gruvbox-dark-font-style:italic">#   - scrot</span></span>
+<span class="line"><span style="color:#939AB7;font-style:italic;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#949CBB;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#859289;--shiki-everforest-dark-font-style:italic;--shiki-everforest-light:#939F91;--shiki-everforest-light-font-style:italic;--shiki-solarized-light:#93A1A1;--shiki-solarized-light-font-style:italic;--shiki-solarized-dark:#586E75;--shiki-solarized-dark-font-style:italic;--shiki-gruvbox-light:#928374;--shiki-gruvbox-light-font-style:italic;--shiki-gruvbox-dark:#928374;--shiki-gruvbox-dark-font-style:italic">#   - imagemagick</span></span>
+<span class="line"><span style="color:#939AB7;font-style:italic;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#949CBB;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#859289;--shiki-everforest-dark-font-style:italic;--shiki-everforest-light:#939F91;--shiki-everforest-light-font-style:italic;--shiki-solarized-light:#93A1A1;--shiki-solarized-light-font-style:italic;--shiki-solarized-dark:#586E75;--shiki-solarized-dark-font-style:italic;--shiki-gruvbox-light:#928374;--shiki-gruvbox-light-font-style:italic;--shiki-gruvbox-dark:#928374;--shiki-gruvbox-dark-font-style:italic">#   - slock + slock-background-image-20220318-1c5a538.diff</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">scrot</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> -</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C"> |</span><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit"> convert</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> -</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#CB4B16;--shiki-solarized-dark:#CB4B16;--shiki-gruvbox-light:#8F3F71;--shiki-gruvbox-dark:#D3869B"> -blur</span><span style="color:#F5A97F;--shiki-catppuccin-light:#FE640B;--shiki-catppuccin-dark:#EF9F76;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#D33682;--shiki-solarized-dark:#D33682;--shiki-gruvbox-light:#8F3F71;--shiki-gruvbox-dark:#D3869B"> 0x8</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> /dev/shm/slock.png<i class="conum pl-2" data-value="1"><b>❶</b></i><i class="conum pl-2" data-value="2"><b>❷</b></i></span></span>
+<span class="line"><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">slock</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>Store this screenshot in a RAM-based file system for efficiency.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="2"></i>
+                <b>❷</b>
+            </td>
+            <td>By convention, when a command reads from a file, it should accept <code>-</code> as a replacement for standard input. The same is true for standard output when specifying the file location.</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+</div>
+<div class="sect2"><h3 id="_crafting_a_menu">Crafting A Menu<a class="anchor" href="#_crafting_a_menu">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>To top it off we&#8217;ll write a simple shell script that will present these options through <code>dmenu</code>:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="bash">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span style="color:#F5BDE6;font-style:italic;--shiki-catppuccin-light:#EA76CB;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#F4B8E4;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#859289;--shiki-everforest-dark-font-style:italic;--shiki-everforest-light:#939F91;--shiki-everforest-light-font-style:italic;--shiki-solarized-light:#93A1A1;--shiki-solarized-light-font-style:italic;--shiki-solarized-dark:#586E75;--shiki-solarized-dark-font-style:italic;--shiki-gruvbox-light:#928374;--shiki-gruvbox-light-font-style:italic;--shiki-gruvbox-dark:#928374;--shiki-gruvbox-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#939AB7;font-style:italic;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#949CBB;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#859289;--shiki-everforest-dark-font-style:italic;--shiki-everforest-light:#939F91;--shiki-everforest-light-font-style:italic;--shiki-solarized-light:#93A1A1;--shiki-solarized-light-font-style:italic;--shiki-solarized-dark:#586E75;--shiki-solarized-dark-font-style:italic;--shiki-gruvbox-light:#928374;--shiki-gruvbox-light-font-style:italic;--shiki-gruvbox-dark:#928374;--shiki-gruvbox-dark-font-style:italic"># Presents the power options through dmenu and runs the selected action</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">selected</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">=</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$(</span><span style="color:#ED8796;font-style:italic;--shiki-catppuccin-light:#D20F39;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#E78284;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#DFA000;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#AF3A03;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FE8019;--shiki-gruvbox-dark-font-style:inherit">echo</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#CB4B16;--shiki-solarized-dark:#CB4B16;--shiki-gruvbox-light:#8F3F71;--shiki-gruvbox-dark:#D3869B"> -ne</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984"> "</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">Lock Screen\nSuspend\nLog Out\nRestart\nPower Off</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#F5BDE6;--shiki-catppuccin-light:#EA76CB;--shiki-catppuccin-dark:#F4B8E4;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#CB4B16;--shiki-solarized-dark:#CB4B16;--shiki-gruvbox-light:#8F3F71;--shiki-gruvbox-dark:#D3869B"> \</span></span>
+<span class="line"><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">    |</span><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit"> dmenu</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C6A0F6;--shiki-catppuccin-light:#8839EF;--shiki-catppuccin-dark:#CA9EE6;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#9D0006;--shiki-gruvbox-dark:#FB4934">case</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984"> "</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">${</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">selected</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">}</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#C6A0F6;--shiki-catppuccin-light:#8839EF;--shiki-catppuccin-dark:#CA9EE6;--shiki-everforest-dark:#E67E80;--shiki-everforest-light:#F85552;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#9D0006;--shiki-gruvbox-dark:#FB4934"> in</span></span>
+<span class="line"><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">    "</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">Lock Screen</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">)</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">        $HOME</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">/.local/bin/lock.sh<i class="conum pl-2" data-value="1"><b>❶</b></i></span></span>
+<span class="line"><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">        ;;</span></span>
+<span class="line"><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">    "</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">Suspend</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">)</span></span>
+<span class="line"><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">        $HOME</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">/.local/bin/lock.sh<i class="conum pl-2" data-value="2"><b>❷</b></i></span></span>
+<span class="line"><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">        sleep</span><span style="color:#F5A97F;--shiki-catppuccin-light:#FE640B;--shiki-catppuccin-dark:#EF9F76;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#D33682;--shiki-solarized-dark:#D33682;--shiki-gruvbox-light:#8F3F71;--shiki-gruvbox-dark:#D3869B"> 4</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">;</span></span>
+<span class="line"><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">        systemctl</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> suspend</span></span>
+<span class="line"><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">        ;;</span></span>
+<span class="line"><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">    "</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">Power Off</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">)</span></span>
+<span class="line"><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">        systemctl</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> poweroff</span></span>
+<span class="line"><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">        ;;</span></span>
+<span class="line"><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">    "</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">Restart</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">)</span></span>
+<span class="line"><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">        systemctl</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> reboot</span></span>
+<span class="line"><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">        ;;</span></span>
+<span class="line"><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">    "</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">Log Out</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">)</span></span>
+<span class="line"><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">        pkill</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#CB4B16;--shiki-solarized-dark:#CB4B16;--shiki-gruvbox-light:#8F3F71;--shiki-gruvbox-dark:#D3869B"> -u</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984"> "</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">$USER</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span></span>
+<span class="line"><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">        ;;</span></span>
+<span class="line"><span style="color:#C6A0F6;--shiki-catppuccin-light:#8839EF;--shiki-catppuccin-dark:#CA9EE6;--shiki-everforest-dark:#E67E80;--shiki-everforest-light:#F85552;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#9D0006;--shiki-gruvbox-dark:#FB4934">esac</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>That would be the script as shown above.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="2"></i>
+                <b>❷</b>
+            </td>
+            <td>Suspending does not automatically lock the screen by default.</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+<div class="paragraph">
+<p>You can have this script placed in your PATH, have a desktop file created for it or assign a keyboard shortcut to run it.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_privilege_escalation">Privilege Escalation<a class="anchor" href="#_privilege_escalation">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Switching to the root user account to run certain commands that require elevated privileges is the best way to go in terms of security. But it&#8217;s a bit inconvenient for one-off tasks, and it would be nice to have that ability for at least a few selected commands.</p>
+</div>
+<div class="paragraph">
+<p>This is what utilities like <code>sudo</code> are for, but perhaps you&#8217;ve noticed that this very common package is not already installed. We could do that, but in the pursuit of a minimalist system I think it&#8217;s worth exploring a few alternatives.</p>
+</div>
+<div class="sect2"><h3 id="_sudo_rs">sudo-rs<a class="anchor" href="#_sudo_rs">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>This one is not just yet another re-write of classic GNU/Linux utilities in the Rust programming languages. It&#8217;s developed in collaboration with long time <code>sudo</code> maintainer Todd C. Miller, and it addresses several shortcomings of the original tool.</p>
+</div>
+<div class="paragraph">
+<p>However, it&#8217;s still under heavy development and has yet to see "real world usage" to polish all the rough edges. It also includes a lot of features that the average user probably needs (speaking strictly from a desktop user perspective).</p>
+</div>
+<div class="paragraph">
+<p>Because of that, I prefer going with a more minimalistic approach.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_opendoas">OpenDoas<a class="anchor" href="#_opendoas">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>FreeBSD&#8217;s <code>doas</code> ported to other UNIX systems. It&#8217;s a much smaller code base, partly because it also offers fewer features in comparison to <code>sudo</code>, which helps reducing the attack surface. However, the main repository highlights that this is not a security guarantee:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+There are fewer eyes on random doas ports, just because sudo had a vulnerability does not mean random doas ports are more secure if they are not reviewed or PAM is configured incorrectly.
+</blockquote>
+<div class="attribution">
+&#8212; Duncan Overbruck<br>
+<cite><a href="https://github.com/Duncaen/OpenDoas" class="bare">https://github.com/Duncaen/OpenDoas</a></cite>
+</div>
+</div>
+<div class="paragraph">
+<p>With that in mind, let&#8217;s install and configure it:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> apt install opendoas</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>The simplest configuration allows a regular user to run commands as the root user. We can do that:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn mt-6 js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="undefined">
+                <span style="font-style: italic;">/etc/doas.conf</span>
+                <figure>
+                    <figcaption class="visually-hidden">/etc/doas.conf</figcaption>
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span>permit persist :sudo as root<i class="conum pl-2" data-value="1"><b>❶</b></i></span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>Allows users in the "sudo" group to run commands as the root user.</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+<div class="paragraph">
+<p>This is equivalent to the default configuration of <code>sudo</code> on any Debian system, and should be enough for the majority of cases.</p>
+</div>
+</div>
+</div>
+</div>2:["$","$La",null,{"title":"Debian Minimal Installation","subtitle":"$undefined","date":"Oct 13th, 2024","content":"$b"}]

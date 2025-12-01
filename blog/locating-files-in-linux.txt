@@ -1,0 +1,457 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[1322,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],"default"]
+7:I[7311,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],"default"]
+8:I[231,["231","static/chunks/231-5c2edefe0a567a0f.js","404","static/chunks/app/blog/page-9a418f1f8ae9b8e1.js"],""]
+4:["slug","locating-files-in-linux","d"]
+0:["JQ0YaEzUq39y5BB9-c65N",[[["",{"children":["blog",{"children":[["slug","locating-files-in-linux","d"],{"children":["__PAGE__?{\"slug\":\"locating-files-in-linux\"}",{}]}]}]},"$undefined","$undefined",true],["",{"children":["blog",{"children":[["slug","locating-files-in-linux","d"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","blog","children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","blog","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","$L6",null,{}],["$","div",null,{"className":"separator"}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":null}],["$","footer",null,{"className":"footer","children":[["$","$L7",null,{}],["$","div",null,{"className":"footer__links","children":[["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"This site is built with:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address","aria-describedby":"footer__nextjs","href":"https://nextjs.org","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-nextjs"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer_nextjs","children":"Next.js"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address","aria-describedby":"footer__asciidoctor","href":"https://asciidoctor.org","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-asciidoc"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer_asciidoctor","children":"Asciidoctor"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Source code for this website","aria-describedby":"footer__git","href":"https://github.com/d10f/devontheroof","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-git"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__git","children":"Git version control"}]]}]]}]]}],["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"Find more about me:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codeberg profile","href":"https://codeberg.org/D10f","aria-describedby":"footer__codeberg","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codeberg"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codeberg","children":"Codeberg"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Github profile","href":"https://github.com/D10f","aria-describedby":"footer__github","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-github"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__github","children":"GitHub"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codepen profile","href":"https://codepen.io/D10f","aria-describedby":"footer__codepen","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codepen"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codepen","children":"Codepen"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Exercism profile","href":"https://exercism.org/profiles/quasimodo","aria-describedby":"footer__exercism","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-exercism"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__exercism","children":"Exercism"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codewars profile","href":"https://www.codewars.com/users/imperation_bypasser","aria-describedby":"footer__codewars","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codewars"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codewars","children":"Codewars"}]]}]]}]]}],["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"Get in touch:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address devontheroof@pm.me","aria-describedby":"footer__email","href":"mailto:devontheroof@pm.me","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-email"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__email","children":"Email"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to a public PGP key to encrypt the body of an email","aria-describedby":"footer__pgp","href":"#","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-gpg-key"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__pgp","children":"PGP public key"}]]}]]}]]}]]}],["$","p",null,{"className":"footer__license","children":["All content by me © 2024",["$","$L8",null,{"className":"pl-1","href":"https://creativecommons.org/licenses/by-sa/4.0/","target":"_blank","rel":"license noopener noreferrer","children":"CC BY-SA 4.0"}]]}]]}],["$","noscript",null,{"children":["$","style",null,{"children":".js-required { display: none }"}]}]]}]}],null],null],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/66bf765195623c3a.css","precedence":"next","crossOrigin":"$undefined"}]],"$L9"]]]]
+a:I[3475,["750","static/chunks/750-0f816d740819c251.js","308","static/chunks/app/blog/%5Bslug%5D/page-920a7887c59b1504.js"],"default"]
+b:Tf84a,<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Finding something can be straight forward, or immensely complicated. It all depends on what you are looking for, what criteria and how much time you have available. Learn the tools of the trade to get the job done.</p>
+</div>
+</div>
+</div><menu class="toc"><li class="toc__item"><a href="#_find">Find</a><ul><li class="toc__item"><a href="#_by_name">By Name</a></li><li class="toc__item"><a href="#_by_size">By Size</a></li><li class="toc__item"><a href="#_by_time">By Time</a></li><li class="toc__item"><a href="#_by_date">By Date</a></li><li class="toc__item"><a href="#_by_file_attributes">By File Attributes</a></li></ul></li><li class="toc__item"><a href="#_bfs">BFS</a></li><li class="toc__item"><a href="#_locate">Locate</a></li><li class="toc__item"><a href="#_grep">GREP</a></li></menu>
+<div class="sect1"><h2 id="_find">Find<a class="anchor" href="#_find">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The most obvious tool for the job is <code>find</code>. It&#8217;s quite straight simple to use: specify the directory to look in and the criteria to search by:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#AF3A03;--shiki-gruvbox-dark:#FE8019">[</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">directory</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#AF3A03;--shiki-gruvbox-dark:#FE8019">]</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#AF3A03;--shiki-gruvbox-dark:#FE8019"> [</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">options</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#AF3A03;--shiki-gruvbox-dark:#FE8019">]</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#AF3A03;--shiki-gruvbox-dark:#FE8019"> [</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">expression</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#AF3A03;--shiki-gruvbox-dark:#FE8019">]</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>Below the apparently simplicity hides a myriad of options that makes it one of the most valuable tools under a system administrator&#8217;s tool belt. Although it&#8217;s not without some hidden gotchas that will make you reach for the manual once or twice (especially if it&#8217;s been a while since you&#8217;ve used it).</p>
+</div>
+<div class="sect2"><h3 id="_by_name">By Name<a class="anchor" href="#_by_name">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find /etc -name deluser.conf</span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find /etc -iname deluser.conf</span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find /etc -iname </span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">*</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">user.conf</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>The <code>-name</code> and <code>-iname</code> options allow specifying the name of the file you&#8217;re looking for. Since an exact match is required, using glob patterns can be really convenient to find multiple files that follow a similar structure. You can also use <code>-regex</code> and <code>-iregex</code> instead, to take advantage of full regular expressions in your query.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_by_size">By Size<a class="anchor" href="#_by_size">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The <code>-size</code> option can be used to search for files of a given size. It accepts an argument <strong>n</strong> that represents the size of the file to search for, and optionally a prefix of or suffix to further narrow down the search criteria.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">~</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">/Downloads -size +1G<i class="conum pl-2" data-value="1"><b>❶</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">~</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">/Downloads -size -1M<i class="conum pl-2" data-value="2"><b>❷</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">~</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">/Downloads -size 64k<i class="conum pl-2" data-value="3"><b>❸</b></i></span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>Matches files greater than 1 Gibibyte.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="2"></i>
+                <b>❷</b>
+            </td>
+            <td>Matches files smaller than 1 Mebibyte.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="3"></i>
+                <b>❸</b>
+            </td>
+            <td>Matches files of exactly 64 Kibibytes.</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+</div>
+<div class="sect2"><h3 id="_by_time">By Time<a class="anchor" href="#_by_time">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>This is a powerful option to know about but can get tricky to remember, and I keep going back to the manual pages to refresh my memory on how to use it properly. It searches for files based on the time they were created, last modified.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">$HOME</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> -cmin -2<i class="conum pl-2" data-value="1"><b>❶</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">$HOME</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> -mtime 0<i class="conum pl-2" data-value="2"><b>❷</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">$HOME</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> -atime +2<i class="conum pl-2" data-value="3"><b>❸</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">$HOME</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> -anewer /var/log/auth.log<i class="conum pl-2" data-value="4"><b>❹</b></i></span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>Matches files that were modified less than 2 minutes ago.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="2"></i>
+                <b>❷</b>
+            </td>
+            <td>Matches files whose _contents_ were modified within the last 24 hours.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="3"></i>
+                <b>❸</b>
+            </td>
+            <td>Matches files that were accessed over 48 hours ago.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="4"></i>
+                <b>❹</b>
+            </td>
+            <td>Matches files that were accessed more recently than the <code>/var/log/auth.log</code> file.</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+<div class="paragraph">
+<p>Each option is prefixed by <em>a</em>, for access, <em>c</em> for status change or <em>m</em> for modified. Then, <em>min</em> refers to minutes whereas <em>time</em> refers to 24 hours periods. Lastly, the <em>newer</em> option compares each file against the time attributes of a given one.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_by_date">By Date<a class="anchor" href="#_by_date">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>It&#8217;s also possible to search for files on a specific date, although with a little fiddling of the inner workings of <code>find</code>. Let&#8217;s jump right into it:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">$HOME</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> -newermt 2021-05-05<i class="conum pl-2" data-value="1"><b>❶</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">$HOME</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> -newermt </span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$(</span><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">date</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> +%F</span><span style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">)</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"><i class="conum pl-2" data-value="2"><b>❷</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">$HOME</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> -newermt </span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">Two days ago</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"><i class="conum pl-2" data-value="3"><b>❸</b></i></span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>Matches files that were modified on the specified date.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="2"></i>
+                <b>❷</b>
+            </td>
+            <td>The date used for reference as used by the <code>date</code> command.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="3"></i>
+                <b>❸</b>
+            </td>
+            <td>Relative strings can also be used!</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+<div class="paragraph">
+<p>As you can see, we can specify exact or relative dates using different formats. Checkout the <a href="https://www.gnu.org/software/coreutils">documentation page</a> to see the full capabilities and limitations. Here, the <em>mt</em> stands for modified time; similarly <em>ct</em> exist for created and <em>at</em> for accessed times.</p>
+</div>
+<div class="paragraph">
+<p>To specify a range use:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find </span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D699B6;--shiki-everforest-light:#DF69BA;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">$HOME</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> -newermt 2021-05-01 </span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">!</span><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit"> -newermt</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> 2021-06-01</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>The first expression searches for files modified after the first of May 2021. The second expression is preceded by the negation operator, and specifies newer than June 2021, thereby creating a range for the whole month of May.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_by_file_attributes">By File Attributes<a class="anchor" href="#_by_file_attributes">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>There are many file attributes that can be used to search for files. Some of the common attributes that I find myself (ha!) using regularly are <code>-perm</code> for permissions, <code>-type</code> for file type, and <code>-uid</code> and <code>-gid</code> for user and group IDs.</p>
+</div>
+<div class="paragraph">
+<p>There are some other modifiers like <code>-not</code> that allow to perform more interesting pattern searching. When considering security it may be more productive to search for things that are out of place, for example.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find /var/www/html -type f -not -perm 640<i class="conum pl-2" data-value="1"><b>❶</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find /var/www/html -type d -not -uid 33<i class="conum pl-2" data-value="2"><b>❷</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> find /var/www/html -type l<i class="conum pl-2" data-value="3"><b>❸</b></i></span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>Matches files that don't have a specific set of permissions.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="2"></i>
+                <b>❷</b>
+            </td>
+            <td>Matches directories not owned by the user with ID of 33 (typically <code>www-data</code> in web servers).</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="3"></i>
+                <b>❸</b>
+            </td>
+            <td>Matches only symbolic links (can be used to identify broken configurations with Nginx).</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_bfs">BFS<a class="anchor" href="#_bfs">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is an interesting one that can be quite handy to know about. To all intents and purposes it&#8217;s identical to <code>find</code> in how it&#8217;s used and what it does, but differs in <em>how</em> it does it. Whereas <code>find</code> uses a <em>depth-first search</em> algorithm, <code>bfs</code> uses a <em>breath-first search</em> one, hence the name.</p>
+</div>
+<div class="paragraph">
+<p>In summary, both of these utility tools will <em>eventually</em> find the file(s) in question. It&#8217;s a matter of how choosing the better tool depending on what you are looking for, and whether you have some idea of where that might be found.</p>
+</div>
+<div class="paragraph">
+<p>Checkout the <a href="https://github.com/tavianator/bfs">project&#8217;s repository</a> to learn more about how to install it and what other options are available.</p>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_locate">Locate<a class="anchor" href="#_locate">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>locate</code> command does not search for files directly, it searches an index that is created by the command <code>updatedb</code> which automatically runs once a day. This in turn means that results are usually very fast with the downside that the index may not be entirely up-to-date. While this is updated automatically for you, you can still run <code>sudo updatedb</code> manually.</p>
+</div>
+<div class="paragraph">
+<p>The results are based on a match on the file name, and it returns them as a list by their absolute path. It won&#8217;t however return any matches within directories without read permissions such as <code>/etc</code> or <code>/bin</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_grep">GREP<a class="anchor" href="#_grep">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This powerful utility is designed to match character patterns a text input. It can be useful when we are looking for a file that contains a particular word or pattern, among many other use cases.<br>
+At its most basic form, you provide a pattern followed by the file(s) that you want to search through:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> grep ...</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>You can also provide it with a path and let it scan all the contents recursively, by passing the <code>-r</code> or <code>--recursive</code> flag (there is also the <code>-R</code> flag to follow symbolic links).</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> grep </span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">""</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> -r </span><span style="color:#ED8796;font-style:italic;--shiki-catppuccin-light:#D20F39;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#E78284;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#DFA000;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#AF3A03;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FE8019;--shiki-gruvbox-dark-font-style:inherit">.</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>If you want to avoid searching some locations, use the <code>--exclude-dir</code> option. For example, say you want to find out which files are using a certain piece of code on a JavaScript project; for multiple directories, specify the option multiple times.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> grep </span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">console.log</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> -r </span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598">--exclude-dir</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">=</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">node_modules</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598"> --exclude-dir</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">=</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">.git</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#268BD2;--shiki-solarized-dark:#268BD2;--shiki-gruvbox-light:#076678;--shiki-gruvbox-dark:#83A598"> --exclude-dir</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">=</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26">dist</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#A7C080;--shiki-everforest-light:#8DA101;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">"</span><span style="color:#ED8796;font-style:italic;--shiki-catppuccin-light:#D20F39;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#E78284;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#DFA000;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#AF3A03;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FE8019;--shiki-gruvbox-dark-font-style:inherit"> .</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+</div>
+</div>2:["$","$La",null,{"title":"Finding Files In Linux","subtitle":"$undefined","date":"May 5th, 2021","content":"$b"}]
+9:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"D10f | Finding Files In Linux"}],["$","meta","3",{"name":"description","content":"There are multiple ways to search for files in Linux: by name, size, permissions... as with most things there are pros and cons to all them."}],["$","meta","4",{"name":"keywords","content":"linux, unix, find, locate, shell, bash, shell"}]]
+1:null
