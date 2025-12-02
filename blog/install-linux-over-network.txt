@@ -1,0 +1,618 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[1322,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],"default"]
+7:I[7311,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],"default"]
+8:I[231,["231","static/chunks/231-5c2edefe0a567a0f.js","404","static/chunks/app/blog/page-9a418f1f8ae9b8e1.js"],""]
+4:["slug","install-linux-over-network","d"]
+0:["mfRUSCj-3V9GnLcU7DhlL",[[["",{"children":["blog",{"children":[["slug","install-linux-over-network","d"],{"children":["__PAGE__?{\"slug\":\"install-linux-over-network\"}",{}]}]}]},"$undefined","$undefined",true],["",{"children":["blog",{"children":[["slug","install-linux-over-network","d"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","blog","children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","blog","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","$L6",null,{}],["$","div",null,{"className":"separator"}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":null}],["$","footer",null,{"className":"footer","children":[["$","$L7",null,{}],["$","div",null,{"className":"footer__links","children":[["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"This site is built with:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address","aria-describedby":"footer__nextjs","href":"https://nextjs.org","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-nextjs"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer_nextjs","children":"Next.js"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address","aria-describedby":"footer__asciidoctor","href":"https://asciidoctor.org","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-asciidoc"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer_asciidoctor","children":"Asciidoctor"}]]}]]}]]}],["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"Find more about me:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codeberg profile","href":"https://codeberg.org/D10f","aria-describedby":"footer__codeberg","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codeberg"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codeberg","children":"Codeberg"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Github profile","href":"https://github.com/D10f","aria-describedby":"footer__github","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-github"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__github","children":"GitHub"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codepen profile","href":"https://codepen.io/D10f","aria-describedby":"footer__codepen","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codepen"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codepen","children":"Codepen"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Exercism profile","href":"https://exercism.org/profiles/d10f","aria-describedby":"footer__exercism","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-exercism"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__exercism","children":"Exercism"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codewars profile","href":"https://www.codewars.com/users/d10f","aria-describedby":"footer__codewars","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codewars"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codewars","children":"Codewars"}]]}]]}]]}],["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"Get in touch:"}],["$","ul",null,{"children":["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address devontheroof@pm.me","aria-describedby":"footer__email","href":"mailto:devontheroof@pm.me","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-email"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__email","children":"Email"}]]}]}]]}]]}],["$","p",null,{"className":"footer__license","children":["All content by me © 2024",["$","$L8",null,{"className":"pl-1","href":"https://creativecommons.org/licenses/by-sa/4.0/","target":"_blank","rel":"license noopener noreferrer","children":"CC BY-SA 4.0"}]]}]]}],["$","noscript",null,{"children":["$","style",null,{"children":".js-required { display: none }"}]}]]}]}],null],null],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/68814e7d4ddcd801.css","precedence":"next","crossOrigin":"$undefined"}]],"$L9"]]]]
+9:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"D10f | Install Linux Over The Network"}],["$","meta","3",{"name":"description","content":"Install Linux without any external media device, over the network, using the PXE system."}],["$","meta","4",{"name":"keywords","content":"linux network pxe tftp, shell"}]]
+1:null
+a:I[3475,["750","static/chunks/750-0f816d740819c251.js","308","static/chunks/app/blog/%5Bslug%5D/page-920a7887c59b1504.js"],"default"]
+b:Td50f,<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some preamble / introduction</p>
+</div>
+</div>
+</div><menu class="toc"><li class="toc__item"><a href="#_problem_statement">Problem Statement</a></li><li class="toc__item"><a href="#_definitions">Definitions</a><ul><li class="toc__item"><a href="#_dhcp_server">DHCP Server</a></li><li class="toc__item"><a href="#_tftp_server">TFTP Server</a></li><li class="toc__item"><a href="#_network_bootloader">Network Bootloader</a></li><li class="toc__item"><a href="#_grub">GRUB</a></li><li class="toc__item"><a href="#_http_server">HTTP Server</a></li><li class="toc__item"><a href="#_iso_file">ISO File</a></li></ul></li><li class="toc__item"><a href="#_setup">Setup</a><ul><li class="toc__item"><a href="#_dnsmasq">dnsmasq</a></li><li class="toc__item"><a href="#_bootloader_files">Bootloader Files</a></li><li class="toc__item"><a href="#_create_grub_menu_options">Create GRUB menu options</a></li></ul></li><li class="toc__item"><a href="#_extract_iso_file">Extract ISO file</a></li><li class="toc__item"><a href="#_firewall_rules">Firewall Rules</a></li><li class="toc__item"><a href="#_run_the_http_server">Run The HTTP Server</a></li><li class="toc__item"><a href="#_start_the_client">Start The Client</a></li></menu>
+<div class="sect1"><h2 id="_problem_statement">Problem Statement<a class="anchor" href="#_problem_statement">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You need to install an operating system on your computer (the client), but you don&#8217;t have any external media device available to install from (maybe because the physical ports are damaged).</p>
+</div>
+<div class="paragraph">
+<p>On the same network you have another computer (the server) with the ISO file for the operating system you want to install. You want to use this computer to act as a server, using the ISO file stored there to boot over the local network.</p>
+</div>
+<div class="paragraph">
+<p>You will need to install software on this machine to turn it into a server capable of listening for network requests to set up the connection between it, and the client.</p>
+</div>
+
+            <div class="admonition admonition--left important">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-important" />
+                </svg>
+                <p>There are multiple ways to set this up. This post attempts to provide a straight forward, practical approach following a step-by-step instruction. Please keep this in mind when comparing and contrasting the information you see here with other sources.</p>
+            </div>
+</div>
+</div>
+<div class="sect1"><h2 id="_definitions">Definitions<a class="anchor" href="#_definitions">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These are the parts involved in this process. They are defined in the context of Pre-Execution Environment (PXE), booting a computer over the network.</p>
+</div>
+<div class="sect2"><h3 id="_dhcp_server">DHCP Server<a class="anchor" href="#_dhcp_server">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The Dynamic Host Configuration Protocol is used to assign communication parameters to each host on a network, most commonly an IP address for identification purposes. In this case however, we&#8217;re interested in other parameters that will help with the net-boot process, by means of directing the client machine to the location of the TFTP server.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_tftp_server">TFTP Server<a class="anchor" href="#_tftp_server">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The Trivial File Transfer Protocol is used for transferring files over the network, commonly used in the early stages of the boot process due to its simplicity compared to more sophisticated alternatives. It will be used to serve the client with the bootloader and other files as needed.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_network_bootloader">Network Bootloader<a class="anchor" href="#_network_bootloader">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>A bootloader is the software that runs before the operating system. It&#8217;s responsible from loading and transferring control over to the <em>kernel</em> i.e., Linux, which in turn loads the operating system itself.<br>
+Since we want to boot over the network we need a PXE bootloader that will be served from the TFTP server.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_grub">GRUB<a class="anchor" href="#_grub">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>GNU GRUB is another bootloader specifically made for personal computers. Most Linux distributions today use it as a mean to select the operating system to boot into (even when there is only one). We will use this once all files have been downloaded over the network and our system is ready to boot into the remote ISO image, which will be downloaded separately over HTTP.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_http_server">HTTP Server<a class="anchor" href="#_http_server">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Once the client has received the bootloader files, has loaded the GRUB menu and selected an option to choose from (for simplicity, in this example there will be only one option), the ISO image needs to be downloaded by the client. We&#8217;ll use a basic but reliable server to that effect, using the well-known HTTP protocol.</p>
+</div>
+</div>
+<div class="sect2"><h3 id="_iso_file">ISO File<a class="anchor" href="#_iso_file">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The target image that we want to boot into. For example, we&#8217;ll go with Linux Mint 21.3 "Virginia".</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_setup">Setup<a class="anchor" href="#_setup">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+
+            <div class="admonition admonition--right important">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-important" />
+                </svg>
+                <p>The following commands need to be run as root.</p>
+            </div>
+<div class="paragraph">
+<p>We need to install a few packages and configure them. There are only a handful of them, so we can do it in one go:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> apt install dnsmasq pxelinux syslinux</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="sect2"><h3 id="_dnsmasq">dnsmasq<a class="anchor" href="#_dnsmasq">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Despite the name, <code>dnsmasq</code> does a lot more than providing DNS and, in fact, we are not interested in these capabilities for the purposes of this post. It&#8217;s the DHCP <em>with proxy capabilities</em> and the TFTP server that we need for this to work.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn mt-6 js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="undefined">
+                <span style="font-style: italic;">/etc/dnsmasq.conf</span>
+                <figure>
+                    <figcaption class="visually-hidden">/etc/dnsmasq.conf</figcaption>
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span>port=0<i class="conum pl-2" data-value="1"><b>❶</b></i></span></span>
+<span class="line"><span>enable-tftp<i class="conum pl-2" data-value="2"><b>❷</b></i></span></span>
+<span class="line"><span>tftp-root=/srv/tftp<i class="conum pl-2" data-value="3"><b>❸</b></i></span></span>
+<span class="line"><span>tftp-port-range=7000,7100<i class="conum pl-2" data-value="4"><b>❹</b></i></span></span>
+<span class="line"><span>dhcp-range=192.168.1.0,proxy<i class="conum pl-2" data-value="5"><b>❺</b></i></span></span>
+<span class="line"><span>pxe-service=x86PC,"PXELINUX (BIOS)",bios/pxelinux<i class="conum pl-2" data-value="6"><b>❻</b></i></span></span>
+<span class="line"><span>pxe-service=x86-64_EFI,"PXELINUX (EFI)",efi64/syslinux.efi<i class="conum pl-2" data-value="7"><b>❼</b></i></span></span>
+<span class="line"><span>log-queries<i class="conum pl-2" data-value="8"><b>❽</b></i></span></span>
+<span class="line"><span>log-facility=/var/log/dnsmasq.log</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>Disables the DNS server.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="2"></i>
+                <b>❷</b>
+            </td>
+            <td>Enables the TFTP server.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="3"></i>
+                <b>❸</b>
+            </td>
+            <td>The directory where the TFTP server will be hosting the files to boot from.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="4"></i>
+                <b>❹</b>
+            </td>
+            <td>After the initial connection to the TFTP server, a random port will be selected automatically for all subsequent exchanges. Specifying a range of ports here will narrow down the number of ports to be used, making it easier to create predictable firewall traffic rules.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="5"></i>
+                <b>❺</b>
+            </td>
+            <td>Specifies the local network to listen to for DHCP requests (make sure to update this to match your network). The "proxy" mode instructs dnsmasq to only provide PXE information to clients while another DHCP server handles the IP assignment.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="6"></i>
+                <b>❻</b>
+            </td>
+            <td>Bootloader to use for BIOS powered devices.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="7"></i>
+                <b>❼</b>
+            </td>
+            <td>Bootloader to use for UEFI powered devices.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="8"></i>
+                <b>❽</b>
+            </td>
+            <td>Useful for debugging and seeing the traffic generated.</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+<div class="paragraph">
+<p>We need to create the directory for the TFTP server to host the files, as per the configuration above. In addition, we need two separate directories to contain the files required by BIOS- and UEFI-powered systems, respectively:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> mkdir -p /srv/tftp/{</span><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">bios,efi64}</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>And restart the service:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> systemctl restart dnsmasq.service</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+</div>
+<div class="sect2"><h3 id="_bootloader_files">Bootloader Files<a class="anchor" href="#_bootloader_files">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>The <em>bootloader</em> will be among the files served by the TFTP server. All we need to do is place these files (which we obtained when we installed the packages to that effect earlier) at the root of the TFTP server, as per our previous step.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> cp /usr/lib/syslinux/modules/bios/{</span><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">ldlinux,vesamenu,libcom32,libutil}.c32</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> /usr/lib/PXELINUX/pxelinux.0</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> /srv/tftp/bios</span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> cp /usr/lib/syslinux/modules/efi64/ldlinux.e64 /usr/lib/syslinux/modules/efi64/{</span><span style="color:#8AADF4;font-style:italic;--shiki-catppuccin-light:#1E66F5;--shiki-catppuccin-light-font-style:italic;--shiki-catppuccin-dark:#8CAAEE;--shiki-catppuccin-dark-font-style:italic;--shiki-everforest-dark:#A7C080;--shiki-everforest-dark-font-style:inherit;--shiki-everforest-light:#8DA101;--shiki-everforest-light-font-style:inherit;--shiki-solarized-light:#268BD2;--shiki-solarized-light-font-style:inherit;--shiki-solarized-dark:#268BD2;--shiki-solarized-dark-font-style:inherit;--shiki-gruvbox-light:#B57614;--shiki-gruvbox-light-font-style:inherit;--shiki-gruvbox-dark:#FABD2F;--shiki-gruvbox-dark-font-style:inherit">vesamenu,libcom32,libutil}.c32</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi</span><span style="color:#A6DA95;--shiki-catppuccin-light:#40A02B;--shiki-catppuccin-dark:#A6D189;--shiki-everforest-dark:#DBBC7F;--shiki-everforest-light:#DFA000;--shiki-solarized-light:#2AA198;--shiki-solarized-dark:#2AA198;--shiki-gruvbox-light:#79740E;--shiki-gruvbox-dark:#B8BB26"> /srv/tftp/efi64</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+
+            <div class="admonition admonition--left important">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-important" />
+                </svg>
+                <p>Having both bootloader types will be beneficial if you are not sure which one you'll need.</p>
+            </div>
+</div>
+<div class="sect2"><h3 id="_create_grub_menu_options">Create GRUB menu options<a class="anchor" href="#_create_grub_menu_options">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h3>
+<div class="paragraph">
+<p>Next up, we need to define entries for the GRUB menu. This will allow us to choose the files we want to use to boot our computer (as per the previous step). Create a directory called <code>pxelinux.cfg</code> with a single file, <code>default</code>. This file will have a very bare menu with a single option for the ISO that we want to boot into:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn mt-6 js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="undefined">
+                <span style="font-style: italic;">/srv/tftp/pxelinux.cfg/default</span>
+                <figure>
+                    <figcaption class="visually-hidden">/srv/tftp/pxelinux.cfg/default</figcaption>
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span>UI     vesamenu.c32</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>LABEL Mint Cinnamon 21.3 network boot</span></span>
+<span class="line"><span>	MENU LABEL MINT CINNAMON 21.3</span></span>
+<span class="line"><span>	KERNEL ::boot/casper/vmlinuz</span></span>
+<span class="line"><span>	INITRD ::boot/casper/initrd.lz4</span></span>
+<span class="line"><span>	APPEND root=/dev/ram0 ramdisk_size=1048576 ip=dhcp netboot=url url=192.168.1.10/linuxmint-21.3-cinnamon-64bit.iso<i class="conum pl-2" data-value="1"><b>❶</b></i></span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>Make sure to update the IP address to point to the server.</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+<div class="paragraph">
+<p>The <code>KERNEL</code> and <code>INITRD</code> lines define the files served by the TFTP server, that are used to boot over the network. The <code>::</code> serves as a placeholder for the root directory as defined in <code>dnsmasq.conf</code>. This means that we need to have a <code>boot</code> directory containing this temporary bootloader and kernel files, which we&#8217;ll create next.</p>
+</div>
+<div class="paragraph">
+<p>The <code>APPEND</code> line defines additional parameters for the kernel. Here we specify how to boot and where to load the actual live ISO file. Make sure the IP address points to the right server. It may work with domain names as well, but I haven&#8217;t tried it.</p>
+</div>
+<div class="paragraph">
+<p>In order to use this file regardless of whether the client machine runs on BIOS or UEFI, we can create symbolic links to it in either of the respective folders we created earlier.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> ln -s /srv/tftp/pxelinux.cfg /srv/tftp/bios/pxelinux.cfg</span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> ln -s /srv/tftp/pxelinux.cfg /srv/tftp/efi64/pxelinux.cfg</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_extract_iso_file">Extract ISO file<a class="anchor" href="#_extract_iso_file">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Finally, we need the ISO image itself to serve it to the client machine. Specifically we need to extract the files from the image and copy them to the root of the TFTP server. We can do this in two steps by mounting the image files in a temporary location:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> mkdir /mnt/linux_mint</span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> mount -o loop -t iso9660 </span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">~</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">/Downloads/linuxmint-21.3-cinnamon-64bit.iso /mnt/linux_mint</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>And then copying them over to the TFTP server&#8217;s root directory:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> mkdir /srv/tftp/boot</span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> cp -r /mnt/linux_mint/</span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">*</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> /srv/tftp/boot/</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>At this point, we should have a file structure that looks something like this:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/srv/tftp/
+├── bios/
+│   ├── ldlinux.c32
+│   ├── libcom32.c32
+│   ├── libutil.c32
+│   ├── pxelinux.0
+│   ├── pxelinux.cfg -&gt; /srv/tftp/pxelinux.cfg
+│   └── vesamenu.c32
+├── boot/
+│   ├── boot
+│   ├── casper
+│   ├── dists
+│   ├── efi
+│   ├── isolinux
+│   ├── md5sum.txt
+│   ├── pool
+│   └── README.diskdefines
+├── efi64/
+│   ├── ldlinux.e64
+│   ├── libcom32.c32
+│   ├── libutil.c32
+│   ├── pxelinux.cfg -&gt; /srv/tftp/pxelinux.cfg
+│   ├── syslinux.efi
+│   └── vesamenu.c32
+└── pxelinux.cfg/
+    └── default</pre>
+</div>
+</div>
+
+            <div class="admonition admonition--right warning">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-warning" />
+                </svg>
+                <p>The boot/ directory might look slightly different depending on the ISO image used.</p>
+            </div>
+</div>
+</div>
+<div class="sect1"><h2 id="_firewall_rules">Firewall Rules<a class="anchor" href="#_firewall_rules">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As PXE involved accessing files over the network it&#8217;s possible that a Firewall blocks some of the connections. We can create the following rules in order to work around that:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> ufw allow 67/udp<i class="conum pl-2" data-value="1"><b>❶</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> ufw allow 69/udp<i class="conum pl-2" data-value="2"><b>❷</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> ufw allow 7000:7100/udp<i class="conum pl-2" data-value="3"><b>❸</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> ufw allow 4011/udp<i class="conum pl-2" data-value="4"><b>❹</b></i></span></span>
+<span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> ufw allow 80/tcp<i class="conum pl-2" data-value="5"><b>❺</b></i></span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="colist arabic">
+                <table>
+                    <tbody>
+                        <tr>
+            <td>
+                <i class="conum pr-2" data-value="1"></i>
+                <b>❶</b>
+            </td>
+            <td>DHCP traffic.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="2"></i>
+                <b>❷</b>
+            </td>
+            <td>Initial connection to the TFTP server.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="3"></i>
+                <b>❸</b>
+            </td>
+            <td>Subsequent connections to the TFTP server. This range should match whatever was provided in the dnsmasq configuration file.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="4"></i>
+                <b>❹</b>
+            </td>
+            <td>PXE server.</td>
+        </tr><tr>
+            <td>
+                <i class="conum pr-2" data-value="5"></i>
+                <b>❺</b>
+            </td>
+            <td>HTTP traffic to download the ISO file.</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+</div>
+</div>
+<div class="sect1"><h2 id="_run_the_http_server">Run The HTTP Server<a class="anchor" href="#_run_the_http_server">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We don&#8217;t need anything special for this, so we can use Python&#8217;s HTTP module as it comes built-in and Python is likely installed in most Linux distributions by default.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">#</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> python3 -m http.server 80 -d </span><span style="color:#8BD5CA;--shiki-catppuccin-light:#179299;--shiki-catppuccin-dark:#81C8BE;--shiki-everforest-dark:#E69875;--shiki-everforest-light:#F57D26;--shiki-solarized-light:#859900;--shiki-solarized-dark:#859900;--shiki-gruvbox-light:#427B58;--shiki-gruvbox-dark:#8EC07C">~</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2">/Downloads</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>The location does not matter; point the <code>-d</code> or <code>--directory</code> option to wherever directory in your server machine the ISO file is located. Note that we&#8217;re not referring to the extracted files anymore but the image itself.</p>
+</div>
+</div>
+</div>
+<div class="sect1"><h2 id="_start_the_client">Start The Client<a class="anchor" href="#_start_the_client">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+
+            <div class="admonition admonition--left important">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-important" />
+                </svg>
+                <p>Wi-Fi does not typically work in the early steps of the boot process. You will need to use an Ethernet connection for the client machine to reach the network.</p>
+            </div>
+<div class="paragraph">
+<p>With all this in place we can now start the client machine. It might take a while, but it should automatically start downloading the bootloader files, and then you&#8217;ll be presented with the GRUB menu, in this case with a single entry to boot into Linux Mint. Then, it will download the ISO file and finally start the operating system.</p>
+</div>
+</div>
+</div>2:["$","$La",null,{"title":"Install Linux Over The Network","subtitle":"$undefined","date":"Jun 11th, 2024","content":"$b"}]

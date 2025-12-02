@@ -1,0 +1,261 @@
+3:I[9275,[],""]
+5:I[1343,[],""]
+6:I[1322,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],"default"]
+7:I[7311,["51","static/chunks/795d4814-791ee4c8ffbea374.js","240","static/chunks/53c13509-665d8ea6240909d2.js","231","static/chunks/231-5c2edefe0a567a0f.js","750","static/chunks/750-0f816d740819c251.js","891","static/chunks/891-673cb69422ff0919.js","185","static/chunks/app/layout-0da2c7d9a4198897.js"],"default"]
+8:I[231,["231","static/chunks/231-5c2edefe0a567a0f.js","404","static/chunks/app/blog/page-9a418f1f8ae9b8e1.js"],""]
+4:["slug","debian-backports","d"]
+0:["mfRUSCj-3V9GnLcU7DhlL",[[["",{"children":["blog",{"children":[["slug","debian-backports","d"],{"children":["__PAGE__?{\"slug\":\"debian-backports\"}",{}]}]}]},"$undefined","$undefined",true],["",{"children":["blog",{"children":[["slug","debian-backports","d"],{"children":["__PAGE__",{},[["$L1","$L2"],null],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","blog","children","$4","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","blog","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}],null]},[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","$L6",null,{}],["$","div",null,{"className":"separator"}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":null}],["$","footer",null,{"className":"footer","children":[["$","$L7",null,{}],["$","div",null,{"className":"footer__links","children":[["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"This site is built with:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address","aria-describedby":"footer__nextjs","href":"https://nextjs.org","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-nextjs"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer_nextjs","children":"Next.js"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address","aria-describedby":"footer__asciidoctor","href":"https://asciidoctor.org","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-asciidoc"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer_asciidoctor","children":"Asciidoctor"}]]}]]}]]}],["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"Find more about me:"}],["$","ul",null,{"children":[["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codeberg profile","href":"https://codeberg.org/D10f","aria-describedby":"footer__codeberg","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codeberg"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codeberg","children":"Codeberg"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Github profile","href":"https://github.com/D10f","aria-describedby":"footer__github","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-github"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__github","children":"GitHub"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codepen profile","href":"https://codepen.io/D10f","aria-describedby":"footer__codepen","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codepen"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codepen","children":"Codepen"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Exercism profile","href":"https://exercism.org/profiles/d10f","aria-describedby":"footer__exercism","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-exercism"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__exercism","children":"Exercism"}]]}],["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to Codewars profile","href":"https://www.codewars.com/users/d10f","aria-describedby":"footer__codewars","target":"_blank","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-codewars"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__codewars","children":"Codewars"}]]}]]}]]}],["$","div",null,{"className":"footer__field","children":[["$","p",null,{"children":"Get in touch:"}],["$","ul",null,{"children":["$","li",null,{"children":[["$","$L8",null,{"aria-label":"Link to send an email to address devontheroof@pm.me","aria-describedby":"footer__email","href":"mailto:devontheroof@pm.me","children":["$","svg",null,{"aria-hidden":"true","children":["$","use",null,{"href":"/sprite.svg#icon-email"}]}]}],["$","span",null,{"className":"footer__field-tooltip","role":"tooltip","id":"footer__email","children":"Email"}]]}]}]]}]]}],["$","p",null,{"className":"footer__license","children":["All content by me © 2024",["$","$L8",null,{"className":"pl-1","href":"https://creativecommons.org/licenses/by-sa/4.0/","target":"_blank","rel":"license noopener noreferrer","children":"CC BY-SA 4.0"}]]}]]}],["$","noscript",null,{"children":["$","style",null,{"children":".js-required { display: none }"}]}]]}]}],null],null],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/68814e7d4ddcd801.css","precedence":"next","crossOrigin":"$undefined"}]],"$L9"]]]]
+9:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"D10f | Upgrading Packages In Debian Stable"}],["$","meta","3",{"name":"description","content":"How to upgrade package from the Debian stable repositories."}],["$","meta","4",{"name":"keywords","content":"linux debian backports package-management, debian,shell,linux"}]]
+1:null
+a:I[3475,["750","static/chunks/750-0f816d740819c251.js","308","static/chunks/app/blog/%5Bslug%5D/page-920a7887c59b1504.js"],"default"]
+b:T55e7,<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Debian has gained a well deserved reputation of being a robust and reliably system. Part of that comes from the reliance on extensive testing of the packages available from the official repositories. However, these can be a little behind in terms of version numbers which may cause them to lack features or bug fixes. This isn&#8217;t an issue most of the time (latest doesn&#8217;t necessarily mean better), but it can become an issue.</p>
+</div>
+</div>
+</div><menu class="toc"><li class="toc__item"><a href="#_install_from_the_backports_repository">Install From The Backports Repository</a></li><li class="toc__item"><a href="#_install_from_testing_branch">Install From Testing Branch</a></li></menu>
+<div class="sect1"><h2 id="_install_from_the_backports_repository">Install From The Backports Repository<a class="anchor" href="#_install_from_the_backports_repository">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <em>backports</em> repository offers re-compiled packages using libraries available for the current stable branch, albeit at higher versions of those available in the regular repositories. While these packages haven&#8217;t been tested as thoroughly, they are the best choice for using more up to date software without risking the stability of the system. To install packages from this repository, first you need to tell the system where to download them from, by adding an entry to <code>/etc/apt/sources.list</code>:</p>
+</div>
+<div class="paragraph">
+<p><code>deb <a href="http://deb.debian.org/debian">http://deb.debian.org/debian</a> stable-backports main</code></p>
+</div>
+<div class="paragraph">
+<p>This uses the classic one-line format, and it will work just as well, but you can also use the now standard Deb822 format instead. For that, create a new file in <code>/etc/apt/sources.list.d</code> with a <code>.sources</code> extension and the following contents:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn mt-6 js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="undefined">
+                <span style="font-style: italic;">/etc/apt/sources.list.d/debian-backports.sources</span>
+                <figure>
+                    <figcaption class="visually-hidden">/etc/apt/sources.list.d/debian-backports.sources</figcaption>
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span># Debian backports</span></span>
+<span class="line"><span>Types: deb</span></span>
+<span class="line"><span>URIs: http://deb.debian.org/debian</span></span>
+<span class="line"><span>Architectures: amd64</span></span>
+<span class="line"><span>Suites: stable-backports</span></span>
+<span class="line"><span>Components: main</span></span>
+<span class="line"><span>Enabled: yes</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+
+            <div class="admonition admonition--left note">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="/sprite.svg#icon-note" />
+                </svg>
+                <p>Instead of "stable" you can specify the codename of the current stable branch (bookworm, as of this writing).</p>
+            </div>
+<div class="paragraph">
+<p>To confirm that everything works, update the cache with a simple <code>apt update</code> command, and check that there aren&#8217;t any errors reported in the console. If all goes well, you are now ready to install packages from the <em>backports</em> repository. This should be fairly easy, all that is needed is to specify the target release alongside the repository name. For example:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> sudo apt install cockpit/stable-backports</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>At the time of this writing, <code>cockpit</code> is at version <code>287</code> whereas the <em>backports</em> version is at a much higher <code>331</code>. This would allow us to install this version in case we needed it for whatever reason, at the cost of possibly introducing some instability due to lack of testing.</p>
+</div>
+<div class="paragraph">
+<p>You could also use the <code>-t, --target-release</code> flag instead:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> sudo apt -t stable-backports install cockpit</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+</div>
+</div>
+<div class="sect1"><h2 id="_install_from_testing_branch">Install From Testing Branch<a class="anchor" href="#_install_from_testing_branch">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-link" />
+                    </svg>
+                </a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When neither the stable nor the backports repositories have a package that you need at the desired version, you can take things one step further and install from the <em>testing</em> branch. For example, at the time of this writing there is not package available for <code>nftables</code> in the <em>backports</em> repository:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> apt show nftables/stable-backports</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="literalblock">
+<div class="content">
+<pre>Package: nftables
+State: not a real package (virtual)
+N: Release 'stable-backports' for 'nftables' was not found
+N: Release 'stable-backports' for 'nftables' was not found
+N: No packages found</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is unfortunate, since there&#8217;s an outstanding bug within <code>nftables</code> that is already fixed in a later version. This is where the <em>testing</em> branch can really help by offering packages that are at a higher version.</p>
+</div>
+<div class="paragraph">
+<p>Before adding the appropriate repositories to your list, it&#8217;s important that you set a preferences &mdash; also known as pinning down the repository sources &mdash; to avoid installing any packages from the <em>testing</em> accidentally. As mentioned, and as the name suggests, this packages are still undergoing testing and may introduce bugs and other stability issues. You want to make sure that you only install them explicitly.<br>
+For that, create a new configuration file in <code>/etc/apt/preferences.d/99-debian-testing</code> &mdash; the name does not matter, but rules specified here are processed in alphabetical order.</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="undefined">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span>Package: *</span></span>
+<span class="line"><span>Pin: release a=testing</span></span>
+<span class="line"><span>Pin-Priority: 50</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>This ensures that all packages coming from the testing repository will have a priority of 50, which is lower than the default of 500 from the stable repositories. This way, if a package with the same name exists on both repositories, the stable one will take precedence.<br>
+The backports repository has a default priority of 100 which is why you don&#8217;t need to do this step when adding the backports repository alone.</p>
+</div>
+<div class="paragraph">
+<p>Now, update the repository list by adding the appropriate entries for <code>apt</code> to find. Use whatever format you prefer, I&#8217;ll use Deb822-style:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn mt-6 js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="undefined">
+                <span style="font-style: italic;">/etc/apt/sources.list.d/debian-testing.sources</span>
+                <figure>
+                    <figcaption class="visually-hidden">/etc/apt/sources.list.d/debian-testing.sources</figcaption>
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span># Debian testing and updates</span></span>
+<span class="line"><span>Types: deb deb-src</span></span>
+<span class="line"><span>URIs: http://deb.debian.org/debian</span></span>
+<span class="line"><span>Architectures: amd64</span></span>
+<span class="line"><span>Suites: testing testing-updates</span></span>
+<span class="line"><span>Components: main</span></span>
+<span class="line"><span>Enabled: yes</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Debian testing security</span></span>
+<span class="line"><span>Types: deb deb-src</span></span>
+<span class="line"><span>URIs: http://security.debian.org/debian-security</span></span>
+<span class="line"><span>Architectures: amd64</span></span>
+<span class="line"><span>Suites: testing-security</span></span>
+<span class="line"><span>Components: main</span></span>
+<span class="line"><span>Enabled: yes</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="paragraph">
+<p>Same as before, make sure there are no errors when running <code>apt update</code> to refresh the repository cache. To install something from this repository, specify that as part of the package name:</p>
+</div>
+<div class="codeblock">
+            <button class="codeblock__copy-btn rotating-btn  js-required">
+                <span class="unselectable">
+                    <svg aria-hidden="true">
+                        <use href="/sprite.svg#icon-clipboard" />
+                    </svg>
+
+                    <svg aria-hidden="true" style="transform: rotate(180deg);">
+                        <use href="/sprite.svg#icon-clipboard-success" />
+                    </svg>
+                </span>
+            </button>
+            <div class="listingblock" data-language="console">
+                <span style="font-style: italic;"></span>
+                <figure>
+                    
+                    <pre class="shiki shiki-themes catppuccin-macchiato catppuccin-latte catppuccin-frappe everforest-dark everforest-light solarized-light solarized-dark gruvbox-light-hard gruvbox-dark-hard" style="background-color:#24273a;--shiki-catppuccin-light-bg:#eff1f5;--shiki-catppuccin-dark-bg:#303446;--shiki-everforest-dark-bg:#2d353b;--shiki-everforest-light-bg:#fdf6e3;--shiki-solarized-light-bg:#fffce8;--shiki-solarized-dark-bg:#073642;--shiki-gruvbox-light-bg:#faf6d9;--shiki-gruvbox-dark-bg:#282828;color:#cad3f5;--shiki-catppuccin-light:#4c4f69;--shiki-catppuccin-dark:#c6d0f5;--shiki-everforest-dark:#d3c6aa;--shiki-everforest-light:#5c6a72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3c3836;--shiki-gruvbox-dark:#ebdbb2" tabindex="-1"><code><span class="line"><span class="unselectable" style="color:#939AB7;--shiki-catppuccin-light:#7C7F93;--shiki-catppuccin-dark:#949CBB;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#7C6F64;--shiki-gruvbox-dark:#A89984">$</span><span style="color:#CAD3F5;--shiki-catppuccin-light:#4C4F69;--shiki-catppuccin-dark:#C6D0F5;--shiki-everforest-dark:#D3C6AA;--shiki-everforest-light:#5C6A72;--shiki-solarized-light:#657B83;--shiki-solarized-dark:#839496;--shiki-gruvbox-light:#3C3836;--shiki-gruvbox-dark:#EBDBB2"> apt show nftables/testing</span></span></code></pre>
+                </figure>
+            </div>
+        </div>
+<div class="literalblock">
+<div class="content">
+<pre>Package: nftables
+Version: 1.1.1-1
+...
+APT-Sources: http://deb.debian.org/debian testing/main amd64 Packages
+...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At the time of this writing, the stable repository has <code>nftables</code> at version 1.0.6 which has a bug that makes it crash when used alongside <code>firewalld</code>. Now, I can use this version, hopefully without issues.</p>
+</div>
+</div>
+</div>2:["$","$La",null,{"title":"Upgrading Packages In Debian Stable","subtitle":"$undefined","date":"Oct 24th, 2024","content":"$b"}]

@@ -1,8 +1,0 @@
-// tag::title[]
-= Lua
-// end::title[]
-
-This is an interesting one that I'm internally debating whether I like it or not. It's the type of language that _I want_ to like. Philosophically, it's interesting and also quite practical, and I already use it for things like configuring my code editor. But at the same time, it seems quite limited at times. Still, it has a few great use cases like Wireshark filters and popular games have been created using Love 2D.
-
-1. Use of `~=` as the inequality operator, compared to Ruby, Perl or Bash where it's `!=`, and `=~` used for pattern matching.
-1. Variables are global by default, even inside functions, where you can prefix them with the keyword `local` to avoid this behavior.
