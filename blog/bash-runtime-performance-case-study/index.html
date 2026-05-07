@@ -1,0 +1,535 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v6.3.1"><title>Astro Basics</title><style>time[data-astro-cid-baakmyjh]{color:var(--subtitles);font-size:.9em}
+h1[data-astro-cid-7jjqptxk]{font-weight:700;text-wrap:balance;line-height:1.3}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Fj8fSMl1.css"><script type="module" src="/_astro/page.CqARJ21R.js"></script></head> <body data-astro-cid-sckkx6r4> <nav x-data="scroll" @scroll.window.throttle.70ms="handleScroll" class="navbar" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-5blmo7yk> <div class="navbar__brand" data-astro-cid-5blmo7yk> <a href="/" data-astro-cid-5blmo7yk>D10f</a> </div> <menu class="navbar__links" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <a class="active" href="/blog" data-astro-cid-5blmo7yk>Blog</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/projects" data-astro-cid-5blmo7yk>Projects</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/uses" data-astro-cid-5blmo7yk>Uses</a> </li> </menu> <menu class="navbar__actions" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <div x-data="theme" data-astro-cid-x3pjskd3> <button @click="toggle" class="rotating-btn" :class="{ 'rotating-btn--active': theme === 'dark' }" data-astro-cid-x3pjskd3> <span data-astro-cid-x3pjskd3> <svg aria-hidden="true" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-sun" data-astro-cid-x3pjskd3></use> </svg> <svg aria-hidden="true" style="transform: rotate(180deg);" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-moon" data-astro-cid-x3pjskd3></use> </svg> </span> </button> </div> </li> </menu> </nav> <main data-astro-cid-sckkx6r4>  <article data-astro-cid-7jjqptxk> <header data-astro-cid-7jjqptxk> <h1 data-astro-cid-7jjqptxk>Bash Runtime Performance Case Study</h1> <time datetime="2023-07-21T00:00:00.000Z" data-astro-cid-baakmyjh> Jul 21, 2023 </time> </header> <div class="asciidoc" data-astro-cid-7jjqptxk>
+		<section id="preamble">
+			<p class="">Recently, I&#8217;ve stumbled into the scenario where I needed to delete around 10,000 images from my machine, along with the cached thumbnails for those images. My first instinct was to write a simple shell script to get this done &mdash; after 90 seconds or so, the task was completed, and I didn&#8217;t think much about it.<br>
+But something in the back of my mind was bugging me. I started to wonder how badly did I overestimate my ability to write a simple script. Or, perhaps, I was underestimating the task at hand. Naturally, the only option was to spin up a virtual machine and run a few tests to find out.</p>
+		</section>
+
+		<section id="toc">
+			<menu class="toc">
+		<li class="toc__item">
+			<a href="#_defining_the_task">Defining The Task</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_goals_and_baselines">Goals And Baselines</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_bash">Bash</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_python">Python</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_php">PHP</a>
+			
+		</li></ul>
+		</li>
+		<li class="toc__item">
+			<a href="#_avoid_log_activity">Avoid Log Activity</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_reducing_the_number_of_processes">Reducing The Number Of Processes</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_run_operations_in_memory">Run Operations In Memory</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_using_shell_features_effectively">Using Shell Features Effectively</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_conclusion">Conclusion</a>
+			
+		</li></menu>
+		</section>
+<section class="sect1">
+		<header>
+			<h2 id="_defining_the_task">Defining The Task</h2>
+			
+		<a href="#_defining_the_task">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">There are three steps involved in this task:</p>
+<div class="olist arabic">
+		<ol><li><p>Identify the images that need to be deleted.</p></li><li><p>Compute a hash of the <em>canonical</em> URI of the image file name.</p></li><li><p>Search for a file named after the computed hash in one of the predefined locations in the system and delete it as well.</p></li></ol>
+	</div></section>
+<section class="sect1">
+		<header>
+			<h2 id="_goals_and_baselines">Goals And Baselines</h2>
+			
+		<a href="#_goals_and_baselines">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The goal was to measure the relative difference between several iterations of the same script as I iron out the different performance bottlenecks. To that end, I downloaded 1000 random images of various sizes and dimensions. For this case study, it&#8217;s the number of total files that makes the real difference; but a thousand images seemed like a big enough data sample to obtain meaningful results.</p>
+<p class="">I decided to write additional scripts in Python (3.11) and PHP (8.2) to use as comparison. Once again, the goal is to record the relative differences of the scripts in order to get some insights &mdash; comparing Bash to other interpreted languages proved to be a great way to better understand how things work under the hood.</p>
+<p class="">These are the three scripts that I wrote:</p>
+<section class="sect2">
+		<header>
+			<h3 id="_bash">Bash</h3>
+			
+		<a href="#_bash">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="bash" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-light-font-style:italic;--shiki-dark:#F4B8E4;--shiki-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">URI_PREFIX</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'file://'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">CACHE_LOCATIONS</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$HOME</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/.cache/thumbnails/large"</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$HOME</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/.cache/thumbnails/normal"</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">for</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> file </span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">in</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic"> $@</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">do</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    FILE_URI</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${URI_PREFIX}</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">$(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">readlink</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -fn </span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$file</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    THMB_NAME</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">$(</span><span style="color:light-dark(#D20F39, #E78284);--shiki-light:#D20F39;--shiki-light-font-style:italic;--shiki-dark:#E78284;--shiki-dark-font-style:italic">echo</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -n</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $FILE_URI </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">|</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> md5sum</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> |</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> cut</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -d</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> ' '</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -f</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">.png</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">    rm</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $file</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    for</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> dir </span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">in</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ${CACHE_LOCATIONS</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">@</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    do</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">        rm</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ${dir}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${THMB_NAME}</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    done</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">done</span></span></code></pre>
+			</figure>
+		</div>
+	</section>
+<section class="sect2">
+		<header>
+			<h3 id="_python">Python</h3>
+			
+		<a href="#_python">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="python" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">#!/usr/bin/env python3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">import</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> os</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">import</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> sys</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">import</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> hashlib</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">THMB_CACHE_LOCATIONS </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    os</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic">environ</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-light-font-style:italic;--shiki-dark:#A6D189;--shiki-dark-font-style:italic">HOME</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> +</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> '/.cache/thumbnails/normal'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    os</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic">environ</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-light-font-style:italic;--shiki-dark:#A6D189;--shiki-dark-font-style:italic">HOME</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> +</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> '/.cache/thumbnails/large'</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">def</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> main</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">():</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    for</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> file </span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">in</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> sys</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic">argv</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-light-font-style:italic;--shiki-dark:#EF9F76;--shiki-dark-font-style:italic">1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">:]:</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        abs_path </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> os</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">path</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">abspath</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">file</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        uri </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'file://'</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> +</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> abs_path</span></span>
+<span class="line"><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-light-font-style:italic;--shiki-dark:#EF9F76;--shiki-dark-font-style:italic">        hash</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> hashlib</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">md5</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">uri</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">encode</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'utf-8'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)).</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">hexdigest</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">()</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        thumbnail </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-light-font-style:italic;--shiki-dark:#EF9F76;--shiki-dark-font-style:italic"> hash</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> +</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> '.png'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        os</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">unlink</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">abs_path</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">        for</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-light-font-style:italic;--shiki-dark:#EF9F76;--shiki-dark-font-style:italic"> dir</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6"> in</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> THMB_CACHE_LOCATIONS</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">:</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">            try</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">:</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">                os</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">unlink</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-light-font-style:italic;--shiki-dark:#EF9F76;--shiki-dark-font-style:italic">dir</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> +</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-light-font-style:italic;--shiki-dark:#A6D189;--shiki-dark-font-style:italic"> f</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'/</span><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-dark:#F4B8E4">{</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">thumbnail</span><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-dark:#F4B8E4">}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">            except</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-light-font-style:italic;--shiki-dark:#EF9F76;--shiki-dark-font-style:italic"> FileNotFoundError</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">:</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">                pass</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">if</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> __name__ </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">==</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> '__main__'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">:</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    sys</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">exit</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">main</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">())</span></span></code></pre>
+			</figure>
+		</div>
+	</section>
+<section class="sect2">
+		<header>
+			<h3 id="_php">PHP</h3>
+			
+		<a href="#_php">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="php" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">&#x3C;?</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">php</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$CACHE_LOCATION </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> getenv</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'HOME'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> .</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> '/.cache/thumbnails'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">for</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$i </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $i </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">&#x3C;</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> count</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$argv</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $i</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">++</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">{</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    $uri </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'file://'</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> .</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> realpath</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$argv</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$i</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]);</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    foreach</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">([</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'normal/'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'large/'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> as</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $dir</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    {</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        $thumbnail </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">{$CACHE_LOCATION}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">{$dir}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> .</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> md5</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$uri</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> .</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> '.png'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">        @</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">unlink</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$thumbnail</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">    unlink</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$argv</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$i</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">And this is the execution time of each script for comparison:</p>
+<table class="tableblock frame-all grid-all fit-content">
+<caption class="title">Table 1. Average execution time (in seconds) needed to delete 1000 images and cached thumbnails.</caption>
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Bash</th>
+<th class="tableblock halign-left valign-top">Python</th>
+<th class="tableblock halign-left valign-top">PHP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.13</p></td>
+</tr>
+</tbody>
+</table>
+<p class="">There was no doubt in my mind that a carelessly written shell script would be slow and inefficient but, needless to say, I was quite surprised with the results. As an aside, I found it amusing that PHP consistently showed better results than Python did, although I realize this is a very specific example and not representative of the language capabilities. Still, I think PHP deserves more credit than it gets.</p></section></section>
+<section class="sect1">
+		<header>
+			<h2 id="_avoid_log_activity">Avoid Log Activity</h2>
+			
+		<a href="#_avoid_log_activity">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">It may not seem obvious, but logging is quite an intensive task. Maybe not when compared to doing things like pixel interpolation to blur an image and things like that, but it takes a toll that is easy to miss.</p>
+<p class="">Something that was immediately obvious were the amount of output being produced and logged to the console. The reason was that not every image file had a thumbnail generated for itself, and most only had one size instead of the two that could be generated. This caused a lot of "file not found" errors while trying to delete them and in turn, a lot of log activity.  So, what options are available to address this bottleneck?</p>
+<div class="olist arabic">
+		<ol><li><p>Simply put, throw away useless output. Now, I&#8217;m not saying that logging is useless, but I don&#8217;t care for it in this particular case; if the image does not exist to begin with, that&#8217;s less amount of work to do. Redirecting the output to the null device seems like a quick and easy solution, but not a very elegant one. It shifts the responsibility to redirect output to the caller and removes the possibility of collecting other logs of legitimate interest if needed.</p></li><li><p>Change the algorithm. Since it&#8217;s impossible to know in advance which image files have thumbnails that need deletion, the only way to not cause any "file not found" errors is to search for them in advance. Using something like <code>find</code> does the trick, but it removes a bit of flexibility while adding some overhead.</p></li><li><p>Use your tools effectively. A quick glance at the manual page for <code>rm</code> showed me that it has a <code>-f</code> or <code>--force</code> flag that basically tells the command to do its job and don&#8217;t complain about it. This means that if the file doesn&#8217;t exist, it will just proceed to the next one.</p></li></ol>
+	</div>
+<p class="">Spoiler alert, option 3 is the best performant and easiest to implement. However, for the purposes of this case study I wanted to explore option 2 first. With this script, I was able to reduce the execution time from 9.50 seconds down to 6.94 seconds.</p>
+
+		<div class="listingblock" data-language="bash" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-light-font-style:italic;--shiki-dark:#F4B8E4;--shiki-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">URI_PREFIX</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'file://'</span></span>
+<span class="line" data-callout-1=""><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">CACHE_LOCATION</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$HOME</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/.cache/thumbnails</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">for</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> file </span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">in</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic"> $@</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">do</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    FILE_URI</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${URI_PREFIX}</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">$(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">readlink</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -fn </span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$file</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    THMB_NAME</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">$(</span><span style="color:light-dark(#D20F39, #E78284);--shiki-light:#D20F39;--shiki-light-font-style:italic;--shiki-dark:#E78284;--shiki-dark-font-style:italic">echo</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -n</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $FILE_URI </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">|</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> md5sum</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> |</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> cut</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -d</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> ' '</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -f</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">.png</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">    rm</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $file</span></span>
+<span class="line"></span>
+<span class="line" data-callout-2=""><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">    find</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $CACHE_LOCATION </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">-type</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> f</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -name</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $THMB_NAME </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">-delete</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">done</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>We can now specify the parent location and let <code>find</code> do its thing.</p></li><li data-colist="2"><p>Leverage the <code>find</code> command to search and destroy any matches.</p></li></ol></section>
+<section class="sect1">
+		<header>
+			<h2 id="_reducing_the_number_of_processes">Reducing The Number Of Processes</h2>
+			
+		<a href="#_reducing_the_number_of_processes">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">In order to further improve the performance execution it&#8217;s important to understand how commands work and how they can be used. As it turns out, most commands are capable of accepting any number of arguments as input and do some work with them. Instead of providing one argument and invoking the command for each file, we can just pack all files as a list of arguments and provide it to the command. This would only spawn a single process per command instead of the thousands that were being created and destroyed constantly.</p>
+
+		<div class="listingblock" data-language="bash" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-light-font-style:italic;--shiki-dark:#F4B8E4;--shiki-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">CACHE_LOCATION</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$HOME</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/.cache/thumbnails</span></span>
+<span class="line" data-callout-1=""><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">ABS_PATHS</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">$(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">readlink</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -f</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic"> $@</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">FILE_URIS</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">()</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">THMB_SUMS</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">for</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> path </span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">in</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ${ABS_PATHS</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">@</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">do</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">	FILE_URIS</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">+=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "file://</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${path}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> )</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">	rm</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $path</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">done</span></span>
+<span class="line"></span>
+<span class="line" data-callout-2=""><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">for</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> uri </span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">in</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ${FILE_URIS</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">@</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">do</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">	MD5_SUM</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">$(</span><span style="color:light-dark(#D20F39, #E78284);--shiki-light:#D20F39;--shiki-light-font-style:italic;--shiki-dark:#E78284;--shiki-dark-font-style:italic">echo</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -n</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $uri </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">|</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> md5sum</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> |</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> cut</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -d</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> ' '</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -f1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">	THMB_SUMS</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">+=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ${MD5_SUM}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">.png</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> )</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">done</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">for</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> thumbnail </span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">in</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ${THMB_SUMS</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">@</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">do</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">	find</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $CACHE_LOCATION </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">-type</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> f</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -name</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $thumbnail </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">-delete</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">done</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Read all files at once and store the result in a variable.</p></li><li data-colist="2"><p>Rinse and repeat for other commands to reduce number of processes.</p></li></ol>
+<p class="">This version of the script is a bit more verbose and messy, looping over different pieces of data perhaps somewhat needlessly, as we&#8217;ll see later. However, this runs in 5.63 seconds, nearly half of what it used to take originally.<br>
+Note that the only significant change that impacts performance is that <code>readlink</code> now runs only once and processes all arguments using a single process. Next, we can do the same for the other commands.</p></section>
+<section class="sect1">
+		<header>
+			<h2 id="_run_operations_in_memory">Run Operations In Memory</h2>
+			
+		<a href="#_run_operations_in_memory">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">If reducing the number of processes works for one command, it should do the same for the others. Unfortunately we can&#8217;t just pipe the output of <code>readlink -f $@</code> to <code>md5sum</code> as that would be understood as a single block of text. However, we can provide <code>md5sum</code> with any number of arguments as files.</p>
+<p class="">This poses an interesting problem. We don&#8217;t want to write thousands of files to disk just to pass them as input to another command. Even on modern SSDs that would be slow and inefficient, not to mention the useless wear and tear caused to the drive. But we can write those files to a <a href="https://www.kernel.org/doc/html/latest/filesystems/tmpfs.html">in-memory file system</a> to work around this.<br>
+<code>tmpfs</code> is a file system that exists only in the computer&#8217;s RAM. Since it works much faster than on disk, this won&#8217;t slow things down while allowing us to prepare the input for subsequent commands in the pipeline &mdash; <code>md5sum</code> in this case.</p>
+<p class="">With this approach we reduce the number of times we have to call md5sum, and incidentally also cut calls to cut down to one. After making the necessary changes, the execution time is down to 3.16 seconds, that&#8217;s another big improvement over the previous version.</p>
+
+		<div class="listingblock" data-language="bash" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-light-font-style:italic;--shiki-dark:#F4B8E4;--shiki-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">CACHE_LOCATION</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$HOME</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/.cache/thumbnails</span></span>
+<span class="line" data-callout-1=""><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">TMP_DIR</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">$(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">mktemp</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> --tmpdir="/dev/shm"</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> --directory</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> $(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">basename</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic"> $0</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">.XXXXXX</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">i</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">0</span></span>
+<span class="line" data-callout-2=""><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">readlink</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -f</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic"> $@</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> |</span><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-dark:#F4B8E4"> \</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">while</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> read</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -r</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> path</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">do</span></span>
+<span class="line"><span style="color:light-dark(#D20F39, #E78284);--shiki-light:#D20F39;--shiki-light-font-style:italic;--shiki-dark:#E78284;--shiki-dark-font-style:italic">    echo</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -n</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "file://</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${path}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> ></span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${TMP_DIR}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/uri</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${i}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">    rm</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $path</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    ((</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> ++</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">i </span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">))</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">done</span></span>
+<span class="line"></span>
+<span class="line" data-callout-3=""><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">for</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> hash </span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">in</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> $(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">md5sum</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $TMP_DIR</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/uri</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">*</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> |</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> cut</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -d</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> ' '</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -f</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span class="conum unselectable" style="" data-value="3">3</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">do</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">    find</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $CACHE_LOCATION </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">-type</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> f</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -name</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ${hash}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">.png</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -delete</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">done</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">rm</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -r</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $TMP_DIR</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Create a temporary, in-memory location.</p></li><li data-colist="2"><p>Instead of storing the result in a variable, pipe to and read from stdout directly.</p></li><li data-colist="3"><p>Provide all files as arguments to a single process to compute the MD5 checksum.</p></li></ol>
+<p class="">There are different ways to create a temporary file system but in this case I&#8217;m taking advantage of an existing location that most distributions mount by default: /dev/shm. Distributions running on systemd automatically mount a tmpfs directory for each non-root user at /run/users/&lt;user_id&gt; where user_id is the ID of that user. This location is readily available inside the <code>XDG_RUNTIME_DIR</code> environment variable, and is another location we could&#8217;ve used just as well.</p>
+<p class="">In this case, the <code>mktemp</code> command was used to simply create a temporary directory, using a template name to create a unique name, inside one of these two in-memory file systems. We store the reference to that directory so that we can use it throughout the script, and quickly clean up by removing it entirely along with its contents.</p></section>
+<section class="sect1">
+		<header>
+			<h2 id="_using_shell_features_effectively">Using Shell Features Effectively</h2>
+			
+		<a href="#_using_shell_features_effectively">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">So far the trend has been pretty clear: fewer processes translates to better performance. Now it&#8217;s only a matter of figuring out the best way to squeeze as many operations under the same process, rinse and repeat. Of course, this is not to say that performance should be the only concern as readability tends to deteriorate very quickly.</p>
+<p class="">The next area of focus in this script are the multiple calls to <code>rm</code> as currently we are invoking it once for every file we want to delete (see option 3 above). Since we have a reference to these files stored as a variable <code>$@</code> we can simply provide that when we&#8217;re cleaning up our temporary directory and join both operations, like so: <code>rm -r $TMP_DIR $@</code>. This works and if we can find a way to get references to all the thumbnail filenames we should be able to remove them as well in a single batch.</p>
+<p class="">This is where we could take advantage of shell built-ins like <code>readarray</code> and input redirection to read a file and store them as an array variable. We can then expand this array and provide that to <code>rm</code>. All we need to do is leverage once again our in-memory directory and write all the computed thumbnail filenames to a file that we can later read from:</p>
+
+		<div class="listingblock" data-language="bash" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-light-font-style:italic;--shiki-dark:#F4B8E4;--shiki-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">TMP_LOCATION</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${XDG_RUNTIME_DIR</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:-/</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">run</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">/</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">user</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">/</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$(id -u)}</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">TMP_FILENAME</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">$(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">basename</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic"> $0</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">TMP_DIR</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">$(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">mktemp</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> --tmpdir=</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${TMP_LOCATION}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> --directory</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ${TMP_FILENAME</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">%%</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">.</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">*</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">.XXXXXX</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">i</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">0</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">readlink</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -f</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic"> $@</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> |</span><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-dark:#F4B8E4"> \</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">while</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> read</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -r</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> path</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">do</span></span>
+<span class="line"><span style="color:light-dark(#D20F39, #E78284);--shiki-light:#D20F39;--shiki-light-font-style:italic;--shiki-dark:#E78284;--shiki-dark-font-style:italic">    echo</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -n</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "file://</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${path}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> ></span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${TMP_DIR}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/uri</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${i}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    ((</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> ++</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">i </span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">))</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">done</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">md5sum</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $TMP_DIR</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/uri</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">*</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> |</span><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-dark:#F4B8E4"> \</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">        perl</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -nE</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'say "$ENV{HOME}/.cache/thumbnails/large/$&#x26;.png" if /[^\s]+/'</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> |</span><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-dark:#F4B8E4"> \</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">        tee</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $TMP_DIR</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/thumbnails_large.txt</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> |</span><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-dark:#F4B8E4"> \</span></span>
+<span class="line" data-callout-1=""><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">        sed</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> s/large/normal/</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> ></span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $TMP_DIR</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/thumbnails_normal.txt</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">readarray</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -t</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> thumbnails_large</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> &#x3C;</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $TMP_DIR</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/thumbnails_large.txt</span></span>
+<span class="line" data-callout-2=""><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">readarray</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -t</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> thumbnails_normal</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> &#x3C;</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $TMP_DIR</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/thumbnails_normal.txt</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line"></span>
+<span class="line" data-callout-3=""><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">rm</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -rf</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ${thumbnails_large</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">@</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">} ${thumbnails_normal</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">@</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">} $TMP_DIR </span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-light-font-style:italic;--shiki-dark:#EA999C;--shiki-dark-font-style:italic">$@</span><span class="conum unselectable" style="" data-value="3">3</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Instead of removing files one at the time, write the computed hash to another file</p></li><li data-colist="2"><p>Leverage bash features to read from the file into an array variable.</p></li><li data-colist="3"><p>Provide all files that need to be deleted as arguments, reducing the number of processes from thousands down to a just a few.</p></li></ol>
+<p class="">Here, we are creating a pipeline that process the output of the <code>md5sum</code> command and produces the full path to the cached thumbnail. Since there are two possible locations where a thumbnail may be generated, we use <code>tee</code> to store all those filenames in one file while processing the output with <code>sed</code> to simply generate another set of thumbnail paths. We read those files into array variables and provide them to <code>rm</code>, expanded so that every single file gets deleted.</p>
+<p class="">Now, we no longer run thousands of different <code>rm</code> processes for each file to delete. We&#8217;re also not searching the entire directories where the thumbnails may be stored, and instead we surgically remove the file. Note that use of the <code>-f</code> flag since we don&#8217;t care about errors in this case: either the thumbnails is where we&#8217;re looking to delete it, or is not there to begin with.</p></section>
+<section class="sect1">
+		<header>
+			<h2 id="_conclusion">Conclusion</h2>
+			
+		<a href="#_conclusion">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The results speak for themselves:</p>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Average execution time (in seconds) needed to delete 1000 images and cached thumbnails.</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Bash</th>
+<th class="tableblock halign-left valign-top">Python</th>
+<th class="tableblock halign-left valign-top">PHP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.13</p></td>
+</tr>
+</tbody>
+</table>
+<p class="">The results speak loud and clear on their own. While Bash is rarely associated with performance, it can be quite powerful when yielded correctly. And what it lacks in speed it makes up for in flexibility. It&#8217;s one of the most popular and widely adopted shells, it runs everywhere from fully fledged Linux distributions to containers, and is definitely one of the most versatile tools to have under your tool belt as System Administrator.</p>
+<p class="">The goal of this article was not to compare Bash with other languages but to illustrate its strengths and weaknesses using a real world example. It&#8217;s true that its syntax has lots to be desired, and it takes a bit more understanding of the underlying operating system to use effectively, compared to other languages, which on the other hand can make your scripting abilities that much more effective and efficient.</p>
+<p class="">As always, be mindful of the task at hand and pick the right tool for the job. For me, that means Bash is usually the right choice for most simple programs where I don&#8217;t have to worry too much about performance or cross-platform compatibility. But I truly dread it when it comes to string manipulation&#8230;&#8203;</p></section></div> </article>  </main> <footer data-astro-cid-sz7xmlte> <section class="footer__links" data-astro-cid-sz7xmlte> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>This site is built with:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Astro" aria-describedby="4k332y2d1i_astro" href="https://astro.build" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-astro" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="4k332y2d1i_astro" data-astro-cid-eykbuwrj> Astro </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="AsciiDoc" aria-describedby="1y204c1y49_asciidoc" href="https://asciidoc.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-asciidoc" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="1y204c1y49_asciidoc" data-astro-cid-eykbuwrj> AsciiDoc </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Find more about me:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Codeberg" aria-describedby="4f1o731b1s_codeberg" href="https://codeberg.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codeberg" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="4f1o731b1s_codeberg" data-astro-cid-eykbuwrj> Codeberg </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GitHub" aria-describedby="2b44496j5n_github" href="https://github.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-github" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2b44496j5n_github" data-astro-cid-eykbuwrj> GitHub </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codepen" aria-describedby="2j3e4d55g3_codepen" href="https://codepen.io" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codepen" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2j3e4d55g3_codepen" data-astro-cid-eykbuwrj> Codepen </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Exercism" aria-describedby="524c694068_exercism" href="https://exercism.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-exercism" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="524c694068_exercism" data-astro-cid-eykbuwrj> Exercism </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codewars" aria-describedby="2ed2d3k1x4_codewars" href="https://codewars.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codewars" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2ed2d3k1x4_codewars" data-astro-cid-eykbuwrj> Codewars </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Get in touch:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Email" aria-describedby="19566w6x4p_email" href="email:devsojourn@pm.me" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-email" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="19566w6x4p_email" data-astro-cid-eykbuwrj> Email </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GPG" aria-describedby="266ok4c4h1_gpg-key" href="/" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-gpg-key" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="266ok4c4h1_gpg-key" data-astro-cid-eykbuwrj> GPG </span> </a> </li> </ul> </div> </section> <section class="footer__copyright" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>
+All content by me &copy; 2025 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" data-astro-cid-sz7xmlte>CC BY-SA 4.0</a> </p> </section> <section class="footer__egg" class="sr-only unselectable" data-astro-cid-sz7xmlte> <span tabindex="0" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Are you done having fun with the <kbd data-astro-cid-sz7xmlte>Tab</kbd> key already? There are more interesting things to see in the site, you know?</p> <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte> <path fill="var(--foreground-color)" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 27.7083,49.0833L 48.2917,49.0833C 50.4778,49.0833 52.25,50.8555 52.25,53.0417C 52.25,55.2278 50.4778,57 48.2917,57L 27.7083,57C 25.5222,57 23.75,55.2278 23.75,53.0417C 23.75,50.8555 25.5222,49.0833 27.7083,49.0833 Z M 19.2688,36.612L 26.4321,32.4762L 19.2688,28.3405C 17.8683,27.5319 17.3885,25.7411 18.197,24.3406C 19.0056,22.94 20.7965,22.4602 22.197,23.2688L 33.6084,29.8571C 34.5726,30.4138 35.1004,31.4361 35.0718,32.4761C 35.1005,33.5162 34.5727,34.5386 33.6084,35.0953L 22.197,41.6837C 20.7964,42.4923 19.0056,42.0125 18.197,40.6119C 17.3884,39.2114 17.8683,37.4206 19.2688,36.612 Z M 56.7312,36.612C 58.1317,37.4206 58.6116,39.2114 57.803,40.6119C 56.9944,42.0125 55.2036,42.4923 53.803,41.6837L 42.3916,35.0953C 41.4273,34.5386 40.8995,33.5162 40.9282,32.4761C 40.8995,31.4361 41.4274,30.4138 42.3916,29.8571L 53.803,23.2688C 55.2035,22.4602 56.9944,22.94 57.8029,24.3406C 58.6115,25.7411 58.1317,27.5319 56.7312,28.3405L 49.5679,32.4762L 56.7312,36.612 Z " data-astro-cid-sz7xmlte></path> </svg> </span> </section> </footer> <div x-data="scroll" @scroll.window.throttle.100ms="handleScroll" x-cloak data-astro-cid-wlspcwf4> <button @click="scrollToTop" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-wlspcwf4> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-chevron" data-astro-cid-xnoxsesq></use> </svg> </button> </div></body></html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v6.3.1"><title>Astro Basics</title><style>time[data-astro-cid-baakmyjh]{color:var(--subtitles);font-size:.9em}
+h1[data-astro-cid-7jjqptxk]{font-weight:700;text-wrap:balance;line-height:1.3}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Fj8fSMl1.css"><script type="module" src="/_astro/page.CqARJ21R.js"></script></head> <body data-astro-cid-sckkx6r4> <nav x-data="scroll" @scroll.window.throttle.70ms="handleScroll" class="navbar" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-5blmo7yk> <div class="navbar__brand" data-astro-cid-5blmo7yk> <a href="/" data-astro-cid-5blmo7yk>D10f</a> </div> <menu class="navbar__links" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <a class="active" href="/blog" data-astro-cid-5blmo7yk>Blog</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/projects" data-astro-cid-5blmo7yk>Projects</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/uses" data-astro-cid-5blmo7yk>Uses</a> </li> </menu> <menu class="navbar__actions" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <div x-data="theme" data-astro-cid-x3pjskd3> <button @click="toggle" class="rotating-btn" :class="{ 'rotating-btn--active': theme === 'dark' }" data-astro-cid-x3pjskd3> <span data-astro-cid-x3pjskd3> <svg aria-hidden="true" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-sun" data-astro-cid-x3pjskd3></use> </svg> <svg aria-hidden="true" style="transform: rotate(180deg);" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-moon" data-astro-cid-x3pjskd3></use> </svg> </span> </button> </div> </li> </menu> </nav> <main data-astro-cid-sckkx6r4>  <article data-astro-cid-7jjqptxk> <header data-astro-cid-7jjqptxk> <h1 data-astro-cid-7jjqptxk>Upgrading Packages In Debian Stable</h1> <time datetime="2024-10-24T00:00:00.000Z" data-astro-cid-baakmyjh> Oct 24, 2024 </time> </header> <div class="asciidoc" data-astro-cid-7jjqptxk>
+		<section id="preamble">
+			<p class="">Debian has gained a well deserved reputation of being a robust and reliably system. Part of that comes from the reliance on extensive testing of the packages available from the official repositories. However, these can be a little behind in terms of version numbers which may cause them to lack features or bug fixes. This isn&#8217;t an issue most of the time (latest doesn&#8217;t necessarily mean better), but it can become an issue.</p>
+		</section>
+
+		<section id="toc">
+			<menu class="toc">
+		<li class="toc__item">
+			<a href="#_install_from_the_backports_repository">Install From The Backports Repository</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_install_from_testing_branch">Install From Testing Branch</a>
+			
+		</li></menu>
+		</section>
+<section class="sect1">
+		<header>
+			<h2 id="_install_from_the_backports_repository">Install From The Backports Repository</h2>
+			
+		<a href="#_install_from_the_backports_repository">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The <em>backports</em> repository offers re-compiled packages using libraries available for the current stable branch, albeit at higher versions of those available in the regular repositories. While these packages haven&#8217;t been tested as thoroughly, they are the best choice for using more up to date software without risking the stability of the system. To install packages from this repository, first you need to tell the system where to download them from, by adding an entry to <code>/etc/apt/sources.list</code>:</p>
+<p class=""><code>deb <a href="http://deb.debian.org/debian" class="bare">http://deb.debian.org/debian</a> stable-backports main</code></p>
+<p class="">This uses the classic one-line format, and it will work just as well, but you can also use the now standard Deb822 format instead. For that, create a new file in <code>/etc/apt/sources.list.d</code> with a <code>.sources</code> extension and the following contents:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">cat /etc/apt/sources.list.d/debian-backports.sources</span></span></code></pre>
+			</figure>
+		</div>
+	
+<div class="literalblock output">
+<div class="content">
+<pre>Types: deb
+URIs: http://deb.debian.org/debian
+Architectures: amd64
+Suites: stable-backports
+Components: main
+Enabled: yes</pre>
+</div>
+</div>
+
+					<aside class="admonitionblock is-right note">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-note" />
+							</svg>
+						</header>
+						<p>Instead of "stable" you can specify the codename of the current stable branch (bookworm, as of this writing).</p>
+					</aside>
+<p class="">To confirm that everything works, update the cache with a simple <code>apt update</code> command, and check that there aren&#8217;t any errors reported in the console. If all goes well, you are now ready to install packages from the <em>backports</em> repository. This should be fairly easy, all that is needed is to specify the target release alongside the repository name. For example:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">sudo apt install cockpit/stable-backports</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">At the time of this writing, <code>cockpit</code> is at version <code>287</code> whereas the <em>backports</em> version is at a much higher <code>331</code>. This would allow us to install this version in case we needed it for whatever reason, at the cost of possibly introducing some instability due to lack of testing.</p>
+<p class="">You could also use the <code>-t, --target-release</code> flag instead:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">sudo apt -t stable-backports install cockpit</span></span></code></pre>
+			</figure>
+		</div>
+	</section>
+<section class="sect1">
+		<header>
+			<h2 id="_install_from_testing_branch">Install From Testing Branch</h2>
+			
+		<a href="#_install_from_testing_branch">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">When neither the stable nor the backports repositories have a package that you need at the desired version, you can take things one step further and install from the <em>testing</em> branch. For example, at the time of this writing there is not package available for <code>nftables</code> in the <em>backports</em> repository:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">apt show nftables/stable-backports</span></span></code></pre>
+			</figure>
+		</div>
+	
+<div class="literalblock output">
+<div class="content">
+<pre>Package: nftables
+State: not a real package (virtual)
+N: Release 'stable-backports' for 'nftables' was not found
+N: Release 'stable-backports' for 'nftables' was not found
+N: No packages found</pre>
+</div>
+</div>
+<p class="">This is unfortunate, since there&#8217;s an outstanding bug within <code>nftables</code> that is already fixed in a later version. This is where the <em>testing</em> branch can really help by offering packages that are at a higher version.</p>
+<p class="">Before adding the appropriate repositories to your list, it&#8217;s important that you set a preferences &mdash; also known as pinning down the repository sources &mdash; to avoid installing any packages from the <em>testing</em> accidentally. As mentioned, and as the name suggests, this packages are still undergoing testing and may introduce bugs and other stability issues. You want to make sure that you only install them explicitly.<br>
+For that, create a new configuration file in <code>/etc/apt/preferences.d</code> &mdash; the name does not matter, but rules specified here are processed in alphabetical order:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">cat /etc/apt/preferences.d/99-debian-testing</span></span></code></pre>
+			</figure>
+		</div>
+	
+<div class="literalblock output">
+<div class="content">
+<pre>Package: *
+Pin: release a=testing
+Pin-Priority: 50</pre>
+</div>
+</div>
+<p class="">This ensures that all packages coming from the testing repository will have a priority of 50, which is lower than the default of 500 from the stable repositories. This way, if a package with the same name exists on both repositories, the stable one will take precedence.<br>
+The backports repository has a default priority of 100 which is why you don&#8217;t need to do this step when adding the backports repository alone.</p>
+<p class="">Now, update the repository list by adding the appropriate entries for <code>apt</code> to find. Use whatever format you prefer, I&#8217;ll use Deb822-style:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">cat /etc/apt/sources.list.d/debian-testing.sources</span></span></code></pre>
+			</figure>
+		</div>
+	
+<div class="literalblock output">
+<div class="content">
+<pre># Debian testing and updates
+Types: deb deb-src
+URIs: http://deb.debian.org/debian
+Architectures: amd64
+Suites: testing testing-updates
+Components: main
+Enabled: yes
+
+# Debian testing security
+Types: deb deb-src
+URIs: http://security.debian.org/debian-security
+Architectures: amd64
+Suites: testing-security
+Components: main
+Enabled: yes</pre>
+</div>
+</div>
+<p class="">Same as before, make sure there are no errors when running <code>apt update</code> to refresh the repository cache. To install something from this repository, specify that as part of the package name:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">apt show nftables/testing</span></span></code></pre>
+			</figure>
+		</div>
+	
+<div class="literalblock output">
+<div class="content">
+<pre>Package: nftables
+Version: 1.1.1-1
+…</pre>
+</div>
+</div>
+<p class="">At the time of this writing, the stable repository has <code>nftables</code> at version 1.0.6 which has a bug that makes it crash when used alongside <code>firewalld</code>. Now, I can use this version, hopefully without issues.</p></section></div> </article>  </main> <footer data-astro-cid-sz7xmlte> <section class="footer__links" data-astro-cid-sz7xmlte> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>This site is built with:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Astro" aria-describedby="24u1o404x6_astro" href="https://astro.build" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-astro" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="24u1o404x6_astro" data-astro-cid-eykbuwrj> Astro </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="AsciiDoc" aria-describedby="6o6q4i2a2c_asciidoc" href="https://asciidoc.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-asciidoc" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="6o6q4i2a2c_asciidoc" data-astro-cid-eykbuwrj> AsciiDoc </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Find more about me:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Codeberg" aria-describedby="1ce4w53c18_codeberg" href="https://codeberg.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codeberg" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="1ce4w53c18_codeberg" data-astro-cid-eykbuwrj> Codeberg </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GitHub" aria-describedby="3q3tv351a5_github" href="https://github.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-github" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="3q3tv351a5_github" data-astro-cid-eykbuwrj> GitHub </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codepen" aria-describedby="3k3v1i2qo6_codepen" href="https://codepen.io" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codepen" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="3k3v1i2qo6_codepen" data-astro-cid-eykbuwrj> Codepen </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Exercism" aria-describedby="1j3go1v1a6_exercism" href="https://exercism.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-exercism" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="1j3go1v1a6_exercism" data-astro-cid-eykbuwrj> Exercism </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codewars" aria-describedby="3s3w2f295j_codewars" href="https://codewars.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codewars" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="3s3w2f295j_codewars" data-astro-cid-eykbuwrj> Codewars </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Get in touch:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Email" aria-describedby="qvv50703f6_email" href="email:devsojourn@pm.me" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-email" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="qvv50703f6_email" data-astro-cid-eykbuwrj> Email </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GPG" aria-describedby="4s5g5u35p4_gpg-key" href="/" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-gpg-key" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="4s5g5u35p4_gpg-key" data-astro-cid-eykbuwrj> GPG </span> </a> </li> </ul> </div> </section> <section class="footer__copyright" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>
+All content by me &copy; 2025 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" data-astro-cid-sz7xmlte>CC BY-SA 4.0</a> </p> </section> <section class="footer__egg" class="sr-only unselectable" data-astro-cid-sz7xmlte> <span tabindex="0" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Are you done having fun with the <kbd data-astro-cid-sz7xmlte>Tab</kbd> key already? There are more interesting things to see in the site, you know?</p> <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte> <path fill="var(--foreground-color)" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 27.7083,49.0833L 48.2917,49.0833C 50.4778,49.0833 52.25,50.8555 52.25,53.0417C 52.25,55.2278 50.4778,57 48.2917,57L 27.7083,57C 25.5222,57 23.75,55.2278 23.75,53.0417C 23.75,50.8555 25.5222,49.0833 27.7083,49.0833 Z M 19.2688,36.612L 26.4321,32.4762L 19.2688,28.3405C 17.8683,27.5319 17.3885,25.7411 18.197,24.3406C 19.0056,22.94 20.7965,22.4602 22.197,23.2688L 33.6084,29.8571C 34.5726,30.4138 35.1004,31.4361 35.0718,32.4761C 35.1005,33.5162 34.5727,34.5386 33.6084,35.0953L 22.197,41.6837C 20.7964,42.4923 19.0056,42.0125 18.197,40.6119C 17.3884,39.2114 17.8683,37.4206 19.2688,36.612 Z M 56.7312,36.612C 58.1317,37.4206 58.6116,39.2114 57.803,40.6119C 56.9944,42.0125 55.2036,42.4923 53.803,41.6837L 42.3916,35.0953C 41.4273,34.5386 40.8995,33.5162 40.9282,32.4761C 40.8995,31.4361 41.4274,30.4138 42.3916,29.8571L 53.803,23.2688C 55.2035,22.4602 56.9944,22.94 57.8029,24.3406C 58.6115,25.7411 58.1317,27.5319 56.7312,28.3405L 49.5679,32.4762L 56.7312,36.612 Z " data-astro-cid-sz7xmlte></path> </svg> </span> </section> </footer> <div x-data="scroll" @scroll.window.throttle.100ms="handleScroll" x-cloak data-astro-cid-wlspcwf4> <button @click="scrollToTop" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-wlspcwf4> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-chevron" data-astro-cid-xnoxsesq></use> </svg> </button> </div></body></html>

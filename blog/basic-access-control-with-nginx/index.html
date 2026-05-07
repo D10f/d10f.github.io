@@ -1,0 +1,431 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v6.3.1"><title>Astro Basics</title><style>time[data-astro-cid-baakmyjh]{color:var(--subtitles);font-size:.9em}
+h1[data-astro-cid-7jjqptxk]{font-weight:700;text-wrap:balance;line-height:1.3}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Fj8fSMl1.css"><script type="module" src="/_astro/page.CqARJ21R.js"></script></head> <body data-astro-cid-sckkx6r4> <nav x-data="scroll" @scroll.window.throttle.70ms="handleScroll" class="navbar" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-5blmo7yk> <div class="navbar__brand" data-astro-cid-5blmo7yk> <a href="/" data-astro-cid-5blmo7yk>D10f</a> </div> <menu class="navbar__links" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <a class="active" href="/blog" data-astro-cid-5blmo7yk>Blog</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/projects" data-astro-cid-5blmo7yk>Projects</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/uses" data-astro-cid-5blmo7yk>Uses</a> </li> </menu> <menu class="navbar__actions" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <div x-data="theme" data-astro-cid-x3pjskd3> <button @click="toggle" class="rotating-btn" :class="{ 'rotating-btn--active': theme === 'dark' }" data-astro-cid-x3pjskd3> <span data-astro-cid-x3pjskd3> <svg aria-hidden="true" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-sun" data-astro-cid-x3pjskd3></use> </svg> <svg aria-hidden="true" style="transform: rotate(180deg);" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-moon" data-astro-cid-x3pjskd3></use> </svg> </span> </button> </div> </li> </menu> </nav> <main data-astro-cid-sckkx6r4>  <article data-astro-cid-7jjqptxk> <header data-astro-cid-7jjqptxk> <h1 data-astro-cid-7jjqptxk>Basic Access Control With Nginx</h1> <time datetime="2021-05-15T00:00:00.000Z" data-astro-cid-baakmyjh> May 15, 2021 </time> </header> <div class="asciidoc" data-astro-cid-7jjqptxk>
+		<section id="preamble">
+			<p class="">Preamble</p>
+		</section>
+
+		<section id="toc">
+			<menu class="toc">
+		<li class="toc__item">
+			<a href="#_password_protected_routes">Password-protected Routes</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_htpasswd">htpasswd</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_openssl">openssl</a>
+			
+		</li></ul>
+		</li>
+		<li class="toc__item">
+			<a href="#_restrict_access_based_on_the_ip_address">Restrict Access Based On The IP Address</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_forward_original_ip_address">Forward Original IP Address</a>
+			
+		</li></ul>
+		</li>
+		<li class="toc__item">
+			<a href="#_restrict_access_based_on_the_result_of_a_sub_request">Restrict Access Based On The Result Of A Sub-request</a>
+			
+		</li></menu>
+		</section>
+<section class="sect1">
+		<header>
+			<h2 id="_password_protected_routes">Password-protected Routes</h2>
+			
+		<a href="#_password_protected_routes">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Nginx supports the <a href="https://www.rfc-editor.org/rfc/rfc7617.html">HTTP Basic Authentication scheme</a> through the use of the <code>auth_basic</code> and <code>auth_basic_user_file</code> directives. This authentication scheme is quite straight forward: a simple challenge-response, where the user sends the username and password that the client then validates against a password file stores on the server. For example:</p>
+
+		<div class="listingblock" data-language="nginx" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">location</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> /dashboard {</span></span>
+<span class="line" data-callout-1=""><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">  auth_basic </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"Admin Dashboard"</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line" data-callout-2=""><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">  auth_basic_user_file </span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">/etc/apache2/.htpasswd</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Identifier for the "realm" which can be used by the client to partition different protected resources.</p></li><li data-colist="2"><p>The password file containing the username-password pairs.</p></li></ol>
+
+					<aside class="admonitionblock is-left note">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-note" />
+							</svg>
+						</header>
+						<p>RFC 7617, as well as the original RFC 2617, refer to the server implementing the Basic Access Authentication scheme as the "client", and visitors who need to pass the challenge-response as the "users". This post follows this terminology.</p>
+					</aside>
+<p class="">Upon visiting this route through a web browser, the user would be presented with a prompt asking for a username and a password, which would then be validated against the password file specified by the <code>auth_basic_user_file</code> directive. The password file contains a list of username-password pairs:</p>
+
+		<div class="listingblock" data-language="undefined" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span># This is a comment</span></span>
+<span class="line"><span>username1:password1</span></span>
+<span class="line"><span>username2:password2:also a comment</span></span></code></pre>
+			</figure>
+		</div>
+	
+
+					<aside class="admonitionblock is-right caution">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-caution" />
+							</svg>
+						</header>
+						<p>This authentication scheme sends the challenge-response from the client in clear text (base64-encoded). It SHOULD NOT be used without additional security enhancements such as HTTPS.</p>
+					</aside>
+<p class="">Due to the sensitive nature of this file, passwords stored in this file are expected to be hashed using one of the following hashing algorithms: MD5, APR1 (a variant of MD5 used by Apache), SHA256, SHA512 or Bcrypt (otherwise authentication will fail). There are two well-known utilities that can be used to generate passwords in this format:</p>
+<section class="sect2">
+		<header>
+			<h3 id="_htpasswd">htpasswd</h3>
+			
+		<a href="#_htpasswd">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The <code>htpasswd</code> command is part of the <code>apache2-utils</code> package for Debian distributions, or <code>http-tools</code> for Red Hat distributions.</p>
+<p class="">You can provide the <code>-c</code> flag to create a new password file, followed by the username that you want to create a password for. This will ask for the password, which you&#8217;ll have to confirm once:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">htpasswd -c /etc/apache2/.htpasswd username1</span></span></code></pre>
+			</figure>
+		</div>
+	
+<div class="literalblock output">
+<div class="content">
+<pre>New password:
+Re-type new password:
+Adding password for user username1</pre>
+</div>
+</div>
+
+					<aside class="admonitionblock is-left warning">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-warning" />
+							</svg>
+						</header>
+						<p>Be careful with the <code>-c</code> flag. If the file already exists, it will overwrite its contents. This may be what you want as a fresh start but err on the side of caution and use only when you see a file not found error.</p>
+					</aside>
+<p class="">If you prefer to disable the interactive prompt &mdash; for instance when working with scripts &mdash; you can use the <code>-b</code> or <code>-i</code> options. This will instruct <code>htpasswd</code> to read the password from the argument list or standard input, respectively.</p>
+<p class="">Note that if the file already contains an entry for the given username, it will overwrite:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line" data-callout-1=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">htpasswd -b /etc/apache2/.htpasswd username2 password2</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line" data-callout-2=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">echo 'password2' | htpasswd -i /etc/apache2/.htpasswd username2</span><span class="conum unselectable" style="" data-value="2">2</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Create a new entry for <em>username2</em> using the second argument as the password.</p></li><li data-colist="2"><p>Update the password for <em>username2</em> using the value from standard input.</p></li></ol>
+<p class="">To work with different hashing algorithms you can provide the <code>-m</code>, <code>-2</code>, <code>-5</code> and <code>-B</code> options, to use the APR1, SHA256, SHA512 and Bcrypt algorithms, respectively &mdash; APR1 is the default.</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">htpasswd -c /etc/apache2/.htpasswd username1</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">htpasswd -bm /etc/apache2/.htpasswd username2 password2</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">htpasswd -b2 /etc/apache2/.htpasswd username3 password3</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">htpasswd -b5 /etc/apache2/.htpasswd username4 password4</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">htpasswd -bB /etc/apache2/.htpasswd username5 password5</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">cat /etc/apache2/.htpasswd</span></span></code></pre>
+			</figure>
+		</div>
+	
+<div class="literalblock output">
+<div class="content">
+<pre>username1:$apr1$ZLqohdtm$VBG8lhqD36qNcgYzOCwyu.
+username2:$apr1$WAK/0l85$A2sse6WVWUqRqZxfejACk0
+username3:$5$2gqVCGNKd79W2aAR$BNgoVt2zEstkv.NgYX/kNQBUgdNBaw6dFmOlLs4YQ78
+username4:$6$/z2zCgqn5bS937bz$icXPUBe1CGhaR9Ljzp67dl/RkqrNtYWFRzfJ7Od72lrdBbHnMHiPq3.UYOVIN3ZQ4QY.zw/VrcP00Fm9yyERJ1
+username5:$2y$05$gg43xXNMO3/GU8tE6Ur/SecayWXgVzrLm96ZiqThz91TSowKYcIf6</pre>
+</div>
+</div></section>
+<section class="sect2">
+		<header>
+			<h3 id="_openssl">openssl</h3>
+			
+		<a href="#_openssl">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The <code>openssl passwd</code> command is used to compute password hashes. It takes in an input which is then hashed using the MD5 hashing algorithm by default. This behavior can be modified to use other algorithms to match the requirements of the file password as described above:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line" data-callout-1=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl passwd s3cr3P4$$w0rd</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line" data-callout-2=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl passwd -apr1 s3cr3P4$$w0rd</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line" data-callout-3=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl passwd -5 s3cr3P4$$w0rd</span><span class="conum unselectable" style="" data-value="3">3</span></span>
+<span class="line" data-callout-4=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl passwd -6 s3cr3P4$$w0rd</span><span class="conum unselectable" style="" data-value="4">4</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Hash computed using the MD5 algortihm.</p></li><li data-colist="2"><p>Hash computed using the APR1 algortihm.</p></li><li data-colist="3"><p>Hash computed using the SHA256 algortihm.</p></li><li data-colist="4"><p>Hash computed using the SHA512 algortihm.</p></li></ol>
+<p class="">Instead of providing the password as an argument you can use the <code>-in</code> option to specify a file, or the <code>-stdin</code> to read from standard input. This can be helpful to decrease the risk of leakage due to passwords appearing in the shell&#8217;s history to in a process monitor.</p>
+<p class="">Unlike <code>htpasswd</code>, it won&#8217;t create a new file for storing the username and password pair, nor it will append to it. It simply outputs the computed hash of the given password, and is up to you to update the file however you choose to. It may be more convenient to use <code>htpasswd</code> instead of <code>openssl</code> because of this, but it may also not be possible to install new software on certain environments, whereas OpenSSL is a popular library likely to be included in that case.</p></section></section>
+<section class="sect1">
+		<header>
+			<h2 id="_restrict_access_based_on_the_ip_address">Restrict Access Based On The IP Address</h2>
+			
+		<a href="#_restrict_access_based_on_the_ip_address">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Using the IP address of the source request is another useful way of restricting access. While there are better ways to implement automated filters to prevent spam and other suspicious activities, this approach has the advantage of being more granular as it allows for more complex rules. For example, a private reporting tool that only computers in the internal network should be allowed to access. Applications deployed as containers may also benefit from this as their IP addresses can be managed accordingly.</p>
+<p class="">To get started, use the <code>deny</code> and <code>allow</code> directives:</p>
+
+		<div class="listingblock" data-language="nginx" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">location</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> /dashboard {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    deny </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">192.168.1.40</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">We can also specify ranges of IP addresses:</p>
+
+		<div class="listingblock" data-language="nginx" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">location</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> /dashboard {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    deny </span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">192.168.1.1/24</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">But this gets more interesting when stacking multiple directives to create complex rules:</p>
+
+		<div class="listingblock" data-language="nginx" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">location</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> /dashboard {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    allow </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">192.168.1.40</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    deny </span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">192.168.1.1/24</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">This rule doesn&#8217;t allow access to any IP on that range, with one exception. Rules are resolved from top to bottom, and Nginx stops checking once there is a match; if we put the <code>deny</code> directive first it wouldn&#8217;t allow that one IP address as it&#8217;s part of the specified range which explicitly denies it.</p>
+<p class="">Either of these directives can also accept a catch-all value, promptly called "all", pretty useful to narrow the scope of a route:</p>
+
+		<div class="listingblock" data-language="nginx" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">location</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> /dashboard {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    allow </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">192.168.1.40</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    deny </span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">192.168.1.1/24</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    allow </span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">10.20.30.1/24</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    deny </span><span style="color:light-dark(#D20F39, #E78284);--shiki-light:#D20F39;--shiki-dark:#E78284">all</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<section class="sect2">
+		<header>
+			<h3 id="_forward_original_ip_address">Forward Original IP Address</h3>
+			
+		<a href="#_forward_original_ip_address">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">When acting as a reverse proxy, Nginx opens a new network request using the IP address of the host where it runs on, instead of forwarding the original IP from the client. To&#8230;&#8203;</p></section></section>
+<section class="sect1">
+		<header>
+			<h2 id="_restrict_access_based_on_the_result_of_a_sub_request">Restrict Access Based On The Result Of A Sub-request</h2>
+			
+		<a href="#_restrict_access_based_on_the_result_of_a_sub_request">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class=""><a href="https://nginx.org/en/docs/http/ngx_http_auth_request_module.html" class="bare">https://nginx.org/en/docs/http/ngx_http_auth_request_module.html</a></p></section></div> </article>  </main> <footer data-astro-cid-sz7xmlte> <section class="footer__links" data-astro-cid-sz7xmlte> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>This site is built with:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Astro" aria-describedby="293j1t6g2a_astro" href="https://astro.build" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-astro" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="293j1t6g2a_astro" data-astro-cid-eykbuwrj> Astro </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="AsciiDoc" aria-describedby="2w1c1a6q6x_asciidoc" href="https://asciidoc.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-asciidoc" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2w1c1a6q6x_asciidoc" data-astro-cid-eykbuwrj> AsciiDoc </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Find more about me:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Codeberg" aria-describedby="2x2q5y384z_codeberg" href="https://codeberg.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codeberg" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2x2q5y384z_codeberg" data-astro-cid-eykbuwrj> Codeberg </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GitHub" aria-describedby="6m166n6k1p_github" href="https://github.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-github" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="6m166n6k1p_github" data-astro-cid-eykbuwrj> GitHub </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codepen" aria-describedby="10382r6q33_codepen" href="https://codepen.io" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codepen" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="10382r6q33_codepen" data-astro-cid-eykbuwrj> Codepen </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Exercism" aria-describedby="4i6l3o5k2x_exercism" href="https://exercism.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-exercism" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="4i6l3o5k2x_exercism" data-astro-cid-eykbuwrj> Exercism </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codewars" aria-describedby="64731r5340_codewars" href="https://codewars.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codewars" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="64731r5340_codewars" data-astro-cid-eykbuwrj> Codewars </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Get in touch:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Email" aria-describedby="1a6r271u5j_email" href="email:devsojourn@pm.me" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-email" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="1a6r271u5j_email" data-astro-cid-eykbuwrj> Email </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GPG" aria-describedby="551912h2g5_gpg-key" href="/" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-gpg-key" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="551912h2g5_gpg-key" data-astro-cid-eykbuwrj> GPG </span> </a> </li> </ul> </div> </section> <section class="footer__copyright" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>
+All content by me &copy; 2025 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" data-astro-cid-sz7xmlte>CC BY-SA 4.0</a> </p> </section> <section class="footer__egg" class="sr-only unselectable" data-astro-cid-sz7xmlte> <span tabindex="0" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Are you done having fun with the <kbd data-astro-cid-sz7xmlte>Tab</kbd> key already? There are more interesting things to see in the site, you know?</p> <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte> <path fill="var(--foreground-color)" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 27.7083,49.0833L 48.2917,49.0833C 50.4778,49.0833 52.25,50.8555 52.25,53.0417C 52.25,55.2278 50.4778,57 48.2917,57L 27.7083,57C 25.5222,57 23.75,55.2278 23.75,53.0417C 23.75,50.8555 25.5222,49.0833 27.7083,49.0833 Z M 19.2688,36.612L 26.4321,32.4762L 19.2688,28.3405C 17.8683,27.5319 17.3885,25.7411 18.197,24.3406C 19.0056,22.94 20.7965,22.4602 22.197,23.2688L 33.6084,29.8571C 34.5726,30.4138 35.1004,31.4361 35.0718,32.4761C 35.1005,33.5162 34.5727,34.5386 33.6084,35.0953L 22.197,41.6837C 20.7964,42.4923 19.0056,42.0125 18.197,40.6119C 17.3884,39.2114 17.8683,37.4206 19.2688,36.612 Z M 56.7312,36.612C 58.1317,37.4206 58.6116,39.2114 57.803,40.6119C 56.9944,42.0125 55.2036,42.4923 53.803,41.6837L 42.3916,35.0953C 41.4273,34.5386 40.8995,33.5162 40.9282,32.4761C 40.8995,31.4361 41.4274,30.4138 42.3916,29.8571L 53.803,23.2688C 55.2035,22.4602 56.9944,22.94 57.8029,24.3406C 58.6115,25.7411 58.1317,27.5319 56.7312,28.3405L 49.5679,32.4762L 56.7312,36.612 Z " data-astro-cid-sz7xmlte></path> </svg> </span> </section> </footer> <div x-data="scroll" @scroll.window.throttle.100ms="handleScroll" x-cloak data-astro-cid-wlspcwf4> <button @click="scrollToTop" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-wlspcwf4> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-chevron" data-astro-cid-xnoxsesq></use> </svg> </button> </div></body></html>

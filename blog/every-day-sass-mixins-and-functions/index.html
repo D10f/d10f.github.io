@@ -1,0 +1,618 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v6.3.1"><title>Astro Basics</title><style>time[data-astro-cid-baakmyjh]{color:var(--subtitles);font-size:.9em}
+h1[data-astro-cid-7jjqptxk]{font-weight:700;text-wrap:balance;line-height:1.3}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Fj8fSMl1.css"><script type="module" src="/_astro/page.CqARJ21R.js"></script></head> <body data-astro-cid-sckkx6r4> <nav x-data="scroll" @scroll.window.throttle.70ms="handleScroll" class="navbar" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-5blmo7yk> <div class="navbar__brand" data-astro-cid-5blmo7yk> <a href="/" data-astro-cid-5blmo7yk>D10f</a> </div> <menu class="navbar__links" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <a class="active" href="/blog" data-astro-cid-5blmo7yk>Blog</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/projects" data-astro-cid-5blmo7yk>Projects</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/uses" data-astro-cid-5blmo7yk>Uses</a> </li> </menu> <menu class="navbar__actions" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <div x-data="theme" data-astro-cid-x3pjskd3> <button @click="toggle" class="rotating-btn" :class="{ 'rotating-btn--active': theme === 'dark' }" data-astro-cid-x3pjskd3> <span data-astro-cid-x3pjskd3> <svg aria-hidden="true" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-sun" data-astro-cid-x3pjskd3></use> </svg> <svg aria-hidden="true" style="transform: rotate(180deg);" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-moon" data-astro-cid-x3pjskd3></use> </svg> </span> </button> </div> </li> </menu> </nav> <main data-astro-cid-sckkx6r4>  <article data-astro-cid-7jjqptxk> <header data-astro-cid-7jjqptxk> <h1 data-astro-cid-7jjqptxk>Every day SASS Mixins and Functions</h1> <time datetime="2022-09-10T00:00:00.000Z" data-astro-cid-baakmyjh> Sep 10, 2022 </time> </header> <div class="asciidoc" data-astro-cid-7jjqptxk>
+		<section id="preamble">
+			<p class="">Mixins and Functions are a couple of the features that make SCSS stand out from plain CSS. Despite most of the many of them being now natively available, it&#8217;s still a good idea to use them to simplify the code.</p>
+		</section>
+
+		<section id="toc">
+			<menu class="toc">
+		<li class="toc__item">
+			<a href="#_useful_mixins_to_save_the_day">Useful Mixins To Save The Day</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_restrict_container_width">Restrict Container Width</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_debugger">Debugger</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_media_queries">Media Queries</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_truncate_text">Truncate Text</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_unselectable_elements">Unselectable Elements</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_fluid_grid">Fluid Grid</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_performant_shadow_transition_effect">Performant Shadow Transition Effect</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_tooltip_arrows">Tooltip Arrows</a>
+			
+		</li></ul>
+		</li>
+		<li class="toc__item">
+			<a href="#_useful_functions_to_save_the_day">Useful Functions To Save The Day</a>
+			
+		</li></menu>
+		</section>
+<section class="sect1">
+		<header>
+			<h2 id="_useful_mixins_to_save_the_day">Useful Mixins To Save The Day</h2>
+			
+		<a href="#_useful_mixins_to_save_the_day">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><section class="sect2">
+		<header>
+			<h3 id="_restrict_container_width">Restrict Container Width</h3>
+			
+		<a href="#_restrict_container_width">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="scss" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@mixin</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> contain</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    max-width</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> variables</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$max-width</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    margin-inline</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> auto</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">A very common thing to do with nested elements is to have them centered horizontally and limit their width to a set value. It&#8217;s only a couple of lines of code, but I&#8217;ve found it to be a nice improvement to the overall readability. Specially knowing how long and complex CSS rules can get.</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_debugger">Debugger</h3>
+			
+		<a href="#_debugger">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="scss" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@mixin</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> debugger</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    $recursive</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> false,</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    $root</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> true,</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    $prop</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> outline</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">,</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    $color</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> coral,</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    $style</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> solid,</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    $width</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">px</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $recursive</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">        @if</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $root</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            &#x26;</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">                #{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$prop</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $width</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $style</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $color</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">            }</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        &#x26;</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> > </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">*</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> + </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">*</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">            #{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$prop</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $width</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $style</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $color</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6"> @else </span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">{</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">        #{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$prop</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $width</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $style</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $color</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">When something is not behaving as expected, and I can&#8217;t quickly figure out why, I apply a bright-colored border or outline around it. I made this mixin to quickly highlight individual elements, or entire element trees, by activating the <code>$recursive</code> option.</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_media_queries">Media Queries</h3>
+			
+		<a href="#_media_queries">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="scss" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@use</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'sass:map'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">/**</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*  MEDIA QUERY REFERENCE</span></span>
+<span class="line" data-callout-1=""><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*  | Breakpoint     | Pixels |  Em   |</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*  |----------------|--------|-------|</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*  | Narrow         | &#x3C; 400  | 25    |</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*  | Phone          | &#x3C; 600  | 37.5  |</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*  | Tablet         | &#x3C; 768  | 48    |</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*  | Portrait       | &#x3C; 900  | 56.25 |</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*  | Landscape      | &#x3C; 1200 | 75    |</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*  | Desktop        | &#x3C; 1800 | 112.5 |</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*  | Widescreen     | > 1800 | 112.5 |</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">*/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$breakpoints</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "narrow"</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">: </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">25</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">em</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "phone"</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">: </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">37.5</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">em</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "portrait"</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">: </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">48</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">em</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "landscape"</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">: </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">56.25</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">em</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "desktop"</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">: </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">75</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">em</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "widescreen"</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">: </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">112.5</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">em</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@mixin</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> mq</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$size, $order</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'asc'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> not</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> map</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">has-key</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$breakpoints</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $size</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">        @error</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "Breakpoint </span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">#{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$size</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> not found."</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $order</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> !=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'asc'</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> and</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $order</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> !=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'desc'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">        @error</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "Invalid media query."</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    $breakpoint</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> map</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">get</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$breakpoints</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $size</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    $orientation</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> if</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$order</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> ==</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'asc'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'min-width'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'max-width'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @media</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6"> only</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> screen </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">and</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">#{$</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">orientation</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $breakpoint</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">        @content</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    }</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Based on a base font size of 16px.</p></li></ol>
+<p class="">Responsiveness is a must on this day and age, and it can be achieved easily using media queries. With SASS this is easier than ever before with mixins and some of the (many) features it has built-in.</p>
+<p class="">This mixin is not aimed to be pixel perfect but a reference point to get started, since every project will likely need to tweak these values. By default, assumes mobile-first approach, but I find larger screen sizes easier to play around and be a bit more creative with code, so I include an option for the opposite design approach as well.</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_truncate_text">Truncate Text</h3>
+			
+		<a href="#_truncate_text">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="scss" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@use</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'sass:math'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@mixin</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> truncate-text</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$length, $ellipsis</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> true</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> math</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">is-unitless</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$length</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">        @error</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'Provided length value "</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">#{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$length</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">" has no unit.'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    max-width</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $length</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    overflow</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> hidden</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    white-space</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> nowrap</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $ellipsis</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        text-overflow</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ellipsis</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="truncate">A perfect example of a mixin being used for something&#8230;&#8203; Oh&#8230;&#8203; Hello! I didn&#8217;t see you there. You must also be the type of person that likes to take a peek under the hood from time to time. Good for you! Here&#8217;s your egg: 🥚</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_unselectable_elements">Unselectable Elements</h3>
+			
+		<a href="#_unselectable_elements">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="sass" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@mixin</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> unselectable {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">  pointer-events</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">: none;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">  user-select</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">: none;</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="unselectable">Can&#8217;t touch this.</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_fluid_grid">Fluid Grid</h3>
+			
+		<a href="#_fluid_grid">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="scss" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@use</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'sass:math'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@mixin</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> grid</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$cell-width</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">rem</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">, $gap</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 0</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> math</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">is-unitless</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$cell-width</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">        @error</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'Provided cell width value "</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">#{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$cell-width</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> has no unit.'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $gap</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> and</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> math</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">is-unitless</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$gap</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">        @error</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'Provided gap value "</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">#{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$gap</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> has no unit.'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    display</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> grid</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    gap</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $gap</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    grid-template-columns</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> repeat</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">auto-fit</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> minmax</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$cell-width</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">fr</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">));</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">One of those things that are very useful but can never remember the syntax for it.</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_performant_shadow_transition_effect">Performant Shadow Transition Effect</h3>
+			
+		<a href="#_performant_shadow_transition_effect">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="scss" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@mixin</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> has-shadow</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    position</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> relative</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    &#x26;</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">::</span><span style="color:light-dark(#DF8E1D, #E5C890);--shiki-light:#DF8E1D;--shiki-dark:#E5C890">before</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        content</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> ''</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        position</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> absolute</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        inset</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 0</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        opacity</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 0</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        transition</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> opacity</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 250</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">ms</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> ease</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        box-shadow</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 2</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">px</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 2</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">px</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 10</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">px</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 2</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">px</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> rgba</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">0</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">0</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">0</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">0.2</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    &#x26;</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">:</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">hover</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">::</span><span style="color:light-dark(#DF8E1D, #E5C890);--shiki-light:#DF8E1D;--shiki-dark:#E5C890">before</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        opacity</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">Properties like <code>box-shadow</code> don&#8217;t necessarily transition very well, as they can be expensive to compute for the browser. On the other hand, properties like <code>opacity</code> perform very well in that regard. While it&#8217;s true that this alone is unlikely to bring a website to its knees, this is a little trick can help make this effect much smoother.</p>
+<p class="">Obviously, the value for the shadow itself, as well as the transition, should be adjusted as needed and possibly extracted into other variables that can be re-used throughout the code base.</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_tooltip_arrows">Tooltip Arrows</h3>
+			
+		<a href="#_tooltip_arrows">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="scss" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@use</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'sass:string'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@use</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'sass:list'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@use</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'sass:map'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">// Auxiliary mixin, could also be written without this.</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@mixin</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> _arrow_absolute</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$top</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> null, $right</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> null, $bottom</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> null, $left</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> null</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">  position</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> absolute</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">  top</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $top</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">  left</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $left</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">  right</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $right</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">  bottom</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $bottom</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@mixin</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> arrow</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$position</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'top'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">, $color</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> currentColor, $size</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> .5</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">em</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">  &#x26;</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">::</span><span style="color:light-dark(#DF8E1D, #E5C890);--shiki-light:#DF8E1D;--shiki-dark:#E5C890">before</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    $_positions</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'top'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">, </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'right'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">, </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'bottom'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">, </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'left'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    $_parsed-positions</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> ();</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    $_position-reference</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">      'top'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">: </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'bottom'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">,</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">      'right'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">: </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'left'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">,</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">      'bottom'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">: </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'top'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">,</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">      'left'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">: </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'right'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">,</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">    // Parse the position string into first and second arguments</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    $_sep-idx</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> string</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">index</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$position</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> ' '</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    $_first</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> null</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    $_second</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> null</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_sep-idx</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">      $_first</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> string</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">slice</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$position</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $_sep-idx</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> -</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">      $_second</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> string</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">slice</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$position</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $_sep-idx</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> +</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6"> @else </span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">{</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">      $_first</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $position</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">    //  Validate arguments provide a valid position</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_first</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> == </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_second</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">      @error</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'ERROR: position axis cannot be the same.'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">not </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">list</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">index</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_positions</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $_first</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> or </span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_second</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> and not </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">list</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">index</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_positions</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $_second</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)))</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">      @error</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'ERROR: invalid position arguments.'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    $_opposite</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> ''</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @each</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $_pos</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6"> in</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $_positions</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">      border-</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">#{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_pos</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $size</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> solid transparent</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">      @if</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_first</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> == </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_pos</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        $_parsed-positions</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> list</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">append</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$_parsed-positions</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> -</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$size</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        $_opposite</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> map</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">get</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$_position-reference</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $_first</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">      }</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6"> @else if</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_second</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> == </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_pos</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        $_parsed-positions</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> list</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">append</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$_parsed-positions</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> $size</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">      }</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6"> @else </span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">{</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        $_parsed-positions</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> list</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">append</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$_parsed-positions</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> null</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">      }</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    border</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">-</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">#{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_opposite</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">: </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$size</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> solid </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$color</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    border</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">-</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">#{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_first</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">: unset</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @if</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">not </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_second</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">      @if</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> (</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_first</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> == </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'top'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> or </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_first</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> == </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'bottom'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        $_parsed-positions</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> list</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">set-nth</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$_parsed-positions</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 2</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 50%</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        transform</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> translateX</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">50%</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">      }</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6"> @else </span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">{</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        $_parsed-positions</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C"> list</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">set-nth</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#E64553, #EA999C);--shiki-light:#E64553;--shiki-dark:#EA999C">$_parsed-positions</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 50%</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        transform</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> translateY</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">-50%</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">      }</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    content: </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">''</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    width</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">: </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">0</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    height</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">: </span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">0</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @include</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> _arrow_absolute</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$_parsed-positions</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">...</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">  }</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">This one is quite lengthy, but it&#8217;s really worth it. I don&#8217;t write tooltips every day and I forget how to do them properly, things like deciding which properties should remain open for customization, the right position, size, etc. And most importantly, how to actually use it.</p>
+
+					<aside class="admonitionblock is-right tip">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-tip" />
+							</svg>
+						</header>
+						<p>If you make this page full screen, you should see the arrow appear in this side note!</p>
+					</aside>
+<p class="">This mixin has all of that and more, including error handling, and is as simple as this to use:</p>
+
+		<div class="listingblock" data-language="scss" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#DF8E1D, #E5C890);--shiki-light:#DF8E1D;--shiki-dark:#E5C890">card</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#DF8E1D, #E5C890);--shiki-light:#DF8E1D;--shiki-dark:#E5C890">tooltip</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @include</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> arrow</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">'left top'</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">, </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$color</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> var</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">--tooltip-color</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">, </span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$size</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">em</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">);</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	</section></section>
+<section class="sect1">
+		<header>
+			<h2 id="_useful_functions_to_save_the_day">Useful Functions To Save The Day</h2>
+			
+		<a href="#_useful_functions_to_save_the_day">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">TBD &#8230;&#8203;</p>
+<p class="">Source: <a href="https://sprucecss.com/blog/8-helpful-sass-mixins-and-functions/" class="bare">https://sprucecss.com/blog/8-helpful-sass-mixins-and-functions/</a></p>
+
+		<div class="listingblock" data-language="scss" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">/// Generate responsive font-size value using clamp().</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">/// @param {number} $size - The font size.</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">/// @param {number} $scaler - The scaler value (15 = 15% smaller).</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">/// @param {number} $optimal-size - The optimal font size.</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">/// @return {string} - The responsive font-size value.</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@function</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> responsive-font-size</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">  $size</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">  $scaler</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 15</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">  $optimal-size</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> map</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">get</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$settings</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'optimal-responsive-font-size'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">  @if</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $scaler</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> &#x3C;</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 0</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> or</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $scaler</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> ></span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 100</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">    @error</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'The $scaler value must be between 0 and 100.'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">  @return</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> clamp</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(#{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$size </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">*</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> math</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">.</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">div</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">(</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">100</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> -</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> $scaler</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">,</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 100</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)},</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> #{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$optimal-size</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">},</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> #{</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">$size</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">});</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	</section></div> </article>  </main> <footer data-astro-cid-sz7xmlte> <section class="footer__links" data-astro-cid-sz7xmlte> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>This site is built with:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Astro" aria-describedby="1c6c63475i_astro" href="https://astro.build" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-astro" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="1c6c63475i_astro" data-astro-cid-eykbuwrj> Astro </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="AsciiDoc" aria-describedby="2s3u1b5x3j_asciidoc" href="https://asciidoc.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-asciidoc" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2s3u1b5x3j_asciidoc" data-astro-cid-eykbuwrj> AsciiDoc </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Find more about me:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Codeberg" aria-describedby="2p723jd3e4_codeberg" href="https://codeberg.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codeberg" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2p723jd3e4_codeberg" data-astro-cid-eykbuwrj> Codeberg </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GitHub" aria-describedby="2q2n3o713r_github" href="https://github.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-github" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2q2n3o713r_github" data-astro-cid-eykbuwrj> GitHub </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codepen" aria-describedby="2v651r3j16_codepen" href="https://codepen.io" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codepen" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2v651r3j16_codepen" data-astro-cid-eykbuwrj> Codepen </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Exercism" aria-describedby="5276g734a6_exercism" href="https://exercism.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-exercism" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="5276g734a6_exercism" data-astro-cid-eykbuwrj> Exercism </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codewars" aria-describedby="g6m1o1473s_codewars" href="https://codewars.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codewars" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="g6m1o1473s_codewars" data-astro-cid-eykbuwrj> Codewars </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Get in touch:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Email" aria-describedby="46721i1y35_email" href="email:devsojourn@pm.me" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-email" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="46721i1y35_email" data-astro-cid-eykbuwrj> Email </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GPG" aria-describedby="21w1y552s2_gpg-key" href="/" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-gpg-key" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="21w1y552s2_gpg-key" data-astro-cid-eykbuwrj> GPG </span> </a> </li> </ul> </div> </section> <section class="footer__copyright" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>
+All content by me &copy; 2025 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" data-astro-cid-sz7xmlte>CC BY-SA 4.0</a> </p> </section> <section class="footer__egg" class="sr-only unselectable" data-astro-cid-sz7xmlte> <span tabindex="0" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Are you done having fun with the <kbd data-astro-cid-sz7xmlte>Tab</kbd> key already? There are more interesting things to see in the site, you know?</p> <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte> <path fill="var(--foreground-color)" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 27.7083,49.0833L 48.2917,49.0833C 50.4778,49.0833 52.25,50.8555 52.25,53.0417C 52.25,55.2278 50.4778,57 48.2917,57L 27.7083,57C 25.5222,57 23.75,55.2278 23.75,53.0417C 23.75,50.8555 25.5222,49.0833 27.7083,49.0833 Z M 19.2688,36.612L 26.4321,32.4762L 19.2688,28.3405C 17.8683,27.5319 17.3885,25.7411 18.197,24.3406C 19.0056,22.94 20.7965,22.4602 22.197,23.2688L 33.6084,29.8571C 34.5726,30.4138 35.1004,31.4361 35.0718,32.4761C 35.1005,33.5162 34.5727,34.5386 33.6084,35.0953L 22.197,41.6837C 20.7964,42.4923 19.0056,42.0125 18.197,40.6119C 17.3884,39.2114 17.8683,37.4206 19.2688,36.612 Z M 56.7312,36.612C 58.1317,37.4206 58.6116,39.2114 57.803,40.6119C 56.9944,42.0125 55.2036,42.4923 53.803,41.6837L 42.3916,35.0953C 41.4273,34.5386 40.8995,33.5162 40.9282,32.4761C 40.8995,31.4361 41.4274,30.4138 42.3916,29.8571L 53.803,23.2688C 55.2035,22.4602 56.9944,22.94 57.8029,24.3406C 58.6115,25.7411 58.1317,27.5319 56.7312,28.3405L 49.5679,32.4762L 56.7312,36.612 Z " data-astro-cid-sz7xmlte></path> </svg> </span> </section> </footer> <div x-data="scroll" @scroll.window.throttle.100ms="handleScroll" x-cloak data-astro-cid-wlspcwf4> <button @click="scrollToTop" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-wlspcwf4> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-chevron" data-astro-cid-xnoxsesq></use> </svg> </button> </div></body></html>

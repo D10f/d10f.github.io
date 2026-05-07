@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v6.3.1"><title>Astro Basics</title><style>time[data-astro-cid-baakmyjh]{color:var(--subtitles);font-size:.9em}
+h1[data-astro-cid-7jjqptxk]{font-weight:700;text-wrap:balance;line-height:1.3}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Fj8fSMl1.css"><script type="module" src="/_astro/page.CqARJ21R.js"></script></head> <body data-astro-cid-sckkx6r4> <nav x-data="scroll" @scroll.window.throttle.70ms="handleScroll" class="navbar" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-5blmo7yk> <div class="navbar__brand" data-astro-cid-5blmo7yk> <a href="/" data-astro-cid-5blmo7yk>D10f</a> </div> <menu class="navbar__links" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <a class="active" href="/blog" data-astro-cid-5blmo7yk>Blog</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/projects" data-astro-cid-5blmo7yk>Projects</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/uses" data-astro-cid-5blmo7yk>Uses</a> </li> </menu> <menu class="navbar__actions" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <div x-data="theme" data-astro-cid-x3pjskd3> <button @click="toggle" class="rotating-btn" :class="{ 'rotating-btn--active': theme === 'dark' }" data-astro-cid-x3pjskd3> <span data-astro-cid-x3pjskd3> <svg aria-hidden="true" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-sun" data-astro-cid-x3pjskd3></use> </svg> <svg aria-hidden="true" style="transform: rotate(180deg);" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-moon" data-astro-cid-x3pjskd3></use> </svg> </span> </button> </div> </li> </menu> </nav> <main data-astro-cid-sckkx6r4>  <article data-astro-cid-7jjqptxk> <header data-astro-cid-7jjqptxk> <h1 data-astro-cid-7jjqptxk>Using OpenSSL</h1> <time datetime="2024-01-24T00:00:00.000Z" data-astro-cid-baakmyjh> Jan 24, 2024 </time> </header> <div class="asciidoc" data-astro-cid-7jjqptxk>
+		<section id="preamble">
+			<p class="">OpenSSL is a cryptography toolkit implementing the Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS v1) network protocols and related cryptography standards required by them.</p>
+		</section>
+
+		<section id="toc">
+			<menu class="toc">
+		<li class="toc__item">
+			<a href="#_disclaimer">Disclaimer</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_asymmetric_cryptography">Asymmetric Cryptography</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_rsa">RSA</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_elliptic_curve">Elliptic Curve</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_dsa">DSA</a>
+			
+		</li></ul>
+		</li>
+		<li class="toc__item">
+			<a href="#_certificates">Certificates</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_pem_format">PEM Format</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_generating_certificates">Generating Certificates</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_self_signed_certificates">Self-Signed Certificates</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_inspecting_certificates">Inspecting Certificates</a>
+			
+		</li></ul>
+		</li></menu>
+		</section>
+<section class="sect1">
+		<header>
+			<h2 id="_disclaimer">Disclaimer</h2>
+			
+		<a href="#_disclaimer">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The content of this post is largely based on the content produced by Ed Harmoush in his course, <a href="https://classes.pracnet.net/courses/openssl-training">OpenSSL Training</a>.</p>
+<p class="">You can find more information about Ed&#8217;s courses in his <a href="https://pracnet.net">blog</a>, as well as additional content on his <a href="https://www.youtube.com/channel/UCKmU-GKiukM8LYjkJFb8oBQ">YouTube channel</a>.</p></section>
+<section class="sect1">
+		<header>
+			<h2 id="_asymmetric_cryptography">Asymmetric Cryptography</h2>
+			
+		<a href="#_asymmetric_cryptography">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Also referred to as public cryptography, asymmetric cryptography uses values or <em>keys</em> that are safe to share publicly over an insecure network while retaining the three core principles of integrity, confidentiality and authentication.</p>
+<section class="sect2">
+		<header>
+			<h3 id="_rsa">RSA</h3>
+			
+		<a href="#_rsa">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Is one of the most popular asymmetric encryption algorithms, named after the last names of their creators, Ron Rivest, Adi Shamir and Leonard Adleman, in 1977. It works by creating a pair of mathematically related <em>keys</em>, such that one key is used to encrypt a message while the other can decrypt it.</p>
+<p class="">To generate a new key-pair:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl genrsa -out KEY.pem 2048</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">By default, <code>openssl genrsa</code> already produces the keys of 2048 bit length, but you could specify this value at the end of the command. There&#8217;s a configuration file that can be modified to update this default value &mdash; as well as other settings &mdash; found at <code>/etc/openssl/openssl.conf</code>.</p>
+
+					<aside class="admonitionblock is-right warning">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-warning" />
+							</svg>
+						</header>
+						<p>As of this writing, 2048-bit key lengths is still considered reasonably secure. However, it's already projected that this won't be enough by the year 2030.</p>
+					</aside>
+<p class="">This produces a PEM-formatted file, which is a base64-encoded representation of the binary data that makes up the key. One advantage of this format is how easy it is to work with, generally, particularly for things like copy/paste.</p>
+<p class="">If we inspect the contents of this file:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl rsa -in KEY.pem -noout -text</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">The <code>-in</code> argument takes the file to read, <code>-text</code> produces a human-readable, plain text representation and <code>-noout</code> prevents additional output in the original, base64-encoded format to be included. This command will output the various components involved in the RSA keys. The <strong>modulus</strong> and <strong>publicExponent</strong> combined are the values used for the <em>public</em> key, while the <strong>privateExponent</strong> and the other values are used for the <em>private key</em>.</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_elliptic_curve">Elliptic Curve</h3>
+			
+		<a href="#_elliptic_curve">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Elliptic curve cryptography follows the same principle as RSA of using a key-pair, but the mathematics behind it are different. In essence, it&#8217;s a more efficient way of doing the same thing, allowing for smaller key sizes while retaining the same level of security.</p>
+
+					<aside class="admonitionblock is-left important">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-important" />
+							</svg>
+						</header>
+						<p>Security is a relative term. Something that is considered secure by today's standards may not be so in the next 10 years. In addition, security needs to be used within a context, and balanced with convenience. We could use massive key sizes all the time but that would make user experience needlessly detrimental, due to the long computation times.</p>
+					</aside>
+<p class="">To generate</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl genparam -algorithm EC -pkeyopt ec_paramgen_curve:secp384r1 -out EC-PARAM.pem</span></span></code></pre>
+			</figure>
+		</div>
+	</section>
+<section class="sect2">
+		<header>
+			<h3 id="_dsa">DSA</h3>
+			
+		<a href="#_dsa">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Digital Signature Algorithm. Used for signing and verifying signatures.</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>Generate DSA Parameters File.</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl dsparam -out DSA-PARAM.pem 1024</span></span></code></pre>
+			</figure>
+		</div>
+	
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>Generate DSA Key file with Parameters File.</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl gendsa -out DSA-KEY.pem DSA-PARAM.pem</span></span></code></pre>
+			</figure>
+		</div>
+	
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>Generate DSA Parameters and Keys in one File.</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl dsaparam -genkey -out DSA-PARAM-KEY.pem 2048</span></span></code></pre>
+			</figure>
+		</div>
+	</section></section>
+<section class="sect1">
+		<header>
+			<h2 id="_certificates">Certificates</h2>
+			
+		<a href="#_certificates">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><section class="sect2">
+		<header>
+			<h3 id="_pem_format">PEM Format</h3>
+			
+		<a href="#_pem_format">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The PEM format&#8230;&#8203;</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_generating_certificates">Generating Certificates</h3>
+			
+		<a href="#_generating_certificates">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">openssl req -new -key KEY.pem -out CSR.pem</span></span></code></pre>
+			</figure>
+		</div>
+	</section>
+<section class="sect2">
+		<header>
+			<h3 id="_self_signed_certificates">Self-Signed Certificates</h3>
+			
+		<a href="#_self_signed_certificates">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Self-signed certificates are certificates that have been signed by the same public/private key-pair&#8230;&#8203;</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_inspecting_certificates">Inspecting Certificates</h3>
+			
+		<a href="#_inspecting_certificates">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">&#8230;&#8203;</p></section></section></div> </article>  </main> <footer data-astro-cid-sz7xmlte> <section class="footer__links" data-astro-cid-sz7xmlte> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>This site is built with:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Astro" aria-describedby="76w2u6z5h4_astro" href="https://astro.build" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-astro" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="76w2u6z5h4_astro" data-astro-cid-eykbuwrj> Astro </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="AsciiDoc" aria-describedby="q1342s371b_asciidoc" href="https://asciidoc.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-asciidoc" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="q1342s371b_asciidoc" data-astro-cid-eykbuwrj> AsciiDoc </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Find more about me:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Codeberg" aria-describedby="676u4b2h1d_codeberg" href="https://codeberg.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codeberg" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="676u4b2h1d_codeberg" data-astro-cid-eykbuwrj> Codeberg </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GitHub" aria-describedby="1f4z315g18_github" href="https://github.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-github" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="1f4z315g18_github" data-astro-cid-eykbuwrj> GitHub </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codepen" aria-describedby="35332i432k_codepen" href="https://codepen.io" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codepen" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="35332i432k_codepen" data-astro-cid-eykbuwrj> Codepen </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Exercism" aria-describedby="3i252a6w27_exercism" href="https://exercism.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-exercism" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="3i252a6w27_exercism" data-astro-cid-eykbuwrj> Exercism </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codewars" aria-describedby="1a1f682m6h_codewars" href="https://codewars.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codewars" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="1a1f682m6h_codewars" data-astro-cid-eykbuwrj> Codewars </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Get in touch:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Email" aria-describedby="2e5t2p5t4r_email" href="email:devsojourn@pm.me" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-email" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2e5t2p5t4r_email" data-astro-cid-eykbuwrj> Email </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GPG" aria-describedby="4d3m7661yd_gpg-key" href="/" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-gpg-key" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="4d3m7661yd_gpg-key" data-astro-cid-eykbuwrj> GPG </span> </a> </li> </ul> </div> </section> <section class="footer__copyright" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>
+All content by me &copy; 2025 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" data-astro-cid-sz7xmlte>CC BY-SA 4.0</a> </p> </section> <section class="footer__egg" class="sr-only unselectable" data-astro-cid-sz7xmlte> <span tabindex="0" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Are you done having fun with the <kbd data-astro-cid-sz7xmlte>Tab</kbd> key already? There are more interesting things to see in the site, you know?</p> <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte> <path fill="var(--foreground-color)" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 27.7083,49.0833L 48.2917,49.0833C 50.4778,49.0833 52.25,50.8555 52.25,53.0417C 52.25,55.2278 50.4778,57 48.2917,57L 27.7083,57C 25.5222,57 23.75,55.2278 23.75,53.0417C 23.75,50.8555 25.5222,49.0833 27.7083,49.0833 Z M 19.2688,36.612L 26.4321,32.4762L 19.2688,28.3405C 17.8683,27.5319 17.3885,25.7411 18.197,24.3406C 19.0056,22.94 20.7965,22.4602 22.197,23.2688L 33.6084,29.8571C 34.5726,30.4138 35.1004,31.4361 35.0718,32.4761C 35.1005,33.5162 34.5727,34.5386 33.6084,35.0953L 22.197,41.6837C 20.7964,42.4923 19.0056,42.0125 18.197,40.6119C 17.3884,39.2114 17.8683,37.4206 19.2688,36.612 Z M 56.7312,36.612C 58.1317,37.4206 58.6116,39.2114 57.803,40.6119C 56.9944,42.0125 55.2036,42.4923 53.803,41.6837L 42.3916,35.0953C 41.4273,34.5386 40.8995,33.5162 40.9282,32.4761C 40.8995,31.4361 41.4274,30.4138 42.3916,29.8571L 53.803,23.2688C 55.2035,22.4602 56.9944,22.94 57.8029,24.3406C 58.6115,25.7411 58.1317,27.5319 56.7312,28.3405L 49.5679,32.4762L 56.7312,36.612 Z " data-astro-cid-sz7xmlte></path> </svg> </span> </section> </footer> <div x-data="scroll" @scroll.window.throttle.100ms="handleScroll" x-cloak data-astro-cid-wlspcwf4> <button @click="scrollToTop" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-wlspcwf4> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-chevron" data-astro-cid-xnoxsesq></use> </svg> </button> </div></body></html>

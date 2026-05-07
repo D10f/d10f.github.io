@@ -1,0 +1,271 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v6.3.1"><title>Astro Basics</title><style>time[data-astro-cid-baakmyjh]{color:var(--subtitles);font-size:.9em}
+h1[data-astro-cid-7jjqptxk]{font-weight:700;text-wrap:balance;line-height:1.3}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Fj8fSMl1.css"><script type="module" src="/_astro/page.CqARJ21R.js"></script></head> <body data-astro-cid-sckkx6r4> <nav x-data="scroll" @scroll.window.throttle.70ms="handleScroll" class="navbar" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-5blmo7yk> <div class="navbar__brand" data-astro-cid-5blmo7yk> <a href="/" data-astro-cid-5blmo7yk>D10f</a> </div> <menu class="navbar__links" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <a class="active" href="/blog" data-astro-cid-5blmo7yk>Blog</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/projects" data-astro-cid-5blmo7yk>Projects</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/uses" data-astro-cid-5blmo7yk>Uses</a> </li> </menu> <menu class="navbar__actions" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <div x-data="theme" data-astro-cid-x3pjskd3> <button @click="toggle" class="rotating-btn" :class="{ 'rotating-btn--active': theme === 'dark' }" data-astro-cid-x3pjskd3> <span data-astro-cid-x3pjskd3> <svg aria-hidden="true" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-sun" data-astro-cid-x3pjskd3></use> </svg> <svg aria-hidden="true" style="transform: rotate(180deg);" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-moon" data-astro-cid-x3pjskd3></use> </svg> </span> </button> </div> </li> </menu> </nav> <main data-astro-cid-sckkx6r4>  <article data-astro-cid-7jjqptxk> <header data-astro-cid-7jjqptxk> <h1 data-astro-cid-7jjqptxk>Customizing The Firefox UI</h1> <time datetime="2025-03-11T00:00:00.000Z" data-astro-cid-baakmyjh> Mar 11, 2025 </time> </header> <div class="asciidoc" data-astro-cid-7jjqptxk>
+		<section id="preamble">
+			<p class="">While this article is largely aimed at Firefox, the same steps should work for any forks of the project such as LibreWolf. To avoid repeating myself here, assume that every time I mention Firefox I&#8217;m also referring to any derived browsers as well.</p>
+		</section>
+
+		<section id="toc">
+			<menu class="toc">
+		<li class="toc__item">
+			<a href="#_prerequisites">Prerequisites</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_the_chrome_directory">The "chrome" directory</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_enable_the_browser_toolbox_mode">Enable The Browser Toolbox Mode</a>
+			
+		</li></ul>
+		</li>
+		<li class="toc__item">
+			<a href="#_inspecting_the_browser">Inspecting The Browser</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_organizing_your_code">Organizing Your Code</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_appendix_a">Appendix A</a>
+			
+		</li></menu>
+		</section>
+<section class="sect1">
+		<header>
+			<h2 id="_prerequisites">Prerequisites</h2>
+			
+		<a href="#_prerequisites">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><section class="sect2">
+		<header>
+			<h3 id="_the_chrome_directory">The "chrome" directory</h3>
+			
+		<a href="#_the_chrome_directory">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header>
+					<aside class="admonitionblock is-left tip">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-tip" />
+							</svg>
+						</header>
+						<p>The term "chrome" refers to any visible aspect of a browser aside from the webpages themselves. It appears this used to be a slang automotive enthusiasts would use to refer customizing their cars with shiny features. It has no connection to Google Chrome, which was named ironically so as a pun with the aim to create a minimal, distraction-free experience for their users.</p>
+					</aside>
+<p class="">When Firefox launches, it will read the current profile in use and load things like custom preferences, extensions and of course, the topic of this article, styling rules. These styles are read from a CSS file located at <code>chrome/userChrome.css</code>. Make sure to create this location (both the directory and the file) if it doesn&#8217;t already exist (see Appendix A).</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_enable_the_browser_toolbox_mode">Enable The Browser Toolbox Mode</h3>
+			
+		<a href="#_enable_the_browser_toolbox_mode">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">This is a two-step process:</p>
+<div class="olist arabic">
+		<ol><li><p>Enable the option "Enable remote debugging" in the developers tools. Press <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd></span> and move on to the "Settings", under the menu at the right-hand side.</p></li><li><p>Navigate to <code>about:config</code> up at the address bar, and set the option "toolkit.legacyUserProfileCustomizations.stylesheets" to true.</p></li></ol>
+	</div>
+
+					<aside class="admonitionblock is-right important">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-important" />
+							</svg>
+						</header>
+						<p>In LibreWolf, you will find this setting available in the Settings > LibreWolf > "Allow userChrome.css customization".</p>
+					</aside></section></section>
+<section class="sect1">
+		<header>
+			<h2 id="_inspecting_the_browser">Inspecting The Browser</h2>
+			
+		<a href="#_inspecting_the_browser">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Even if you already know CSS, how do you know what selectors to use? That&#8217;s when inspecting the browser&#8217;s <strong>chrome</strong> can be helpful. To access the toolbox, press <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>I</kbd></span> and accept the incoming network request (should be from localhost) at the prompt.</p>
+
+					<aside class="admonitionblock is-left caution">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-caution" />
+							</svg>
+						</header>
+						<p>This can be a vector for attack which is why it's disabled by default. It's important that you don't accept any prompts like this if you didn't explicitly request them.</p>
+					</aside>
+<p class="">To inspect elements freely, click on the element picker &mdash; you can focus it directly with the keyboard shortcut <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd></span> &mdash; and hover your mouse over any of the elements of Firefox. This should highlight them also in the inspector, the box describing the markup of each element. On the right, you can start manipulating elements in real time by entering CSS rules, and see the changes take effect until you like what you see.</p>
+<p class="">For example, let&#8217;s place the new tab button all the way to right of the browser toolbar, and remove the all tabs button.</p>
+<div class="imageblock">
+<div class="content">
+<img src="firefox_custom_toolbar_before.jpg" alt="Before making changes in the browser inspector">
+</div>
+<div class="title">Figure 1. Before making changes in the browser inspector.</div>
+</div>
+<p class="">This seems easy enough, change the display property to <strong>none</strong> on the all tabs button, and create a margin of <strong>auto</strong> on the new tab button.</p>
+<div class="imageblock">
+<div class="content">
+<img src="firefox_custom_toolbar_after.jpg" alt="After making changes in the browser inspector">
+</div>
+<div class="title">Figure 2. After making changes in the browser inspector.</div>
+</div>
+<p class="">Once you are happy with the changes you&#8217;ve made, move on to the "Changes" tab (still within the inspector view). You will see there all the changes that you&#8217;ve made and copy the entire rules, which you can then paste inside that <code>userChrome.css</code> file that you created earlier. Keep in mind that changes will only take effect after you restart the browser.</p>
+
+					<aside class="admonitionblock is-right tip">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-tip" />
+							</svg>
+						</header>
+						<p>If you are new to CSS, take your time and play around. There's no rush.</p>
+					</aside>
+<p class="">One word of caution about this: the "Changes" tab will show you all the changes you&#8217;ve made to the chrome, including the ones that you may not want to include in your final CSS. I suggest to work slowly, making small changes at a time. Close the browser inspector and re-open it again to have a clean slate for the next change that you have in mind.</p>
+<div class="imageblock">
+<div class="content">
+<img src="firefox_custom_toolbar_css_changes.jpg" alt="Changes made to the chrome">
+</div>
+<div class="title">Figure 3. Changes made to the chrome.</div>
+</div></section>
+<section class="sect1">
+		<header>
+			<h2 id="_organizing_your_code">Organizing Your Code</h2>
+			
+		<a href="#_organizing_your_code">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">While you could write all of your CSS rules inside a single file, it can get out of hand very quickly. It&#8217;s probably fine for a few rules but if you have multiple, you might want to create a dedicated file and use the <code>@import</code> CSS directive to keep things modular.</p>
+<p class="">For example, you may want to create a file called <code>toolbar.css</code> and import it from <code>userChrome.css</code>:</p>
+
+		<div class="listingblock" data-language="css" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>toolbar.css</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">#</span><span style="color:light-dark(#DF8E1D, #E5C890);--shiki-light:#DF8E1D;--shiki-dark:#E5C890">alltabs-button</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    display</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> none</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">#</span><span style="color:light-dark(#DF8E1D, #E5C890);--shiki-light:#DF8E1D;--shiki-dark:#E5C890">tabbrowser-arrowscrollbox-periphery</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> {</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    margin-left</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> auto</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">}</span></span></code></pre>
+			</figure>
+		</div>
+	
+
+		<div class="listingblock" data-language="css" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>userChrome.css</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "toolbar.css"</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">You can take things a bit further, if you want, and create directories that address specific sections of the browser. On time, you will find that this helps to keep things much more organized.</p>
+<p class="">This is what my current configuration looks like at the time of this writing:</p>
+
+		<div class="listingblock" data-language="css" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>userChrome.css</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'catppuccin/frappe.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'layout/desktop.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'layout/tablet.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'menubar/floating-menubar.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'menubar/hide-account-toolbar-button.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'navbar/change-overflow-menu-icon.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'navbar/remove-main-menu-button.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'navbar/remove-navbar-overflow-button.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'navbar/remove-save-to-pocket.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'navbar/remove-spacers.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'navbar/remove-star-icon.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'navbar/sort-navbar-items.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'tabs/hide-close-btn-one-tab.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'tabs/hide-close-btn-until-hover.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'tabs/hide-secondary-label.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'tabs/missing-tab-favicon.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'tabs/speaker-icon-always-visible.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'tabs/tab-label-color.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'tabs/tab-loading-indicator-color.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'tabs/tab-outline-color.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'titlebar/new-tab-button-push-right.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'titlebar/prevent-color-shift-when-not-focused.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'titlebar/remove-action-buttons.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'titlebar/remove-all-tabs-button.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'titlebar/remove-firefox-view-button.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">@import</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 'titlebar/remove-spacers.css'</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span></code></pre>
+			</figure>
+		</div>
+	</section>
+<section class="sect1">
+		<header>
+			<h2 id="_appendix_a">Appendix A</h2>
+			
+		<a href="#_appendix_a">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">To locate your current profile, navigate to <code>about:profiles</code> in the address bar. You should have at least one with fewer options and a text that reads "This is the profile in use". Whatever path shows in the "Root Directory", that&#8217;s your profile location.</p></section></div> </article>  </main> <footer data-astro-cid-sz7xmlte> <section class="footer__links" data-astro-cid-sz7xmlte> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>This site is built with:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Astro" aria-describedby="w6d276p714_astro" href="https://astro.build" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-astro" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="w6d276p714_astro" data-astro-cid-eykbuwrj> Astro </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="AsciiDoc" aria-describedby="205fc4g263_asciidoc" href="https://asciidoc.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-asciidoc" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="205fc4g263_asciidoc" data-astro-cid-eykbuwrj> AsciiDoc </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Find more about me:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Codeberg" aria-describedby="475yb3x71s_codeberg" href="https://codeberg.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codeberg" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="475yb3x71s_codeberg" data-astro-cid-eykbuwrj> Codeberg </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GitHub" aria-describedby="94945n4dn4_github" href="https://github.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-github" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="94945n4dn4_github" data-astro-cid-eykbuwrj> GitHub </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codepen" aria-describedby="721z1g1c6t_codepen" href="https://codepen.io" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codepen" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="721z1g1c6t_codepen" data-astro-cid-eykbuwrj> Codepen </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Exercism" aria-describedby="6u2s3d5l1t_exercism" href="https://exercism.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-exercism" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="6u2s3d5l1t_exercism" data-astro-cid-eykbuwrj> Exercism </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codewars" aria-describedby="4q1i4x1v66_codewars" href="https://codewars.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codewars" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="4q1i4x1v66_codewars" data-astro-cid-eykbuwrj> Codewars </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Get in touch:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Email" aria-describedby="26733a5g5b_email" href="email:devsojourn@pm.me" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-email" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="26733a5g5b_email" data-astro-cid-eykbuwrj> Email </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GPG" aria-describedby="24h436l4k5_gpg-key" href="/" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-gpg-key" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="24h436l4k5_gpg-key" data-astro-cid-eykbuwrj> GPG </span> </a> </li> </ul> </div> </section> <section class="footer__copyright" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>
+All content by me &copy; 2025 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" data-astro-cid-sz7xmlte>CC BY-SA 4.0</a> </p> </section> <section class="footer__egg" class="sr-only unselectable" data-astro-cid-sz7xmlte> <span tabindex="0" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Are you done having fun with the <kbd data-astro-cid-sz7xmlte>Tab</kbd> key already? There are more interesting things to see in the site, you know?</p> <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte> <path fill="var(--foreground-color)" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 27.7083,49.0833L 48.2917,49.0833C 50.4778,49.0833 52.25,50.8555 52.25,53.0417C 52.25,55.2278 50.4778,57 48.2917,57L 27.7083,57C 25.5222,57 23.75,55.2278 23.75,53.0417C 23.75,50.8555 25.5222,49.0833 27.7083,49.0833 Z M 19.2688,36.612L 26.4321,32.4762L 19.2688,28.3405C 17.8683,27.5319 17.3885,25.7411 18.197,24.3406C 19.0056,22.94 20.7965,22.4602 22.197,23.2688L 33.6084,29.8571C 34.5726,30.4138 35.1004,31.4361 35.0718,32.4761C 35.1005,33.5162 34.5727,34.5386 33.6084,35.0953L 22.197,41.6837C 20.7964,42.4923 19.0056,42.0125 18.197,40.6119C 17.3884,39.2114 17.8683,37.4206 19.2688,36.612 Z M 56.7312,36.612C 58.1317,37.4206 58.6116,39.2114 57.803,40.6119C 56.9944,42.0125 55.2036,42.4923 53.803,41.6837L 42.3916,35.0953C 41.4273,34.5386 40.8995,33.5162 40.9282,32.4761C 40.8995,31.4361 41.4274,30.4138 42.3916,29.8571L 53.803,23.2688C 55.2035,22.4602 56.9944,22.94 57.8029,24.3406C 58.6115,25.7411 58.1317,27.5319 56.7312,28.3405L 49.5679,32.4762L 56.7312,36.612 Z " data-astro-cid-sz7xmlte></path> </svg> </span> </section> </footer> <div x-data="scroll" @scroll.window.throttle.100ms="handleScroll" x-cloak data-astro-cid-wlspcwf4> <button @click="scrollToTop" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-wlspcwf4> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-chevron" data-astro-cid-xnoxsesq></use> </svg> </button> </div></body></html>

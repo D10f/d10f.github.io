@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v6.3.1"><title>Astro Basics</title><style>time[data-astro-cid-baakmyjh]{color:var(--subtitles);font-size:.9em}
+h1[data-astro-cid-7jjqptxk]{font-weight:700;text-wrap:balance;line-height:1.3}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Fj8fSMl1.css"><script type="module" src="/_astro/page.CqARJ21R.js"></script></head> <body data-astro-cid-sckkx6r4> <nav x-data="scroll" @scroll.window.throttle.70ms="handleScroll" class="navbar" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-5blmo7yk> <div class="navbar__brand" data-astro-cid-5blmo7yk> <a href="/" data-astro-cid-5blmo7yk>D10f</a> </div> <menu class="navbar__links" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <a class="active" href="/blog" data-astro-cid-5blmo7yk>Blog</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/projects" data-astro-cid-5blmo7yk>Projects</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/uses" data-astro-cid-5blmo7yk>Uses</a> </li> </menu> <menu class="navbar__actions" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <div x-data="theme" data-astro-cid-x3pjskd3> <button @click="toggle" class="rotating-btn" :class="{ 'rotating-btn--active': theme === 'dark' }" data-astro-cid-x3pjskd3> <span data-astro-cid-x3pjskd3> <svg aria-hidden="true" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-sun" data-astro-cid-x3pjskd3></use> </svg> <svg aria-hidden="true" style="transform: rotate(180deg);" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-moon" data-astro-cid-x3pjskd3></use> </svg> </span> </button> </div> </li> </menu> </nav> <main data-astro-cid-sckkx6r4>  <article data-astro-cid-7jjqptxk> <header data-astro-cid-7jjqptxk> <h1 data-astro-cid-7jjqptxk>Read The Hostname From Within A Docker Container</h1> <time datetime="2022-12-13T00:00:00.000Z" data-astro-cid-baakmyjh> Dec 13, 2022 </time> </header> <div class="asciidoc" data-astro-cid-7jjqptxk>
+		<section id="preamble">
+			<p class="">When deploying services using Docker Swarm, it&#8217;s up to the orchestrator engine to decide where containers will be deployed. On a single node it&#8217;s easy to predict in advanced the host, and we can work with some assumptions. However, on more than one node this becomes a little more difficult.</p>
+		</section>
+
+		<section id="toc">
+			<menu class="toc">
+		<li class="toc__item">
+			<a href="#_problem_statement">Problem Statement</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_initial_setup">Initial Setup</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_docker_service_templates">Docker Service Templates</a>
+			
+		</li></menu>
+		</section>
+<section class="sect1">
+		<header>
+			<h2 id="_problem_statement">Problem Statement</h2>
+			
+		<a href="#_problem_statement">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">You have set up a fleet of hosts running Docker Swarm, on top of which you can now run various containerized applications. To monitor the health of the hosts you want to run metric collection software such as Telegraf, InfluxDB and Grafana.</p>
+<p class="">You take advantage of the fact that your fleet already spawns multiple hosts and has an orchestrator taking over the deployment of individual containers, and you write compose file to make things easier for yourself.<br>
+Unfortunately, when you check the dashboard you see that while the data points are correctly being reported, the hostnames correspond to the individual Docker container IDs, instead of the actual hosts that you care to monitor. This makes it difficult to distinguish which hosts are under more or less load.</p></section>
+<section class="sect1">
+		<header>
+			<h2 id="_initial_setup">Initial Setup</h2>
+			
+		<a href="#_initial_setup">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">This is the initial setup that worked fine except with the mentioned issue (excerpt of the service in question):</p>
+
+		<div class="listingblock" data-language="yaml" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>docker-compose.yml</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-dark:#F4B8E4">---</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">version</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "3.8"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">services</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    telegraf</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        image</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> telegraf:1.21</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        deploy</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            mode</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> global</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            placement</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">                max_replicas_per_node</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            restart_policy</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">                delay</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 10s</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        environment</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_ETC</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs/etc</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_PROC</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs/proc</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_SYS</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs/sys</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_VAR</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs/var</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_RUN</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs/run</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_MOUNT_PREFIX</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        configs</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">            -</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> source</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> telegraf_config-cc3322b4</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">              target</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /etc/telegraf/telegraf.conf</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">              mode</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 0400</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        volumes</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">            -</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /:/hostfs:ro</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        networks</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">            -</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> influxdb</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">As per the <a href="https://docs.influxdata.com/telegraf/v1.21/administration/configuration/#agent-configuration">Telegraf documentation</a>, the hostname field can be left blank in order to default to the current hostname:</p>
+
+		<div class="listingblock" data-language="ini" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>telegraf.conf</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#DF8E1D, #E5C890);--shiki-light:#DF8E1D;--shiki-dark:#E5C890">agent</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    interval</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "10s"</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    round_interval</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> true</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    metric_batch_size</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> 1000</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    metric_buffer_limit</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> 10000</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    collection_jitter</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "0s"</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    flush_interval</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "10s"</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    flush_jitter</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "0s"</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    precision</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "0s"</span></span>
+<span class="line" data-callout-1=""><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    hostname</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> ""</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    omit_hostname</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> false</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">[</span><span style="color:light-dark(#DF8E1D, #E5C890);--shiki-light:#DF8E1D;--shiki-dark:#E5C890">[outputs.influxdb</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">]</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">]</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    urls</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> [</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"http://influxdb:8086"</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">]</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    timeout</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "5s"</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    database</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "telegraf"</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    username</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "telegraf"</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    password</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> =</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "XXXXXXXXXXXXXXXXXXXXX"</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Hostname left blank on purpose.</p></li></ol>
+<p class="">However, the way it works is by invoking Go&#8217;s <code>os.Hostname</code> function to populate the field, which reads directly from <code>/proc/sys/kernel/hostname</code>. It would be reasonable to assume that, after mounting the entire <code>/hostfs/proc</code> to the container, this information would be available. Unfortunately this is not the case and the hostname that is reported is the ID of the Docker container in which it runs.</p></section>
+<section class="sect1">
+		<header>
+			<h2 id="_docker_service_templates">Docker Service Templates</h2>
+			
+		<a href="#_docker_service_templates">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The solution is pretty straight forward, once you know the answer. Turns out, <a href="https://docs.docker.com/reference/cli/docker/service/create/#create-services-using-templates">Compose files support Go Templates</a>, which we can use as a placeholder for various fields, including the hostname:</p>
+
+		<div class="listingblock" data-language="yaml" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>docker-compose.yml</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe has-diff" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-dark:#F4B8E4">---</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">version</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "3.8"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">services</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">    telegraf</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        image</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> telegraf:1.21</span></span>
+<span class="line diff add"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        hostname</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "{{.Node.Hostname}}"</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        deploy</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            mode</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> global</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            placement</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">                max_replicas_per_node</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 1</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            restart_policy</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">                delay</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> 10s</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        environment</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_ETC</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs/etc</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_PROC</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs/proc</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_SYS</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs/sys</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_VAR</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs/var</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_RUN</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs/run</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">            HOST_MOUNT_PREFIX</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /hostfs</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        configs</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">            -</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE"> source</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> telegraf_config-cc3322b4</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">              target</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /etc/telegraf/telegraf.conf</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">              mode</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 0400</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        volumes</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">            -</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /:/hostfs:ro</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-dark:#8CAAEE">        networks</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">            -</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> influxdb</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">This way, the variable gets interpolated whenever the container is deployed, reporting the correct hostname for each container instance and showing it correctly in the Grafana dashboard.</p></section></div> </article>  </main> <footer data-astro-cid-sz7xmlte> <section class="footer__links" data-astro-cid-sz7xmlte> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>This site is built with:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Astro" aria-describedby="4r4z2g2306_astro" href="https://astro.build" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-astro" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="4r4z2g2306_astro" data-astro-cid-eykbuwrj> Astro </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="AsciiDoc" aria-describedby="3z335q3735_asciidoc" href="https://asciidoc.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-asciidoc" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="3z335q3735_asciidoc" data-astro-cid-eykbuwrj> AsciiDoc </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Find more about me:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Codeberg" aria-describedby="3v6z3o2439_codeberg" href="https://codeberg.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codeberg" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="3v6z3o2439_codeberg" data-astro-cid-eykbuwrj> Codeberg </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GitHub" aria-describedby="5o2p566d73_github" href="https://github.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-github" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="5o2p566d73_github" data-astro-cid-eykbuwrj> GitHub </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codepen" aria-describedby="49162s3247_codepen" href="https://codepen.io" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codepen" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="49162s3247_codepen" data-astro-cid-eykbuwrj> Codepen </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Exercism" aria-describedby="4e4i3l92s1_exercism" href="https://exercism.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-exercism" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="4e4i3l92s1_exercism" data-astro-cid-eykbuwrj> Exercism </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codewars" aria-describedby="6p4f1z4v3b_codewars" href="https://codewars.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codewars" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="6p4f1z4v3b_codewars" data-astro-cid-eykbuwrj> Codewars </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Get in touch:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Email" aria-describedby="2w1z1r1f2x_email" href="email:devsojourn@pm.me" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-email" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2w1z1r1f2x_email" data-astro-cid-eykbuwrj> Email </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GPG" aria-describedby="2y1uy2x6g3_gpg-key" href="/" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-gpg-key" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2y1uy2x6g3_gpg-key" data-astro-cid-eykbuwrj> GPG </span> </a> </li> </ul> </div> </section> <section class="footer__copyright" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>
+All content by me &copy; 2025 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" data-astro-cid-sz7xmlte>CC BY-SA 4.0</a> </p> </section> <section class="footer__egg" class="sr-only unselectable" data-astro-cid-sz7xmlte> <span tabindex="0" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Are you done having fun with the <kbd data-astro-cid-sz7xmlte>Tab</kbd> key already? There are more interesting things to see in the site, you know?</p> <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte> <path fill="var(--foreground-color)" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 27.7083,49.0833L 48.2917,49.0833C 50.4778,49.0833 52.25,50.8555 52.25,53.0417C 52.25,55.2278 50.4778,57 48.2917,57L 27.7083,57C 25.5222,57 23.75,55.2278 23.75,53.0417C 23.75,50.8555 25.5222,49.0833 27.7083,49.0833 Z M 19.2688,36.612L 26.4321,32.4762L 19.2688,28.3405C 17.8683,27.5319 17.3885,25.7411 18.197,24.3406C 19.0056,22.94 20.7965,22.4602 22.197,23.2688L 33.6084,29.8571C 34.5726,30.4138 35.1004,31.4361 35.0718,32.4761C 35.1005,33.5162 34.5727,34.5386 33.6084,35.0953L 22.197,41.6837C 20.7964,42.4923 19.0056,42.0125 18.197,40.6119C 17.3884,39.2114 17.8683,37.4206 19.2688,36.612 Z M 56.7312,36.612C 58.1317,37.4206 58.6116,39.2114 57.803,40.6119C 56.9944,42.0125 55.2036,42.4923 53.803,41.6837L 42.3916,35.0953C 41.4273,34.5386 40.8995,33.5162 40.9282,32.4761C 40.8995,31.4361 41.4274,30.4138 42.3916,29.8571L 53.803,23.2688C 55.2035,22.4602 56.9944,22.94 57.8029,24.3406C 58.6115,25.7411 58.1317,27.5319 56.7312,28.3405L 49.5679,32.4762L 56.7312,36.612 Z " data-astro-cid-sz7xmlte></path> </svg> </span> </section> </footer> <div x-data="scroll" @scroll.window.throttle.100ms="handleScroll" x-cloak data-astro-cid-wlspcwf4> <button @click="scrollToTop" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-wlspcwf4> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-chevron" data-astro-cid-xnoxsesq></use> </svg> </button> </div></body></html>

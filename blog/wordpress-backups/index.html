@@ -1,0 +1,519 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v6.3.1"><title>Astro Basics</title><style>time[data-astro-cid-baakmyjh]{color:var(--subtitles);font-size:.9em}
+h1[data-astro-cid-7jjqptxk]{font-weight:700;text-wrap:balance;line-height:1.3}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Fj8fSMl1.css"><script type="module" src="/_astro/page.CqARJ21R.js"></script></head> <body data-astro-cid-sckkx6r4> <nav x-data="scroll" @scroll.window.throttle.70ms="handleScroll" class="navbar" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-5blmo7yk> <div class="navbar__brand" data-astro-cid-5blmo7yk> <a href="/" data-astro-cid-5blmo7yk>D10f</a> </div> <menu class="navbar__links" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <a class="active" href="/blog" data-astro-cid-5blmo7yk>Blog</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/projects" data-astro-cid-5blmo7yk>Projects</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/uses" data-astro-cid-5blmo7yk>Uses</a> </li> </menu> <menu class="navbar__actions" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <div x-data="theme" data-astro-cid-x3pjskd3> <button @click="toggle" class="rotating-btn" :class="{ 'rotating-btn--active': theme === 'dark' }" data-astro-cid-x3pjskd3> <span data-astro-cid-x3pjskd3> <svg aria-hidden="true" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-sun" data-astro-cid-x3pjskd3></use> </svg> <svg aria-hidden="true" style="transform: rotate(180deg);" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-moon" data-astro-cid-x3pjskd3></use> </svg> </span> </button> </div> </li> </menu> </nav> <main data-astro-cid-sckkx6r4>  <article data-astro-cid-7jjqptxk> <header data-astro-cid-7jjqptxk> <h1 data-astro-cid-7jjqptxk>WordPress Backups</h1> <time datetime="2021-05-22T00:00:00.000Z" data-astro-cid-baakmyjh> May 22, 2021 </time> </header> <div class="asciidoc" data-astro-cid-7jjqptxk>
+		<section id="preamble">
+			<p class="">There are two types of people: those who make backups, and those who have never lost any data.</p>
+		</section>
+
+		<section id="toc">
+			<menu class="toc">
+		<li class="toc__item">
+			<a href="#_creating_backups">Creating Backups</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_restoring_a_wordpress_site">Restoring A WordPress Site</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_script_automate">Script, Automate</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_docker_containers">Docker Containers</a>
+			
+		</li></menu>
+		</section>
+<section class="sect1">
+		<header>
+			<h2 id="_creating_backups">Creating Backups</h2>
+			
+		<a href="#_creating_backups">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Losing data can happen for a variety of reasons, from hardware failure to software updates gone wrong. No matter the reason, a system administrator should have a backup strategy in place to ensure that when this happens things can get back to normal with as little downtime and data loss as possible.</p>
+<p class="">A WordPress site can be divided into two big data components: the database components and the file system components. The database contains things like post and publications, user accounts, passwords and other related settings. The file system deals with bare-bones files that make WordPress work, including themes and plugins, as well as any user-media that was uploaded. Let&#8217;s start with the database contents.</p>
+<p class="">To create a backup of the database we can run one of these commands:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">mysqldump -u $db_user -p${db_pass} $db_name > filename.sql</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">mysqldump -u $db_user -p${db_pass} $db_name | gzip -9 > filename.sql</span></span></code></pre>
+			</figure>
+		</div>
+	
+
+					<aside class="admonitionblock is-left important">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-important" />
+							</svg>
+						</header>
+						<p>Starting with MariaDB 10.1, exclusive utilities were introduced that should be used instead of the tools that were available and compatible with MySQL.</p>
+					</aside>
+<p class="">However, it&#8217;s often used in conjunction with another command to provide compression as these type of data dumps tend to grow in size rather quickly. This is a game of balance between storage efficiency and CPU processing &mdash; both during the backup and restore processes &mdash; so you&#8217;ll have to choose whichever option works best.</p>
+<p class="">To create a backup of the file system files we use this command:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">tar -czvf backup_name.tar.gz -C /var/www/html .</span></span></code></pre>
+			</figure>
+		</div>
+	
+
+					<aside class="admonitionblock is-right important">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-important" />
+							</svg>
+						</header>
+						<p>I find it easier to use the <code>-C</code> flag to create archives with the tar command. However, mind that this won't create absolute paths and when restoring the site you'll have to use this option as well.</p>
+					</aside></section>
+<section class="sect1">
+		<header>
+			<h2 id="_restoring_a_wordpress_site">Restoring A WordPress Site</h2>
+			
+		<a href="#_restoring_a_wordpress_site">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">First, the database. Make sure to have one instance of MySQL/MariaDB already up and running, then run one of these commands depending on the format of the data dump:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line" data-callout-1=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">sudo mysql -u $db_user $db_name &#x3C; filename.sql</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line" data-callout-2=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">gunzip &#x3C; filename.sql.gz | sudo mysql -u $db_user $db_name</span><span class="conum unselectable" style="" data-value="2">2</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>If the backup is not compressed</p></li><li data-colist="2"><p>If the backup is compressed.</p></li></ol>
+<p class="">As for the file system files, we need a location to unarchive the files first and foremost, typically <code>/var/www/html</code>.</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line" data-callout-1=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">tar -xf backup_name.tar.gz -C /var/www/html</span><span class="conum unselectable" style="" data-value="1">1</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Mind the use of the <code>-C</code> flag, this will depend on how the original archive was made.</p></li></ol>
+<p class="">Almost done! For good measure, run this command to update file permissions and ownership on the new system.</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">chown -R your-user:www-data /var/www/html</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">find /var/www/html -type d -exec chmod 755 {} \;</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">find /var/www/html -type f -exec chmod 644 {} \;</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">find /var/www/html/wp-content -type d -exec chmod 775 {} \;</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">find /var/www/html/wp-content -type f -exec chmod 664 {} \;</span></span></code></pre>
+			</figure>
+		</div>
+	</section>
+<section class="sect1">
+		<header>
+			<h2 id="_script_automate">Script, Automate</h2>
+			
+		<a href="#_script_automate">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Manually running commands to create backups is not very efficient. It&#8217;s also not very safe to do, as sensitive information may accidentally leak into the shell&#8217;s history, and anyone who&#8217;s monitoring running processes will be able to see all the passwords in clear text! Let&#8217;s create a couple of scripts to automate this task.</p>
+
+		<div class="listingblock" data-language="bash" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>db_backup.sh</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-light-font-style:italic;--shiki-dark:#F4B8E4;--shiki-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">db_user</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">your_db_username</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">db_pass</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">your_db_user_password</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">db_name</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">your_db_name</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">filename</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">your_site_</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">`</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">date</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> +%F_%H%M</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">`</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">.sql.gz</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">mysqldump</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -u</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $db_user </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">-p</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${db_pass}</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $db_name </span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">|</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> gzip</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -9</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> ></span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /path/to/backup/</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$filename</span></span></code></pre>
+			</figure>
+		</div>
+	
+
+		<div class="listingblock" data-language="bash" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>wp_backup.sh</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-light-font-style:italic;--shiki-dark:#F4B8E4;--shiki-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">filename</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">your_site_</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">`</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">date</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> +%F_%H%M</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">`</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">.tar.gz</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">tar</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -czf</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5"> $filename </span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">-C</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /var/www/html</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> .</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">Now, we can run the scripts to create a new backup whenever we want, but this still has a few drawbacks. Mainly, we still have to manually log in to the server and do this manually, which may be fine for a handful of sites but not if there are dozens to administer. So let&#8217;s put this into a cron job so that our system handles this automatically at whatever interval we specify.</p>
+
+					<aside class="admonitionblock is-left tip">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-tip" />
+							</svg>
+						</header>
+						<p>We could put this inside a single file as well. However, database content is likely to change more frequently than theme and plugin data, and don't need to be backed up at the same rate. It's up to you.</p>
+					</aside>
+
+		<div class="listingblock" data-language="bash" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic"># min hour dom mon dow command</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">  30</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">  5</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    *</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">   *</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">   *</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">   /bin/bash</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /root/db_backup.sh</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> ></span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/dev/null</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> 2>&#x26;1</span></span>
+<span class="line" data-callout-1=""><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">  30</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">  6</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    *</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">   *</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76">   6</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">   /bin/bash</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /root/wp_backup.sh</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> ></span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/dev/null</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> 2>&#x26;1</span><span class="conum unselectable" style="" data-value="1">1</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>You can also use names for some of these fields, like "sat" for Saturday or "apr" for April (not that I would recommend running backups once a year!).</p></li></ol>
+
+					<aside class="admonitionblock is-right tip">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-tip" />
+							</svg>
+						</header>
+						<p>Try not to run potentially intensive tasks all at the same time. This is probably fine for a few small sites, just keep in mind that the more files to back up the longer this will take, and the more resources it will consume.</p>
+					</aside>
+<p class="">Notice that the location of the scripts. The <code>/root</code> directory is like a regular user&#8217;s home directory, but for the root user. The thing is, these scripts still contain sensitive information, and it&#8217;s best to make this as difficult to gain access to in case of security breach. To that end, change the ownership and permissions of the scripts and move them to their new location. When you add a new entry to <code>cron</code>, you&#8217;ll have to run <code>sudo crontab -e</code> so that these scheduled tasks run as sudo.</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">sudo chown root: {db,wp}_backup.sh</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">sudo chmod 700 {db,wp}_backup.sh</span></span>
+<span class="line" data-callout-1=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">sudo mv /home/user/{db,wp}_backup.sh /root</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">sudo crontab -e</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Make sure to specify the right location for your scripts, of course.</p></li></ol></section>
+<section class="sect1">
+		<header>
+			<h2 id="_docker_containers">Docker Containers</h2>
+			
+		<a href="#_docker_containers">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">When considering our backup strategy we might encounter setups where Docker containers are used, as it&#8217;s increasingly common &mdash; let&#8217;s not kid ourselves, it&#8217;s well past the point of being trendy and more of <em>de facto</em> standard, and has been for some time. The good news is that the same backup files will work regardless of how we decide to deploy our WordPress site.</p>
+<p class="">The overall process is largely the same as well, so it&#8217;s really a matter of figuring out how to get data out of the container and to a save permanent location. In the case of the database, there&#8217;s should be a built-in utility that can be used directly even on a live database:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">docker exec -i &#x3C;database_conatiner_id> \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    mysqldump \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        -u${db_user} \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        -p${db_pass} \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        ${db_name} \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    | gzip -9 &#x3C; filename.sql.gz</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">This example attaches to a running container and runs the <code>mysqldump</code> command which outputs the resulting file to standard output, and we capture and redirect it to our file. Simple enough, not much to think about as it&#8217;s pretty much the same (again, mind the spacing when entering the credentials).</p>
+<p class="">If you are using some form of secret management solution you won&#8217;t know in advance the credentials as these can rotate at any time depending on the provider. What you can do in this case is provide a command to be executed by the shell <em>inside</em> the container, without expanding those values in the current shell:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">docker exec -i &#x3C;database_conatiner_id> \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    bash -c 'mysqldump \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        -u$(cat /run/secrets/mariadb_root_user) \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        -p$(cat /run/secrets/mariadb_root_pass) \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        $(cat /run/secrets/mariadb_db_name)' \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    | gzip -9 &#x3C; filename.sql.gz</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">To restore a database while using Docker, it&#8217;s once again very similar: make sure you have a database already running (this means having a container instance running) and attach to it in order to execute the same command as before, providing the backup from the host.</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line" data-callout-1=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">docker exec -i &#x3C;container_id> \</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">  mysql -u${db_user} -p${db_pass} $db_name &#x3C; filename.sql</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span></span>
+<span class="line" data-callout-2=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">gunzip &#x3C; filename.sql | docker exec -i &#x3C;container_id> \</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">  mysql -u${db_user} -p${db_pass} $db_name</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Uncompressed data backup.</p></li><li data-colist="2"><p>Compressed data backup.</p></li></ol>
+<p class="">As before, be sure to pick the right command based on whether the input data is compressed or not.</p>
+<p class="">For the file system components, since there&#8217;s no dedicated utility we should spin a temporary container and mount the volumes we&#8217;re interested in, and create the archive from there. In this example, I&#8217;m using a WordPress image for the temporary container as it&#8217;s guaranteed to already exist in the host downloaded images, but you can use a different one too (so long it has the tar command installed).</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">docker run --rm -i \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">      --mount type=bind,src=${HOST_BACKUP_DIR},dst=/backup \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">      --mount type=volume,src=${WP_DATA_VOLUME},dst=/mnt/data,readonly=true \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">      wordpress:php8.2-fpm \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">      tar -czf /backup/filename.tar.gz -C /mnt/data .</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">The restore process is nearly identical, see if you can spot the differences (not a trick question):</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">docker run --rm -i \</span></span>
+<span class="line" data-callout-1=""><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">  --mount type=bind,src=${HOST_BACKUP_DIR},dst=/backup/filename.tar.gz \</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line" data-callout-2=""><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">  --mount type=volume,src=${WP_DATA_VOLUME},dst=/var/www/html,readonly=false \</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line" data-callout-3=""><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">  wordpress:php8.2-fpm \</span><span class="conum unselectable" style="" data-value="3">3</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">  tar -xf /backup/filename.tar.gz -C /var/www/html</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Mount the archive file somewhere in the container.</p></li><li data-colist="2"><p>Do not mount volume data as read only as we want to overwrite the contents.</p></li><li data-colist="3"><p>Using WordPress image for convenience, as it&#8217;s pretty much guaranteed to exist in the server already, but any image with the tar command would do.</p></li></ol></section></div> </article>  </main> <footer data-astro-cid-sz7xmlte> <section class="footer__links" data-astro-cid-sz7xmlte> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>This site is built with:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Astro" aria-describedby="5r5g3tb4p6_astro" href="https://astro.build" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-astro" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="5r5g3tb4p6_astro" data-astro-cid-eykbuwrj> Astro </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="AsciiDoc" aria-describedby="494h5l1l4n_asciidoc" href="https://asciidoc.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-asciidoc" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="494h5l1l4n_asciidoc" data-astro-cid-eykbuwrj> AsciiDoc </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Find more about me:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Codeberg" aria-describedby="3v32645d19_codeberg" href="https://codeberg.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codeberg" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="3v32645d19_codeberg" data-astro-cid-eykbuwrj> Codeberg </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GitHub" aria-describedby="5p5e2p44my_github" href="https://github.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-github" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="5p5e2p44my_github" data-astro-cid-eykbuwrj> GitHub </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codepen" aria-describedby="2843t5m5x6_codepen" href="https://codepen.io" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codepen" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="2843t5m5x6_codepen" data-astro-cid-eykbuwrj> Codepen </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Exercism" aria-describedby="574cs2j3zu_exercism" href="https://exercism.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-exercism" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="574cs2j3zu_exercism" data-astro-cid-eykbuwrj> Exercism </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codewars" aria-describedby="214k3o5g50_codewars" href="https://codewars.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codewars" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="214k3o5g50_codewars" data-astro-cid-eykbuwrj> Codewars </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Get in touch:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Email" aria-describedby="164dn1v1x7_email" href="email:devsojourn@pm.me" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-email" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="164dn1v1x7_email" data-astro-cid-eykbuwrj> Email </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GPG" aria-describedby="n6r34296g3_gpg-key" href="/" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-gpg-key" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="n6r34296g3_gpg-key" data-astro-cid-eykbuwrj> GPG </span> </a> </li> </ul> </div> </section> <section class="footer__copyright" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>
+All content by me &copy; 2025 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" data-astro-cid-sz7xmlte>CC BY-SA 4.0</a> </p> </section> <section class="footer__egg" class="sr-only unselectable" data-astro-cid-sz7xmlte> <span tabindex="0" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Are you done having fun with the <kbd data-astro-cid-sz7xmlte>Tab</kbd> key already? There are more interesting things to see in the site, you know?</p> <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte> <path fill="var(--foreground-color)" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 27.7083,49.0833L 48.2917,49.0833C 50.4778,49.0833 52.25,50.8555 52.25,53.0417C 52.25,55.2278 50.4778,57 48.2917,57L 27.7083,57C 25.5222,57 23.75,55.2278 23.75,53.0417C 23.75,50.8555 25.5222,49.0833 27.7083,49.0833 Z M 19.2688,36.612L 26.4321,32.4762L 19.2688,28.3405C 17.8683,27.5319 17.3885,25.7411 18.197,24.3406C 19.0056,22.94 20.7965,22.4602 22.197,23.2688L 33.6084,29.8571C 34.5726,30.4138 35.1004,31.4361 35.0718,32.4761C 35.1005,33.5162 34.5727,34.5386 33.6084,35.0953L 22.197,41.6837C 20.7964,42.4923 19.0056,42.0125 18.197,40.6119C 17.3884,39.2114 17.8683,37.4206 19.2688,36.612 Z M 56.7312,36.612C 58.1317,37.4206 58.6116,39.2114 57.803,40.6119C 56.9944,42.0125 55.2036,42.4923 53.803,41.6837L 42.3916,35.0953C 41.4273,34.5386 40.8995,33.5162 40.9282,32.4761C 40.8995,31.4361 41.4274,30.4138 42.3916,29.8571L 53.803,23.2688C 55.2035,22.4602 56.9944,22.94 57.8029,24.3406C 58.6115,25.7411 58.1317,27.5319 56.7312,28.3405L 49.5679,32.4762L 56.7312,36.612 Z " data-astro-cid-sz7xmlte></path> </svg> </span> </section> </footer> <div x-data="scroll" @scroll.window.throttle.100ms="handleScroll" x-cloak data-astro-cid-wlspcwf4> <button @click="scrollToTop" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-wlspcwf4> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-chevron" data-astro-cid-xnoxsesq></use> </svg> </button> </div></body></html>

@@ -1,0 +1,936 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v6.3.1"><title>Astro Basics</title><style>time[data-astro-cid-baakmyjh]{color:var(--subtitles);font-size:.9em}
+h1[data-astro-cid-7jjqptxk]{font-weight:700;text-wrap:balance;line-height:1.3}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Fj8fSMl1.css"><script type="module" src="/_astro/page.CqARJ21R.js"></script></head> <body data-astro-cid-sckkx6r4> <nav x-data="scroll" @scroll.window.throttle.70ms="handleScroll" class="navbar" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-5blmo7yk> <div class="navbar__brand" data-astro-cid-5blmo7yk> <a href="/" data-astro-cid-5blmo7yk>D10f</a> </div> <menu class="navbar__links" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <a class="active" href="/blog" data-astro-cid-5blmo7yk>Blog</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/projects" data-astro-cid-5blmo7yk>Projects</a> </li> <li data-astro-cid-5blmo7yk> <a class href="/uses" data-astro-cid-5blmo7yk>Uses</a> </li> </menu> <menu class="navbar__actions" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk> <div x-data="theme" data-astro-cid-x3pjskd3> <button @click="toggle" class="rotating-btn" :class="{ 'rotating-btn--active': theme === 'dark' }" data-astro-cid-x3pjskd3> <span data-astro-cid-x3pjskd3> <svg aria-hidden="true" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-sun" data-astro-cid-x3pjskd3></use> </svg> <svg aria-hidden="true" style="transform: rotate(180deg);" data-astro-cid-x3pjskd3> <use href="/sprite.svg#icon-moon" data-astro-cid-x3pjskd3></use> </svg> </span> </button> </div> </li> </menu> </nav> <main data-astro-cid-sckkx6r4>  <article data-astro-cid-7jjqptxk> <header data-astro-cid-7jjqptxk> <h1 data-astro-cid-7jjqptxk>Debian Minimal Installation</h1> <time datetime="2024-10-13T00:00:00.000Z" data-astro-cid-baakmyjh> Oct 13, 2024 </time> </header> <div class="asciidoc" data-astro-cid-7jjqptxk>
+		<section id="preamble">
+			<p class="">I like the idea of a "minimal" Linux desktop because that means there are fewer things to understand, and the more effective I can be with it. However, I don&#8217;t like being dogmatic about things. Minimalism can become a very deep rabbit hole, and at the end of the day I need to be productive with my system. With that in mind, I&#8217;ll be making certain trade-offs in the name of convenience as I see fit for my personal use case.</p>
+<p class="">The goal of this exercise is to explore the different components that make up a Linux desktop and integrate them separately.</p>
+		</section>
+
+		<section id="toc">
+			<menu class="toc">
+		<li class="toc__item">
+			<a href="#_graphical_environment">Graphical Environment</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_xorg">Xorg</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_mesa_drivers">Mesa Drivers</a>
+			
+		</li></ul>
+		</li>
+		<li class="toc__item">
+			<a href="#_firmware">Firmware</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_suckless_utilities">Suckless Utilities</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_patching">Patching</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_dwm">dwm</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_dmenu">dmenu</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_st">st</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_slstatus">slstatus</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_slock">slock</a>
+			
+		</li></ul>
+		</li>
+		<li class="toc__item">
+			<a href="#_login_startup_scripts">Login Startup Scripts</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_session_management_power_options">Session Management &amp; Power Options</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_log_out">Log Out</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_suspend_reboot_power_off">Suspend, Reboot &amp; Power Off</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_lock_screen">Lock Screen</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_crafting_a_menu">Crafting A Menu</a>
+			
+		</li></ul>
+		</li>
+		<li class="toc__item">
+			<a href="#_privilege_escalation">Privilege Escalation</a>
+			<ul>
+		<li class="toc__item">
+			<a href="#_sudo_rs">sudo-rs</a>
+			
+		</li>
+		<li class="toc__item">
+			<a href="#_opendoas">OpenDoas</a>
+			
+		</li></ul>
+		</li></menu>
+		</section>
+<section class="sect1">
+		<header>
+			<h2 id="_graphical_environment">Graphical Environment</h2>
+			
+		<a href="#_graphical_environment">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">After a bare installation of Debian we&#8217;ll be greeted by a login prompt at the console; no graphical environment yet. This is where you&#8217;ll need to log in as the root user, instead of your own non-privileged account, to install a few packages.</p>
+<section class="sect2">
+		<header>
+			<h3 id="_xorg">Xorg</h3>
+			
+		<a href="#_xorg">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The Xorg display server handles the display of graphical applications, as well as user events like mouse movement and keystrokes.</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">apt install xorg</span></span></code></pre>
+			</figure>
+		</div>
+	
+
+					<aside class="admonitionblock is-left important">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-important" />
+							</svg>
+						</header>
+						<p>Xorg is an implementation of the X11 window system, which serves as a display server for Unix-like operating systems, including Linux.</p>
+					</aside>
+<p class="">This is a meta-package, that is, it links to other packages (that may also be meta-packages of their own) in order to facilitate the installation of the entire suite of software programs that make Xorg work properly. However, we can be a little more specific about what it is that we want to install:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">apt install \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    xinit \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    xkb-data \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    x11-xkb-utils \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    xserver-xorg-video-all \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    keyboard-configuration</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">We&#8217;re not saving a lot of space by doing this, only about 30 Mb, but at least we have a better understanding of what&#8217;s going on under the hood. We can now also install the remaining packages if we wish, depending on what we expect to do with our system:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">apt install \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    x11-utils \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    x11-xserver-utils \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    x11-session-utils \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    xfonts-utils \</span></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">    xinput</span></span></code></pre>
+			</figure>
+		</div>
+	</section>
+<section class="sect2">
+		<header>
+			<h3 id="_mesa_drivers">Mesa Drivers</h3>
+			
+		<a href="#_mesa_drivers">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Speaking of graphical applications, these days most applications will want to use the GPU to do things like hardware acceleration. To make the best out of the hardware, you can install the following package as well:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">apt install mesa-utils</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">This provides an assortment of open source implementations of industry-standard graphics programming API for things like 3D graphics, hardware acceleration, video processing, etc. So, not technically required, but it&#8217;s a good idea to have it in there just in case.</p></section></section>
+<section class="sect1">
+		<header>
+			<h2 id="_firmware">Firmware</h2>
+			
+		<a href="#_firmware">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Depending on your hardware, you might need additional drivers to make the best out of it. This may apply to all types of peripherals, not just graphics cards, like network adapters, audio devices, webcams, etc.</p>
+
+					<aside class="admonitionblock is-right important">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-important" />
+							</svg>
+						</header>
+						<p>The term "free" in this context means that the source code is licensed under an open source license. This allows to examine and modify the code publicly, as opposed to be kept a secret (proprietary).</p>
+					</aside>
+<p class="">There free and non-free versions available. You can choose which version you want to use during the installation of Debian, and I&#8217;d recommend using the non-free as much as possible. However, if you notice that your computer doesn&#8217;t work properly in terms of hardware compatibility or performance, it might be a good idea to install the non-free version as well:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">apt install firmware-linux-nonfree</span></span></code></pre>
+			</figure>
+		</div>
+	</section>
+<section class="sect1">
+		<header>
+			<h2 id="_suckless_utilities">Suckless Utilities</h2>
+			
+		<a href="#_suckless_utilities">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Since the goal is to have something minimal, the <a href="https://suckless.org">Suckless project</a> seems like a good place to browse for minimally crafted software. The tools created by this project are <em>very</em> minimal, offering nothing but the core functionality in order to offer something simple and lean. So minimal, in fact, that configuring these tools is done by editing the source code of the program directly, although this sounds a lot worse than it is.</p>
+<p class="">Another nuance about this project is that any additional features are provided through "patches" contributed by the community, and these can be tricky to apply, so it&#8217;s best to pick and choose only the ones that are really necessary &mdash; staying true to the philosophy of a minimalist setup!</p>
+<p class="">Let&#8217;s start by installing a few dependencies that we&#8217;ll need.</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">apt install libx11-dev libxinerama-dev libxft-dev git build-essential</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">Then, you can download the repository and build its source code with the following commands:</p>
+
+					<aside class="admonitionblock is-left tip">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-tip" />
+							</svg>
+						</header>
+						<p>Use <code>pushd</code> and <code>popd</code> to quickly change in and out of directories. Unlike <code>cd -</code>, which only remembers the previous location, running <code>popd</code> will get you back to the initial location where you were at the time of running <code>pushd</code>. This is helpful when a command needs to be run from within a particular directory.</p>
+					</aside>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line" data-callout-1="" data-callout-2=""><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">git clone https://git.suckless.org/dwm /usr/local/src/dwm</span><span class="conum unselectable" style="" data-value="1">1</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">pushd /usr/local/src/dwm ; make ; make clean install; popd</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Change "dwm" from these commands with whatever program you want to download.</p></li><li data-colist="2"><p>You can also change the location where is downloaded. I like to keep programs I compile in <code>/usr/local/src</code>. Make sure that location exists already.</p></li></ol>
+<section class="sect2">
+		<header>
+			<h3 id="_patching">Patching</h3>
+			
+		<a href="#_patching">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">When talking about the Suckless utilities it&#8217;s important to understand that there&#8217;s no configuration options other than actually editing the source code. Some of the most easily accessible settings are easily editable, but adding new features is only possible through community contributions available as so-called "patches".</p>
+<p class="">These patches are git diff files that specify that modify the original source code directly at specific lines, and in specific ways. To apply a patch, you would need to download it first and then run the command, from the same directory where the source we&#8217;re patching is located:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">patch -p1 &#x3C; path/to/patch.diff</span></span></code></pre>
+			</figure>
+		</div>
+	
+
+					<aside class="admonitionblock is-right important">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-important" />
+							</svg>
+						</header>
+						<p>I tend to keep a folder named "patches" inside the source code for each program, to help me stay organized.</p>
+					</aside>
+<p class="">Since these files work under the assumption that the original source code has not been modified, it&#8217;s going to become more likely that this command will result in an error, due to the patch file expecting to find certain lines of code that aren&#8217;t in the now-modified source code.</p>
+<p class="">I will leave a link to a video that talks about this in more detail, including how to deal with these type of merge conflicts when they happen. But in any case, remember: less is more!</p>
+<p class=""><a href="https://www.youtube.com/watch?v=qIEUBvGvvRg">Patching dwm and suckless utilities - a friendly guide to patch and diff</a></p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_dwm">dwm</h3>
+			
+		<a href="#_dwm">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The Dynamic Window Manager is a simple tiling window manager. It provides the basic features that one would expect from such a program: automatic resizing of windows to make an efficient use of the screen, multiple layouts available, etc., and it will be our graphical environment, <em>in lieu</em> of a fully-fledged desktop environment.</p>
+<p class="">I&#8217;ll also apply the following patches:</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">dwm-tagcycle-20251231-62dc03e.diff </dt>
+<dd>
+<p>A patch of my own creation. It allows me to cycle through the available tags using the familiar &lt;kbd&gt;Super&lt;/kbd&gt;+&lt;kbd&gt;Tab&lt;/kbd&gt; shortcut, including wrapping around from the first tag to the last, and vice-versa.</p>
+</dd>
+<dt class="hdlist1">dwm-alwayscenter-20200625-f04cac6.diff </dt>
+<dd>
+<p>Makes floating windows appear centered to the screen.</p>
+</dd>
+<dt class="hdlist1">dwm-fullgaps-6.4.diff </dt>
+<dd>
+<p>Adds a gap between the edge of the screen and any tiled windows, as well as between them.</p>
+</dd>
+<dt class="hdlist1">dwm-movestack-20211115-a786211.diff </dt>
+<dd>
+<p>Enables keyboard shortcuts to move windows in the stack, similar to how other window managers do this, like <code>i3</code>.</p>
+</dd>
+<dt class="hdlist1">dwm-barpadding-20211020-a786211.diff (2021-10-20) </dt>
+<dd>
+<p>So that we can add some gaps also between the top bar and the edges of the screen.</p>
+</dd>
+<dt class="hdlist1">dwm-notitle-6.5.diff </dt>
+<dd>
+<p>I don&#8217;t like the title of the focused window to show up, since it tends to be quite large in browsers.</p>
+</dd>
+<dt class="hdlist1">dwm-status2d-20200508-60bb3df.diff </dt>
+<dd>
+<p>Allows special color codes to be used in the status bar.</p>
+</dd>
+</dl>
+</div></section>
+<section class="sect2">
+		<header>
+			<h3 id="_dmenu">dmenu</h3>
+			
+		<a href="#_dmenu">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The Dynamic Menu, another simple utility that serves as an application launcher.</p>
+<p class="">It reads newline-separated items from standard input, and returns whatever the user has selected to standard output. This can be leveraged in custom shell scripts to have some interactivity, as well, which is really useful.</p>
+<p class="">The following patches are applied:</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">dmenu-wrapselection-20260102-e4fa03f.diff </dt>
+<dd>
+<p>Another patch that I created involving wrapping around selected items. It allows me to jump from the first to the last item, and vice-versa, when I reach either end of the list.</p>
+</dd>
+<dt class="hdlist1">dmenu-center-20250407-b1e217b.diff </dt>
+<dd>
+<p>Instead of showing the menu at the top, it shows it centered to the screen.</p>
+</dd>
+<dt class="hdlist1">dmenu-border-20230512-0fe460d </dt>
+<dd>
+<p>Draws a border around the window to help it to stand out more. Works great with the previous patch.</p>
+</dd>
+<dt class="hdlist1">dmenu-fuzzymatch-5.3.diff </dt>
+<dd>
+<p>Matches words using non-consecutive portions of the items. Very useful to avoid typos and make search quicker.</p>
+</dd>
+<dt class="hdlist1">dmenu-caseinsensitive-20200523-db6093f.diff </dt>
+<dd>
+<p>Changes the default behavior when matching items to be case-insensitive.</p>
+</dd>
+<dt class="hdlist1">dmenu-desktoponly-20240811-475d809.diff </dt>
+<dd>
+<p>Provides a new function to search only for application launchers, as opposed to any executable file in the user&#8217;s <code>PATH</code>. This new function should be invoked by <code>dwm</code>, which needs to be adjusted in its configuration file.</p>
+</dd>
+</dl>
+</div>
+<p class="">There&#8217;s one small caveat with the last patch: it doesn&#8217;t fully conform to the <a href="https://specifications.freedesktop.org/basedir-spec/0.8/">XDG Base Directory Specification</a>, as it ignores one critical location used by individual users. Luckily, it only requires changing one line of code from the launcher script, after applying the patch, on line 8:</p>
+
+		<div class="listingblock" data-language="shell" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>/usr/local/src/dmenu/dmenu_path_desktop</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe has-diff" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line diff remove"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">dirs</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">""</span></span>
+<span class="line diff add"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">dirs</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${XDG_DATA_HOME</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">:-</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${HOME}</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">/</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">.</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">local</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">/</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">share}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/applications"</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">This ensures that any custom desktop files that are placed in <code>XDG_DATA_HOME</code> will be picked up by <code>dmenu</code> as well.</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_st">st</h3>
+			
+		<a href="#_st">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The Simple Terminal is exactly that. Simple, but powerful and effective:</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">st-scrollback-ringbuffer-0.9.2.diff </dt>
+<dd>
+<p>This patch gives <code>st</code> the ability to scroll back to see previous output, a common feature not found by default in most terminals, although not one that I miss particularly as I use <code>tmux</code>.</p>
+</dd>
+<dt class="hdlist1">st-scrollback-mouse-altscreen-20220127-2c5edf2.diff </dt>
+<dd>
+<p>These two patches enable terminal scrolling, which is otherwise disabled by default. More specifically, the second patch allows scrolling back using the mouse.</p>
+</dd>
+<dt class="hdlist1">st-anysize-20220718-baa9357.diff </dt>
+<dd>
+<p>This patch allows <code>st</code> to resize itself using pixels rather than character size, to avoid uneven gaps between windows.</p>
+</dd>
+</dl>
+</div></section>
+<section class="sect2">
+		<header>
+			<h3 id="_slstatus">slstatus</h3>
+			
+		<a href="#_slstatus">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The status bar monitor. We can use this similar to a taskbar in some desktop environments, although this unfortunately doesn&#8217;t have any interactivity. In that regard, I prefer something different like <em>dwmblock</em> or <em>polybar</em>. But this one has the advantage of being quite straight forward to set up.</p>
+<p class="">Only one patch is needed for this one:</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">slstatus-signals-1.0.patch </dt>
+<dd>
+<p>This patch allows for each component of the status line to refresh on a separate interval, or when a predefined signal is sent to it.</p>
+</dd>
+</dl>
+</div></section>
+<section class="sect2">
+		<header>
+			<h3 id="_slock">slock</h3>
+			
+		<a href="#_slock">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">The Simple Lock, as simple as any system utility can get. Use it to lock your computer when you&#8217;re away from it. With the following patches:</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">slock-background-image-20260323-3791a99.diff </dt>
+<dd>
+<p>Instead of displaying a full screen of a solid color, it shows background image.</p>
+</dd>
+<dt class="hdlist1">slock-dpms-1.4.diff </dt>
+<dd>
+<p>Automatically turns off the display if the session is not unlocked within a period of time.</p>
+</dd>
+</dl>
+</div></section></section>
+<section class="sect1">
+		<header>
+			<h2 id="_login_startup_scripts">Login Startup Scripts</h2>
+			
+		<a href="#_login_startup_scripts">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">When I log in to my account, I&#8217;m used to seeing desktop icons, a background image, a taskbar loading, etc. But with this setup we only have a console environment that can&#8217;t even launch graphical applications such us Firefox, GIMP or even a window manager like dwm; we&#8217;ll see an error saying "cannot open display".</p>
+<p class="">This is because we need to have an X display server up and running in order to launch graphical applications. On a typical installation there&#8217;s another piece of software we haven&#8217;t looked up yet, the "display manager", that handles all of this when we log in.</p>
+
+					<aside class="admonitionblock is-left warning">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-warning" />
+							</svg>
+						</header>
+						<p>This is a surprisingly complex topic. Depending on how we login there are a different set of scripts that get executed, and in seemingly different order. So, to keep this post as minimal as possible, I'm going to stick with the simplex option which is to manually run <code>startx</code>.</p>
+					</aside>
+<p class="">For now, let&#8217;s see how we can do this manually ourselves. It&#8217;s really simple, just run the <code>startx</code> command. This will initialize the X display server and also check a few file locations for commands to execute, one of the most known ones being a <code>~/.xinitrc</code> in our home directory. If we create this file in our home directory, we can specify which commands to run:</p>
+
+		<div class="listingblock" data-language="shell" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>~/.xinitrc</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line" data-callout-1=""><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">slstatus</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB"> &#x26;</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line" data-callout-2=""><span style="color:light-dark(#D20F39, #E78284);--shiki-light:#D20F39;--shiki-light-font-style:italic;--shiki-dark:#E78284;--shiki-dark-font-style:italic">exec</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> dwm</span><span class="conum unselectable" style="" data-value="2">2</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Programs need to run in the background to avoid blocking the execution of this script</p></li><li data-colist="2"><p>The <code>exec</code> command here ensures that when the X server stops running we&#8217;re also logged out of our accounts.</p></li></ol>
+<p class="">This is as minimal as it gets in this regard, basically going "full commando" on the login startup sequence. But, it helps with keeping things minimal!</p></section>
+<section class="sect1">
+		<header>
+			<h2 id="_session_management_power_options">Session Management &amp; Power Options</h2>
+			
+		<a href="#_session_management_power_options">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Now that we can log in to our account, we need a way to log out of it. In fact, we need a few other things to put our computer in sleep mode, reboot, power off, lock the screen, etc. All these niceties are readily available in most desktop environments through the start menu button, or something similar. We&#8217;ll have to "settle" with running a command in the terminal. But we can make our own menu through <code>dmenu</code> as we&#8217;ll see shortly.</p>
+<section class="sect2">
+		<header>
+			<h3 id="_log_out">Log Out</h3>
+			
+		<a href="#_log_out">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Logging out means to shut down all processes running by a particular user in the system. We can easily do this by running one command:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">pkill -u $USER</span></span></code></pre>
+			</figure>
+		</div>
+	</section>
+<section class="sect2">
+		<header>
+			<h3 id="_suspend_reboot_power_off">Suspend, Reboot &amp; Power Off</h3>
+			
+		<a href="#_suspend_reboot_power_off">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">On Debian, we can leverage <code>systemd</code> to do all of these:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">systemctl suspend</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">systemctl reboot</span></span>
+<span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">systemctl poweroff</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">For distributions using a different init system, such as Devuan, Artix, Alpine or GNU Guix, you could still install <code>pm-utils</code> to do the same thing.</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_lock_screen">Lock Screen</h3>
+			
+		<a href="#_lock_screen">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Earlier we installed <code>slock</code> to do this, with a patch to display a background image instead of the default solid background color. To give it a bit more personality, I want to generate this image on the fly by taking a screenshot and blurring it, instead. There&#8217;s actually a patch that already does this, but the blur effect looks quite pixelated. So, I wrote my own version of this:</p>
+
+					<aside class="admonitionblock is-right note">
+						<header>
+							<svg xmlns="http://www.w3.org/2000/svg">
+								<use href="/sprite.svg#icon-note" />
+							</svg>
+						</header>
+						<p>As of Debian 13 (Trixie) the <code>/tmp</code> directory is now mounted using <code>tmpfs</code>. You can use this location as an alternative to <code>/dev/shm</code>, for correctness, given it's more appropriate for temporary files.</p>
+					</aside>
+
+		<div class="listingblock" data-language="bash" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-light-font-style:italic;--shiki-dark:#F4B8E4;--shiki-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic"># Locks the current session, displaying a heavily blurred screenshot</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic"># taken when the script runs.</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">#</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic"># Requirements:</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">#   - scrot</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">#   - imagemagick</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic">#   - slock + slock-background-image-20220318-1c5a538.diff</span></span>
+<span class="line"></span>
+<span class="line" data-callout-1="" data-callout-2=""><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">scrot</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE"> |</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> convert</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -blur</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 0x8</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> /dev/shm/slock.png</span><span class="conum unselectable" style="" data-value="1">1</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">slock</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Store this screenshot in a RAM-based file system for efficiency.</p></li><li data-colist="2"><p>By convention, when a command reads from a file, it should accept <code>-</code> as a replacement for standard input. The same is true for standard output when specifying the file location.</p></li></ol></section>
+<section class="sect2">
+		<header>
+			<h3 id="_crafting_a_menu">Crafting A Menu</h3>
+			
+		<a href="#_crafting_a_menu">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">To top it off we&#8217;ll write a simple shell script that will present these options through <code>dmenu</code>:</p>
+
+		<div class="listingblock" data-language="bash" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-light-font-style:italic;--shiki-dark:#F4B8E4;--shiki-dark-font-style:italic">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-light-font-style:italic;--shiki-dark:#949CBB;--shiki-dark-font-style:italic"># Presents the power options through dmenu and runs the selected action</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">selected</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">=</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">$(</span><span style="color:light-dark(#D20F39, #E78284);--shiki-light:#D20F39;--shiki-light-font-style:italic;--shiki-dark:#E78284;--shiki-dark-font-style:italic">echo</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -ne</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "Lock Screen\nSuspend\nLog Out\nRestart\nPower Off"</span><span style="color:light-dark(#EA76CB, #F4B8E4);--shiki-light:#EA76CB;--shiki-dark:#F4B8E4"> \</span></span>
+<span class="line"><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">    |</span><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic"> dmenu</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">case</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">${selected}</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6"> in</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "Lock Screen"</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">)</span></span>
+<span class="line" data-callout-1=""><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        $HOME</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/.local/bin/lock.sh</span><span class="conum unselectable" style="" data-value="1">1</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">        ;;</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "Suspend"</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">)</span></span>
+<span class="line" data-callout-2=""><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">        $HOME</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">/.local/bin/lock.sh</span><span class="conum unselectable" style="" data-value="2">2</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">        sleep</span><span style="color:light-dark(#FE640B, #EF9F76);--shiki-light:#FE640B;--shiki-dark:#EF9F76"> 4</span><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">;</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">        systemctl</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> suspend</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">        ;;</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "Power Off"</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">)</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">        systemctl</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> poweroff</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">        ;;</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "Restart"</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">)</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">        systemctl</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> reboot</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">        ;;</span></span>
+<span class="line"><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">    "Log Out"</span><span style="color:light-dark(#179299, #81C8BE);--shiki-light:#179299;--shiki-dark:#81C8BE">)</span></span>
+<span class="line"><span style="color:light-dark(#1E66F5, #8CAAEE);--shiki-light:#1E66F5;--shiki-light-font-style:italic;--shiki-dark:#8CAAEE;--shiki-dark-font-style:italic">        pkill</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> -u</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189"> "</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">$USER</span><span style="color:light-dark(#40A02B, #A6D189);--shiki-light:#40A02B;--shiki-dark:#A6D189">"</span></span>
+<span class="line"><span style="color:light-dark(#7C7F93, #949CBB);--shiki-light:#7C7F93;--shiki-dark:#949CBB">        ;;</span></span>
+<span class="line"><span style="color:light-dark(#8839EF, #CA9EE6);--shiki-light:#8839EF;--shiki-dark:#CA9EE6">esac</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>That would be the script as shown above.</p></li><li data-colist="2"><p>Suspending does not automatically lock the screen by default.</p></li></ol>
+<p class="">You can have this script placed in your PATH, have a desktop file created for it or assign a keyboard shortcut to run it.</p></section></section>
+<section class="sect1">
+		<header>
+			<h2 id="_privilege_escalation">Privilege Escalation</h2>
+			
+		<a href="#_privilege_escalation">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">Switching to the root user account to run certain commands that require elevated privileges is the best way to go in terms of security. But it&#8217;s a bit inconvenient for one-off tasks, and it would be nice to have that ability for at least a few selected commands.</p>
+<p class="">This is what utilities like <code>sudo</code> are for, but perhaps you&#8217;ve noticed that this very common package is not already installed. We could do that, but in the pursuit of a minimalist system I think it&#8217;s worth exploring a few alternatives.</p>
+<section class="sect2">
+		<header>
+			<h3 id="_sudo_rs">sudo-rs</h3>
+			
+		<a href="#_sudo_rs">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">This one is not just yet another re-write of classic GNU/Linux utilities in the Rust programming languages. It&#8217;s developed in collaboration with long time <code>sudo</code> maintainer Todd C. Miller, and it addresses several shortcomings of the original tool.</p>
+<p class="">However, it&#8217;s still under heavy development and has yet to see "real world usage" to polish all the rough edges. It also includes a lot of features that the average user probably needs (speaking strictly from a desktop user perspective).</p>
+<p class="">Because of that, I prefer going with a more minimalistic approach.</p></section>
+<section class="sect2">
+		<header>
+			<h3 id="_opendoas">OpenDoas</h3>
+			
+		<a href="#_opendoas">
+			<svg aria-hidden="true">
+				<use href="/sprite.svg#icon-link" />
+			</svg>
+		</a>
+		</header><p class="">FreeBSD&#8217;s <code>doas</code> ported to other UNIX systems. It&#8217;s a much smaller code base, partly because it also offers fewer features in comparison to <code>sudo</code>, which helps reducing the attack surface. However, the main repository highlights that this is not a security guarantee:</p>
+<div class="quoteblock">
+<blockquote>
+There are fewer eyes on random doas ports, just because sudo had a vulnerability does not mean random doas ports are more secure if they are not reviewed or PAM is configured incorrectly.
+</blockquote>
+<div class="attribution">
+&#8212; Duncan Overbruck<br>
+<cite><a href="https://github.com/Duncaen/OpenDoas" class="bare">https://github.com/Duncaen/OpenDoas</a></cite>
+</div>
+</div>
+<p class="">With that in mind, let&#8217;s install and configure it:</p>
+
+		<div class="listingblock" data-language="console" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn "
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line"><span class="unselectable mr-2 opacity-50">$</span><span style="color:light-dark(#4C4F69, #C6D0F5);--shiki-light:#4C4F69;--shiki-dark:#C6D0F5">apt install opendoas</span></span></code></pre>
+			</figure>
+		</div>
+	
+<p class="">The simplest configuration allows a regular user to run commands as the root user. We can do that:</p>
+
+		<div class="listingblock" data-language="undefined" x-data="codeblock">
+			<button
+				class="copy-btn rotating-btn mt-6"
+				:class="{ 'rotating-btn--active': copied }"
+				:disabled="copied"
+				@click="addToClipboard"
+				x-cloak
+			>
+				<span>
+					<svg aria-hidden="true">
+						<use href="/sprite.svg#icon-clipboard" />
+					</svg>
+					<svg aria-hidden="true" style="transform: rotate(180deg);">
+						<use href="/sprite.svg#icon-clipboard-success" />
+					</svg>
+				</span>
+			</button>
+
+			<figure x-ref="wrapper">
+				<figcaption>/etc/doas.conf</figcaption>
+				<pre class="shiki shiki-themes catppuccin-latte catppuccin-frappe" style="background-color:light-dark(#eff1f5, #303446);--shiki-light-bg:#eff1f5;--shiki-dark-bg:#303446;color:light-dark(#4c4f69, #c6d0f5);--shiki-light:#4c4f69;--shiki-dark:#c6d0f5"><code><span class="line" data-callout-1=""><span>permit persist :sudo as root</span><span class="conum unselectable" style="" data-value="1">1</span></span></code></pre>
+			</figure>
+		</div>
+	
+<ol class="colist arabic"><li data-colist="1"><p>Allows users in the "sudo" group to run commands as the root user.</p></li></ol>
+<p class="">This is equivalent to the default configuration of <code>sudo</code> on any Debian system, and should be enough for the majority of cases.</p></section></section></div> </article>  </main> <footer data-astro-cid-sz7xmlte> <section class="footer__links" data-astro-cid-sz7xmlte> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>This site is built with:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Astro" aria-describedby="a5v6623973_astro" href="https://astro.build" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-astro" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="a5v6623973_astro" data-astro-cid-eykbuwrj> Astro </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="AsciiDoc" aria-describedby="z1c65j1w4y_asciidoc" href="https://asciidoc.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-asciidoc" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="z1c65j1w4y_asciidoc" data-astro-cid-eykbuwrj> AsciiDoc </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Find more about me:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Codeberg" aria-describedby="1y6h522365_codeberg" href="https://codeberg.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codeberg" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="1y6h522365_codeberg" data-astro-cid-eykbuwrj> Codeberg </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GitHub" aria-describedby="615k0z6n3v_github" href="https://github.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-github" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="615k0z6n3v_github" data-astro-cid-eykbuwrj> GitHub </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codepen" aria-describedby="6a5364t6i5_codepen" href="https://codepen.io" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codepen" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="6a5364t6i5_codepen" data-astro-cid-eykbuwrj> Codepen </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Exercism" aria-describedby="91j71356t1_exercism" href="https://exercism.org" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-exercism" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="91j71356t1_exercism" data-astro-cid-eykbuwrj> Exercism </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="Codewars" aria-describedby="14n47u2r6h_codewars" href="https://codewars.com" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-codewars" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="14n47u2r6h_codewars" data-astro-cid-eykbuwrj> Codewars </span> </a> </li> </ul> </div> <div data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Get in touch:</p> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> <a aria-label="Email" aria-describedby="6l04186m6e_email" href="email:devsojourn@pm.me" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-email" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="6l04186m6e_email" data-astro-cid-eykbuwrj> Email </span> </a> </li> <li data-astro-cid-sz7xmlte> <a aria-label="GPG" aria-describedby="128k1b2q3u_gpg-key" href="/" target="_blank" data-astro-cid-eykbuwrj> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-gpg-key" data-astro-cid-xnoxsesq></use> </svg> <span class="tooltip" role="tooltip" id="128k1b2q3u_gpg-key" data-astro-cid-eykbuwrj> GPG </span> </a> </li> </ul> </div> </section> <section class="footer__copyright" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>
+All content by me &copy; 2025 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" data-astro-cid-sz7xmlte>CC BY-SA 4.0</a> </p> </section> <section class="footer__egg" class="sr-only unselectable" data-astro-cid-sz7xmlte> <span tabindex="0" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>Are you done having fun with the <kbd data-astro-cid-sz7xmlte>Tab</kbd> key already? There are more interesting things to see in the site, you know?</p> <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte> <path fill="var(--foreground-color)" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 27.7083,49.0833L 48.2917,49.0833C 50.4778,49.0833 52.25,50.8555 52.25,53.0417C 52.25,55.2278 50.4778,57 48.2917,57L 27.7083,57C 25.5222,57 23.75,55.2278 23.75,53.0417C 23.75,50.8555 25.5222,49.0833 27.7083,49.0833 Z M 19.2688,36.612L 26.4321,32.4762L 19.2688,28.3405C 17.8683,27.5319 17.3885,25.7411 18.197,24.3406C 19.0056,22.94 20.7965,22.4602 22.197,23.2688L 33.6084,29.8571C 34.5726,30.4138 35.1004,31.4361 35.0718,32.4761C 35.1005,33.5162 34.5727,34.5386 33.6084,35.0953L 22.197,41.6837C 20.7964,42.4923 19.0056,42.0125 18.197,40.6119C 17.3884,39.2114 17.8683,37.4206 19.2688,36.612 Z M 56.7312,36.612C 58.1317,37.4206 58.6116,39.2114 57.803,40.6119C 56.9944,42.0125 55.2036,42.4923 53.803,41.6837L 42.3916,35.0953C 41.4273,34.5386 40.8995,33.5162 40.9282,32.4761C 40.8995,31.4361 41.4274,30.4138 42.3916,29.8571L 53.803,23.2688C 55.2035,22.4602 56.9944,22.94 57.8029,24.3406C 58.6115,25.7411 58.1317,27.5319 56.7312,28.3405L 49.5679,32.4762L 56.7312,36.612 Z " data-astro-cid-sz7xmlte></path> </svg> </span> </section> </footer> <div x-data="scroll" @scroll.window.throttle.100ms="handleScroll" x-cloak data-astro-cid-wlspcwf4> <button @click="scrollToTop" :class="{ 'hidden': scrollingDownwards }" data-astro-cid-wlspcwf4> <svg aria-hidden="true" data-astro-cid-xnoxsesq> <use href="/sprite.svg#icon-chevron" data-astro-cid-xnoxsesq></use> </svg> </button> </div></body></html>
